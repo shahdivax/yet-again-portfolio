@@ -8,6 +8,7 @@ A modern, interactive portfolio showcasing projects and skills with a strong foc
 - **Modern Tech Stack:** Built with Next.js, React, and TypeScript for a robust and scalable frontend.
 - **Dynamic User Interface:** Smooth animations and transitions powered by Framer Motion.
 - **Responsive Design:** Optimized for a seamless experience across all devices.
+
 - **Clean and Maintainable Code:** Styled with Tailwind CSS for efficient and consistent design.
 
 ## Tech Stack
@@ -43,3 +44,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Deployment
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+
+tubby
