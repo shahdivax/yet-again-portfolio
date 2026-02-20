@@ -101,8 +101,8 @@ export default function Footer() {
             </div>
 
             <div className={`relative z-10 w-full mt-12 px-6 sm:px-12 max-w-[1400px] mx-auto flex flex-col sm:flex-row justify-between items-center text-xs font-mono font-bold uppercase tracking-[0.2em] ${isDark ? "text-zinc-600" : "text-[var(--muted)]"}`}>
-                <span>© {new Date().getFullYear()} DIVAX SHAH</span>
-                <span>ENGINEERED TO PERFECTION</span>
+                <span>{new Date().getFullYear()} DIVAX SHAH</span>
+                <span>Still learning. STILL BUILDING</span>
             </div>
         </footer>
     );
