@@ -1,13 +1,19 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import { useTheme } from "next-themes";
 
 export default function Hero() {
     const containerRef = useRef<HTMLElement>(null);
     const { theme } = useTheme();
-    const isDark = theme === "dark";
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isDark = mounted && theme === "dark";
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -32,26 +38,27 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                 >
-                    <h1 className="sr-only">DIVAX SHAH</h1>
-                    <h2 className={`text-[12vw] sm:text-[9vw] font-bold tracking-tighter leading-[0.85] uppercase mb-8 ${isDark ? "brutalist-outline" : "editorial-text text-[var(--foreground)]"}`}>
+                    <h1 className={`-ml-[0.05em] text-[12vw] sm:text-[10vw] font-bold tracking-tight leading-[0.85] uppercase mb-4 font-[family-name:var(--font-syne)] ${isDark ? "brutalist-outline" : "text-[var(--foreground)]"}`}>
                         <span className="block overflow-hidden pb-4">
                             <motion.span
-                                className={`block ${isDark ? "" : ""}`}
+                                className="block"
                                 initial={{ y: "100%" }}
                                 animate={{ y: 0 }}
                                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                             >
-                                AI & ML
+                                DIVAX SHAH
                             </motion.span>
                         </span>
+                    </h1>
+                    <h2 className={`text-[6vw] sm:text-[4vw] font-mono font-bold tracking-wider leading-[1] uppercase mb-8 ${isDark ? "text-[#c2410c]" : "text-[var(--accent)]"}`}>
                         <span className="block overflow-hidden pb-4">
                             <motion.span
-                                className={`block ${isDark ? "brutalist-outline-accent" : "text-[var(--accent)]"}`}
+                                className="block"
                                 initial={{ y: "100%" }}
                                 animate={{ y: 0 }}
                                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                             >
-                                ENGINEER.
+                                AI & ML ENGINEER.
                             </motion.span>
                         </span>
                     </h2>

@@ -84,9 +84,17 @@ const categories = [
     }
 ];
 
+import { useState, useEffect } from "react";
+
 export default function Projects() {
     const { theme } = useTheme();
-    const isDark = theme === "dark";
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isDark = mounted && theme === "dark";
 
     return (
         <section id="projects" className={`w-full py-40 ${isDark ? "bg-[#0a0a0a]" : "bg-[var(--background)]"}`}>
@@ -136,8 +144,8 @@ export default function Projects() {
                                         viewport={{ once: true, margin: "-50px" }}
                                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
                                         className={`group relative flex flex-col md:flex-row items-start md:items-center py-12 md:py-20 border-b transition-colors duration-500 overflow-hidden ${isDark
-                                                ? "border-[#262626] hover:bg-white px-6 -mx-6"
-                                                : "border-[var(--border)] hover:bg-[#111] hover:text-white px-6 -mx-6"
+                                            ? "border-[#262626] hover:bg-white px-6 -mx-6"
+                                            : "border-[var(--border)] hover:bg-[#111] hover:text-white px-6 -mx-6"
                                             }`}
                                     >
                                         {!isDark && (

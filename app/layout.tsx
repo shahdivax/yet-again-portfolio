@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
+import { ChatBot } from "../components/ChatBot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -10,6 +11,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
 });
 
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-[var(--color-accent)] selection:text-black`}
+        className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} antialiased selection:bg-[var(--color-accent)] selection:text-black`}
       >
         <div className="noise-bg"></div>
         <ThemeProvider
@@ -36,6 +42,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <ChatBot />
         </ThemeProvider>
       </body>
     </html>

@@ -29,7 +29,7 @@ export default function Navbar() {
         else setTheme("dark");
     };
 
-    const isDark = theme === "dark";
+    const isDark = mounted && theme === "dark";
 
     return (
         <motion.header

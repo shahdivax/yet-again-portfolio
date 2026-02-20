@@ -24,9 +24,17 @@ const experiences = [
     }
 ];
 
+import { useState, useEffect } from "react";
+
 export default function Experience() {
     const { theme } = useTheme();
-    const isDark = theme === "dark";
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isDark = mounted && theme === "dark";
 
     return (
         <section id="experience" className={`w-full py-40 ${isDark ? "bg-[#0a0a0a] relative overflow-hidden" : "bg-[var(--background)] border-y border-[var(--border)]"}`}>
@@ -60,8 +68,8 @@ export default function Experience() {
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
                             className={`group relative flex flex-col md:flex-row justify-between items-start py-16 transition-colors duration-500 overflow-hidden ${isDark
-                                    ? "border-b border-[#262626] hover:bg-[#c2410c] px-6 -mx-6 md:items-center"
-                                    : "border-b border-[var(--border)] md:border-none md:relative"
+                                ? "border-b border-[#262626] hover:bg-[#c2410c] px-6 -mx-6 md:items-center"
+                                : "border-b border-[var(--border)] md:border-none md:relative"
                                 }`}
                         >
                             {/* LIGHT MODE STRUCTURE */}

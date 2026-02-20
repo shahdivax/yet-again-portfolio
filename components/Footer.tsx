@@ -3,9 +3,17 @@
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 
+import { useState, useEffect } from "react";
+
 export default function Footer() {
     const { theme } = useTheme();
-    const isDark = theme === "dark";
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isDark = mounted && theme === "dark";
 
     return (
         <footer id="contact" className={`w-full py-40 overflow-hidden relative border-t ${isDark ? "bg-[#0a0a0a] text-white border-[#262626]" : "bg-[var(--background)] text-black border-[var(--border)]"}`}>
@@ -18,7 +26,7 @@ export default function Footer() {
                     className="w-full"
                 >
                     <a href="mailto:divax12345@gmail.com" className="group w-full block">
-                        <h2 className={`text-[12vw] sm:text-[15vw] font-bold tracking-tighter uppercase leading-[0.85] transition-colors duration-700 ${isDark ? "text-white hover:text-[#c2410c] brutalist-outline hover:!text-[#c2410c]" : "text-black hover:text-[var(--accent)] editorial-text"}`}>
+                        <h2 className={`text-[12vw] sm:text-[15vw] font-bold tracking-tighter uppercase leading-[0.85] transition-colors duration-700 ${isDark ? "text-white brutalist-outline" : "text-black editorial-text"}`}>
                             LET'S
                             <br />
                             BUILD<span className={`text-[var(--accent)] ${isDark ? "text-[#c2410c]" : ""}`}>.</span>
@@ -31,6 +39,7 @@ export default function Footer() {
                         <span className={`font-bold mb-2 ${isDark ? "text-white" : "text-black"}`}>CONNECT</span>
                         <a href="https://github.com/shahdivax" target="_blank" rel="noreferrer" className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[var(--accent)]"}`}>GITHUB / @SHAHDIVAX</a>
                         <a href="https://www.linkedin.com/in/divax-shah/" target="_blank" rel="noreferrer" className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[var(--accent)]"}`}>LINKEDIN / @DIVAX-SHAH</a>
+                        <a href="https://x.com/divax_shah_" target="_blank" rel="noreferrer" className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[var(--accent)]"}`}>X (TWITTER) / @DIVAX_SHAH_</a>
                         <a href="https://huggingface.co/diabolic6045" target="_blank" rel="noreferrer" className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[var(--accent)]"}`}>HUGGINGFACE / @DIABOLIC6045</a>
                     </div>
 
