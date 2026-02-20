@@ -1,26 +1,96 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-accent: #2563eb;
+  /* Clean blue for light mode */
+  --color-accent-dark: #c2410c;
+  /* Brutalist Rust Orange */
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdfdfc;
+  --foreground: #111111;
+  --border: #eaeaea;
+  --accent: #2563eb;
+  --muted: #888888;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f5f5f5;
+  --border: #262626;
+  --accent: #c2410c;
+  --muted: #737373;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-x: hidden;
+}
+
+/* Base Light Mode Elements */
+.editorial-text {
+  font-family: var(--font-geist-sans);
+  letter-spacing: -0.02em;
+}
+
+/* Dark Mode Brutalist Extravagance (No glow, purely mechanical/analog) */
+.dark .brutalist-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--foreground);
+}
+
+.dark .brutalist-outline-accent {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--accent);
+}
+
+.dark .industrial-bg {
+  background-image: repeating-linear-gradient(45deg,
+      #121212 25%,
+      transparent 25%,
+      transparent 75%,
+      #121212 75%,
+      #121212), repeating-linear-gradient(45deg,
+      #121212 25%,
+      #0a0a0a 25%,
+      #0a0a0a 75%,
+      #121212 75%,
+      #121212);
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.15;
+}
+
+.noise-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.dark .noise-bg {
+  opacity: 0.08;
+  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+}
+
+/* Extreme physical transitions */
+.physical-shift {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease;
 }
