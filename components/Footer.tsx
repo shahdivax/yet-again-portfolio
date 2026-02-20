@@ -35,12 +35,59 @@ export default function Footer() {
                 </motion.div>
 
                 <div className={`w-full mt-32 flex flex-col md:flex-row justify-between items-start md:items-end gap-12 font-mono uppercase text-sm tracking-widest ${isDark ? "text-zinc-500" : "text-[var(--muted)]"}`}>
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-6 w-full md:w-auto">
                         <span className={`font-bold mb-2 ${isDark ? "text-white" : "text-black"}`}>CONNECT</span>
-                        <a href="https://github.com/shahdivax" target="_blank" rel="noreferrer" className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[var(--accent)]"}`}>GITHUB / @SHAHDIVAX</a>
-                        <a href="https://www.linkedin.com/in/divax-shah/" target="_blank" rel="noreferrer" className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[var(--accent)]"}`}>LINKEDIN / @DIVAX-SHAH</a>
-                        <a href="https://x.com/divax_shah_" target="_blank" rel="noreferrer" className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[var(--accent)]"}`}>X (TWITTER) / @DIVAX_SHAH_</a>
-                        <a href="https://huggingface.co/diabolic6045" target="_blank" rel="noreferrer" className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[var(--accent)]"}`}>HUGGINGFACE / @DIABOLIC6045</a>
+
+                        {/* ── Mobile: 2×2 social card grid ── */}
+                        {(() => {
+                            const socials = [
+                                { label: "GITHUB", handle: "@SHAHDIVAX", abbr: "GH", href: "https://github.com/shahdivax" },
+                                { label: "LINKEDIN", handle: "@DIVAX-SHAH", abbr: "LI", href: "https://www.linkedin.com/in/divax-shah/" },
+                                { label: "TWITTER", handle: "@DIVAX_SHAH_", abbr: "X", href: "https://x.com/divax_shah_" },
+                                { label: "HUGGINGFACE", handle: "@DIABOLIC6045", abbr: "HF", href: "https://huggingface.co/diabolic6045" },
+                            ];
+                            return (
+                                <>
+                                    {/* Mobile grid */}
+                                    <div className="grid grid-cols-2 gap-3 md:hidden">
+                                        {socials.map((s) => (
+                                            <a
+                                                key={s.label}
+                                                href={s.href}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className={`group relative flex flex-col justify-between p-4 border overflow-hidden transition-colors duration-300
+                                                    ${isDark
+                                                        ? "border-[#262626] bg-[#111] hover:border-[#c2410c]"
+                                                        : "border-[var(--border)] bg-white hover:border-[var(--accent)]"
+                                                    }`}
+                                            >
+                                                {/* Top accent bar on hover */}
+                                                <div className={`absolute top-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500 ${isDark ? "bg-[#c2410c]" : "bg-[var(--accent)]"}`} />
+
+                                                <span className={`text-[18px] font-bold leading-none mb-4 transition-colors duration-300 ${isDark ? "text-[#333] group-hover:text-[#c2410c]" : "text-gray-200 group-hover:text-[var(--accent)]"}`}>
+                                                    {s.abbr}
+                                                </span>
+                                                <div>
+                                                    <div className={`text-[9px] tracking-[0.2em] font-bold mb-0.5 ${isDark ? "text-zinc-600" : "text-zinc-400"}`}>{s.label}</div>
+                                                    <div className={`text-[10px] tracking-[0.12em] transition-colors duration-300 ${isDark ? "text-zinc-400 group-hover:text-[#c2410c]" : "text-zinc-500 group-hover:text-[var(--accent)]"}`}>{s.handle}</div>
+                                                </div>
+                                            </a>
+                                        ))}
+                                    </div>
+
+                                    {/* Desktop text links */}
+                                    <div className="hidden md:flex flex-col gap-6">
+                                        {socials.map((s) => (
+                                            <a key={s.label} href={s.href} target="_blank" rel="noreferrer"
+                                                className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[var(--accent)]"}`}>
+                                                {s.label} / {s.handle}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </>
+                            );
+                        })()}
                     </div>
 
                     <div className="flex flex-col md:text-right gap-6">
@@ -57,11 +104,6 @@ export default function Footer() {
                 <span>© {new Date().getFullYear()} DIVAX SHAH</span>
                 <span>ENGINEERED TO PERFECTION</span>
             </div>
-
-            {/* Light Mode Extra Decoration */}
-            {!isDark && (
-                <div className="absolute top-0 left-1/2 w-[1px] h-full bg-[var(--border)] -translate-x-1/2 mix-blend-multiply pointer-events-none" />
-            )}
         </footer>
     );
 }

@@ -41,12 +41,12 @@ Key Projects & Architectural Systems:
 LLMs & AI Architectures:
 1. **SANSKRIT QWEN2.5-7B CHAT** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-7B-chat) - Specialized language model for Sanskrit translation and transliteration. 100% success rate on test sequences.
 2. **SANSKRIT QWEN2.5-VL OCR** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-VL-7B-Instruct-OCR) - Vision-Language model adapted for Sanskrit OCR tasks.
-3. **GITAWOTISPER (WHISPER TINY)** (https://huggingface.co/diabolic6045/GitaWhisper-tiny) - Fine-tuned Whisper-tiny for Sanskrit shloka transcription with IAST transliteration.
-4. **CUSTOM GPT 100M MODEL** - GPT-style Transformer built from scratch on Fineweb via DeepSpeed, ZeRO Stage-2, and FP16 precision.
+3. **GITAWHISPER (WHISPER TINY)** (https://huggingface.co/diabolic6045/GitaWhisper-tiny) - Fine-tuned Whisper-tiny for Sanskrit shloka transcription with IAST transliteration.
+4. **CUSTOM GPT 100M MODEL** - (https://huggingface.co/diabolic6045/Ion-LLM-Base) GPT-style Transformer built from scratch on Fineweb via DeepSpeed, ZeRO Stage-2, and FP16 precision.
 5. **SANSKRIT TOKENIZER** (https://huggingface.co/diabolic6045/Sanskrit-English-qwen2-tokenizer) - Native tokenization offering 4.5x better efficiency over byte-level tokens, 120K vocab size.
 
 Generative AI & Simulations:
-6. **FLUX LORAS** (https://flux-loras.divaxshah.com) - Specialized generative AI adapters fine-tuned on diverse image datasets for aesthetic scaling.
+6. **FLUX LORAS** (https://huggingface.co/collections/diabolic6045/flux-lora) - Specialized generative AI adapters fine-tuned on diverse image datasets for aesthetic scaling.
 7. **LORE KEEPER** (https://lore-keeper.divaxshah.com) - Infinite structural narrative generator using custom LLM agents and creative generation constraints.
 8. **WORLD SIM** (https://world-sim.divaxshah.com) - CLI-native environment simulator allowing users to craft dynamic sandbox simulations via LLMs.
 

@@ -85,25 +85,28 @@ export default function Skills() {
                             )}
 
                             <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-16 w-full lg:w-2/3 relative z-10 px-4 md:px-0">
-                                <span className={`font-mono text-xs sm:text-sm font-bold tracking-[0.4em] uppercase transition-colors duration-500 shrink-0 ${isDark ? "text-[#555] group-hover:text-[#c2410c]" : "text-[var(--muted)] group-hover:text-[var(--accent)]"}`}>
+                                <span className={`font-mono text-xs sm:text-sm font-bold tracking-[0.4em] uppercase transition-colors duration-500 shrink-0 ${isDark
+                                    ? "text-[#c2410c] lg:text-[#555] lg:group-hover:text-[#c2410c]"
+                                    : "text-[var(--accent)] lg:text-[var(--muted)] lg:group-hover:text-[var(--accent)]"
+                                    }`}>
                                     {group.tag}
                                 </span>
 
                                 <h3 className={`font-bold tracking-tighter text-[clamp(2.5rem,6vw,5.5rem)] uppercase leading-[0.85] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left ${isDark
-                                    ? "text-zinc-700 group-hover:text-white group-hover:scale-[1.02]"
-                                    : "text-zinc-300 editorial-text group-hover:text-black group-hover:scale-[1.02]"
+                                    ? "text-white lg:text-zinc-700 lg:group-hover:text-white lg:group-hover:scale-[1.02]"
+                                    : "text-black editorial-text lg:text-zinc-300 lg:group-hover:text-black lg:group-hover:scale-[1.02]"
                                     }`}>
                                     {group.category}
                                 </h3>
                             </div>
 
-                            <div className="relative z-10 flex flex-wrap gap-3 mt-10 lg:mt-0 w-full lg:w-1/3 justify-start lg:justify-end opacity-60 group-hover:opacity-100 transition-all duration-500 px-4 md:px-0">
+                            <div className="relative z-10 flex flex-wrap gap-3 mt-10 lg:mt-0 w-full lg:w-1/3 justify-start lg:justify-end opacity-100 lg:opacity-60 lg:group-hover:opacity-100 transition-all duration-500 px-4 md:px-0">
                                 {group.items.map((skill, si) => (
                                     <span
                                         key={si}
-                                        className={`font-mono text-[10px] sm:text-xs uppercase font-bold tracking-widest px-4 py-2 border transition-all duration-500 transform lg:-translate-x-4 lg:group-hover:translate-x-0 ${isDark
-                                            ? "border-[#333] text-[#737373] group-hover:border-[#c2410c] group-hover:text-white group-hover:bg-[#c2410c]/10 shadow-[0_0_0_#c2410c] group-hover:shadow-[0_0_15px_rgba(194,65,12,0.3)]"
-                                            : "border-gray-200 text-gray-500 group-hover:border-[var(--accent)] group-hover:text-[var(--accent)] group-hover:bg-[var(--accent)]/5 hover:scale-105"
+                                        className={`font-mono text-[10px] sm:text-xs uppercase font-bold tracking-widest px-4 py-2 border transition-all duration-500 ${isDark
+                                            ? "border-[#c2410c]/60 text-white bg-[#c2410c]/10 lg:border-[#333] lg:text-[#737373] lg:bg-transparent lg:group-hover:border-[#c2410c] lg:group-hover:text-white lg:group-hover:bg-[#c2410c]/10"
+                                            : "border-[var(--accent)]/50 text-[var(--accent)] bg-[var(--accent)]/5 lg:border-gray-200 lg:text-gray-500 lg:bg-transparent lg:group-hover:border-[var(--accent)] lg:group-hover:text-[var(--accent)] lg:group-hover:bg-[var(--accent)]/5"
                                             }`}
                                         style={{ transitionDelay: `${si * 75}ms` }}
                                     >

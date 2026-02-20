@@ -94,3 +94,21 @@ body {
 .physical-shift {
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease;
 }
+
+/* Hero bottom border — CSS-only, no mounted/hydration dependency */
+.section-border-bottom {
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.5s ease;
+}
+
+.dark .section-border-bottom {
+  border-bottom-color: #262626;
+}
+
+/* Navbar — stay on its own compositor layer to prevent scroll flash */
+.navbar-fixed {
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+}

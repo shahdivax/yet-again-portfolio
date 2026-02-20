@@ -22,7 +22,7 @@ const categories = [
                 year: "2025"
             },
             {
-                name: "GITAWOTISPER (WHISPER TINY)",
+                name: "GITAWHISPER (WHISPER TINY)",
                 href: "https://huggingface.co/diabolic6045/GitaWhisper-tiny",
                 description: "Fine-tuned Whisper-tiny for Sanskrit shloka transcription with IAST transliteration. 35% WER reduction.",
                 details: "AUDIO / ASR / WHISPER",
@@ -30,7 +30,7 @@ const categories = [
             },
             {
                 name: "CUSTOM GPT 100M MODEL",
-                href: "#",
+                href: "https://huggingface.co/diabolic6045/Ion-LLM-Base",
                 description: "GPT-style Transformer built from scratch on Fineweb via DeepSpeed, ZeRO Stage-2, and FP16 precision.",
                 details: "GPT / DEEPSPEED",
                 year: "2024"
@@ -49,7 +49,7 @@ const categories = [
         projects: [
             {
                 name: "FLUX LORAS",
-                href: "https://flux-loras.divaxshah.com",
+                href: "https://huggingface.co/collections/diabolic6045/flux-lora",
                 description: "Specialized generative AI adapters fine-tuned on diverse image datasets for aesthetic scaling.",
                 details: "IMAGE GENERATION",
                 year: "2024"
