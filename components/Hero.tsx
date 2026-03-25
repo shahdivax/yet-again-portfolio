@@ -365,15 +365,14 @@ export default function Hero() {
                 >
                     {/* Left: Bio & Buttons */}
                     <div className="flex-1 flex flex-col justify-between max-w-xl">
-                        <div className={`flex flex-col gap-5 text-[10px] sm:text-xs font-mono uppercase transition-colors duration-[800ms] mb-8 lg:mb-0 pr-0 md:pr-10 ${isDark ? "text-zinc-400" : "text-zinc-600"} tracking-wide leading-relaxed`}>
-                            
-                            <p className="max-w-[500px] border-l-2 pl-4 py-1 transition-colors duration-500" style={{ borderColor: isDark ? "#c2410c" : "var(--accent)" }}>
-                                Building AI applications powered by fine-tuned <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>LLMs/VLMs</span>. 
-                                Designed and deployed <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>10+</span> specialized architectures, 
-                                including a Sanskrit VLM-OCR, an ASR model with <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>35%</span> reduced Word Error Rate, 
-                                and a native tokenizer achieving <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>4.5x</span> efficiency.
+                        <div className={`flex flex-col gap-5 text-sm sm:text-sm font-mono uppercase transition-colors duration-[800ms] mb-8 lg:mb-0 pr-0 md:pr-10 ${isDark ? "text-zinc-400" : "text-zinc-600"} tracking-wide leading-relaxed`}>
+                            <p className="max-w-[550px] transition-colors duration-500">
+                                Building and fine-tuning <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>LLMs and VLMs</span>, 
+                                with experience adapting models for specific tasks such as <span className={`font-bold ${isDark ? "text-[#c2410c]" : "text-[var(--accent)]"}`}>Sanskrit translation</span> and transliteration, 
+                                a Sanskrit <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>VLM-OCR</span> system, 
+                                a Whisper-based ASR model with <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>35% lower error rate</span>, 
+                                and a tokenizer that improved efficiency by <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>4.5×</span>.
                             </p>
-
                         </div>
                         <div className="flex flex-col gap-4 mt-6 lg:mt-auto">
                             <a
