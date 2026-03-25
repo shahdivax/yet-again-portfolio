@@ -11,13 +11,13 @@ HuggingFace: https://huggingface.co/diabolic6045
 ---
 ## EXPERIENCE
 ### JR. AI/ML DEVELOPER @ AVINYAA EDTECH (2025 - PRESENT)
-Architecting advanced grammar checkers and fine-tuning LLMs for pristine natural language output. Designing multilingual AI classification systems with 95%+ accuracy.
+Building advanced grammar checkers and fine-tuning LLMs for pristine natural language output. Designing multilingual AI classification systems with 95%+ accuracy.
 Tags: LLMs, Fine-tuning, NLP, Classification
 ### JR. PYTHON DEVELOPER @ THINKBIZ TECH (2024 - 2025)
-Constructed scalable chatbot PoCs utilizing 17+ LangChain Agents with structured/unstructured ingestion. Engineered OCR-LLM pipelines improving invoice parsing from 15% to 85% accuracy.
+Built scalable chatbot PoCs using 17+ LangChain Agents with structured/unstructured ingestion. Created OCR-LLM pipelines improving invoice parsing from 15% to 85% accuracy.
 Tags: Python, LangChain, OCR, Pipelines
 ### AI & SYNTH DATA INTERN @ DMI FINANCE (2024)
-Engineered generative pipelines for synthetic structured data via Gradio & Python. Leveraged PyTorch to dramatically increase dataset throughput and deduplication algorithms.
+Created generative pipelines for synthetic structured data via Gradio & Python. Used PyTorch to dramatically increase dataset throughput and deduplication algorithms.
 Tags: PyTorch, Generative AI, Gradio
 ---
 ## PROJECTS

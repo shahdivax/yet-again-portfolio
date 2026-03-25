@@ -365,22 +365,22 @@ export default function Hero() {
                 >
                     {/* Left: Bio & Buttons */}
                     <div className="flex-1 flex flex-col justify-between max-w-xl">
-                        <div className={`flex flex-col gap-3.5 text-xs sm:text-sm font-mono uppercase transition-colors duration-[800ms] mb-8 lg:mb-0 pr-0 md:pr-10 ${isDark ? "text-[#9ca3af] font-medium tracking-wide" : "text-zinc-600 font-medium"}`}>
-                            <div className="flex items-start gap-3 group/highlight cursor-default">
-                                <span className={`mt-0.5 transition-colors duration-300 ${isDark ? "text-[#c2410c] group-hover/highlight:text-white" : "text-[var(--accent)] group-hover/highlight:text-black"}`}>▹</span>
-                                <span className={`transition-colors duration-300 ${isDark ? "group-hover/highlight:text-white" : "group-hover/highlight:text-black"}`}>SPECIALIZED IN LLM/VLM FINE-TUNING WITH 10+ CUSTOM DEPLOYMENTS</span>
+                        <div className="grid grid-cols-2 gap-3 md:gap-4 mb-8 lg:mb-0 w-full max-w-md">
+                            <div className={`flex flex-col p-4 border transition-colors duration-500 hover:scale-[1.02] ${isDark ? "border-[#262626] bg-[#111] hover:border-[#c2410c]" : "border-[var(--border)] bg-white hover:border-[var(--accent)]"} group/stat backdrop-blur-sm shadow-sm`}>
+                                <span className={`text-2xl sm:text-3xl font-bold font-sans tracking-tighter transition-colors ${isDark ? "text-white group-hover/stat:text-[#c2410c]" : "text-black group-hover/stat:text-[var(--accent)]"}`}>10+</span>
+                                <span className={`text-[9px] sm:text-[10px] font-mono tracking-[0.15em] uppercase mt-2 font-bold ${isDark ? "text-[#737373]" : "text-[var(--muted)]"}`}>Custom LLM / VLMs</span>
                             </div>
-                            <div className="flex items-start gap-3 group/highlight cursor-default">
-                                <span className={`mt-0.5 transition-colors duration-300 ${isDark ? "text-[#c2410c] group-hover/highlight:text-white" : "text-[var(--accent)] group-hover/highlight:text-black"}`}>▹</span>
-                                <span className={`transition-colors duration-300 ${isDark ? "group-hover/highlight:text-white" : "group-hover/highlight:text-black"}`}>PIONEERED SANSKRIT AI ECOSYSTEM: VL OCR & 100% ACCURACY CHAT</span>
+                            <div className={`flex flex-col p-4 border transition-colors duration-500 hover:scale-[1.02] ${isDark ? "border-[#262626] bg-[#111] hover:border-[#c2410c]" : "border-[var(--border)] bg-white hover:border-[var(--accent)]"} group/stat backdrop-blur-sm shadow-sm`}>
+                                <span className={`text-2xl sm:text-3xl font-bold font-sans tracking-tighter transition-colors ${isDark ? "text-white group-hover/stat:text-[#c2410c]" : "text-black group-hover/stat:text-[var(--accent)]"}`}>1ST</span>
+                                <span className={`text-[9px] sm:text-[10px] font-mono tracking-[0.15em] uppercase mt-2 font-bold ${isDark ? "text-[#737373]" : "text-[var(--muted)]"}`}>Sanskrit VL-OCR</span>
                             </div>
-                            <div className="flex items-start gap-3 group/highlight cursor-default">
-                                <span className={`mt-0.5 transition-colors duration-300 ${isDark ? "text-[#c2410c] group-hover/highlight:text-white" : "text-[var(--accent)] group-hover/highlight:text-black"}`}>▹</span>
-                                <span className={`transition-colors duration-300 ${isDark ? "group-hover/highlight:text-white" : "group-hover/highlight:text-black"}`}>GITAWHISPER ASR: ACHIEVED 35% WER REDUCTION IN COMPLEX AUDIO</span>
+                            <div className={`flex flex-col p-4 border transition-colors duration-500 hover:scale-[1.02] ${isDark ? "border-[#262626] bg-[#111] hover:border-[#c2410c]" : "border-[var(--border)] bg-white hover:border-[var(--accent)]"} group/stat backdrop-blur-sm shadow-sm`}>
+                                <span className={`text-2xl sm:text-3xl font-bold font-sans tracking-tighter transition-colors ${isDark ? "text-white group-hover/stat:text-[#c2410c]" : "text-black group-hover/stat:text-[var(--accent)]"}`}>35%</span>
+                                <span className={`text-[9px] sm:text-[10px] font-mono tracking-[0.15em] uppercase mt-2 font-bold ${isDark ? "text-[#737373]" : "text-[var(--muted)]"}`}>Less WER (ASR)</span>
                             </div>
-                            <div className="flex items-start gap-3 group/highlight cursor-default">
-                                <span className={`mt-0.5 transition-colors duration-300 ${isDark ? "text-[#c2410c] group-hover/highlight:text-white" : "text-[var(--accent)] group-hover/highlight:text-black"}`}>▹</span>
-                                <span className={`transition-colors duration-300 ${isDark ? "group-hover/highlight:text-white" : "group-hover/highlight:text-black"}`}>ENGINEERED NATIVE TOKENIZER YIELDING 4.5X EFFICIENCY GAINS</span>
+                            <div className={`flex flex-col p-4 border transition-colors duration-500 hover:scale-[1.02] ${isDark ? "border-[#262626] bg-[#111] hover:border-[#c2410c]" : "border-[var(--border)] bg-white hover:border-[var(--accent)]"} group/stat backdrop-blur-sm shadow-sm`}>
+                                <span className={`text-2xl sm:text-3xl font-bold font-sans tracking-tighter transition-colors ${isDark ? "text-white group-hover/stat:text-[#c2410c]" : "text-black group-hover/stat:text-[var(--accent)]"}`}>4.5X</span>
+                                <span className={`text-[9px] sm:text-[10px] font-mono tracking-[0.15em] uppercase mt-2 font-bold ${isDark ? "text-[#737373]" : "text-[var(--muted)]"}`}>Vocab Speed</span>
                             </div>
                         </div>
                         <div className="flex flex-col gap-4 mt-6 lg:mt-auto">

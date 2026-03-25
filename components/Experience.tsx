@@ -9,21 +9,21 @@ const experiences = [
         role: "JR. AI/ML DEVELOPER",
         company: "AVINYAA EDTECH",
         date: "2025 - PRESENT",
-        description: "Architecting advanced grammar checkers and fine-tuning LLMs for pristine natural language output. Designing multilingual AI classification systems with 95%+ accuracy.",
+        description: "Building advanced grammar checkers and fine-tuning LLMs for pristine natural language output. Designing multilingual AI classification systems with 95%+ accuracy.",
         tags: ["LLMs", "Fine-tuning", "NLP"]
     },
     {
         role: "JR. PYTHON DEVELOPER",
         company: "THINKBIZ TECH",
         date: "2024 - 2025",
-        description: "Constructed scalable chatbot PoCs utilizing 17+ LangChain Agents with structured/unstructured ingestion. Engineered OCR-LLM pipelines improving invoice parsing from 15% to 85% accuracy.",
+        description: "Built scalable chatbot PoCs using 17+ LangChain Agents with structured/unstructured ingestion. Created OCR-LLM pipelines improving invoice parsing from 15% to 85% accuracy.",
         tags: ["LangChain", "OCR", "Pipelines"]
     },
     {
         role: "AI & SYNTH DATA INTERN",
         company: "DMI FINANCE",
         date: "2024",
-        description: "Engineered generative pipelines for synthetic structured data via Gradio & Python. Leveraged PyTorch to dramatically increase dataset throughput and deduplication algorithms.",
+        description: "Created generative pipelines for synthetic structured data via Gradio & Python. Used PyTorch to dramatically increase dataset throughput and deduplication algorithms.",
         tags: ["PyTorch", "Synth Data", "Gradio"]
     }
 ];
