@@ -82,7 +82,7 @@ className={`transition-colors ${isDark ? "hover:text-[#c2410c]" : "hover:text-[v
 <div className="flex flex-col md:text-right gap-6">
 <span className={`font-bold mb-2 ${isDark ? "text-white" : "text-black"}`}>AVAILABILITY</span>
 <p className="max-w-xs text-balance leading-relaxed">
-CURRENTLY OPEN FOR NEW OPPORTUNITIES AND COLLABORATIONS IN AI/ML ENGINEERING.
+OPEN TO AI/ML ENGINEERING ROLES AND COLLABORATIONS.
 </p>
 <a href="mailto:divax12345@gmail.com" className={`transition-colors font-bold ${isDark ? "hover:text-[#c2410c] text-[#c2410c]" : "hover:text-[var(--accent)] text-black"}`}>DIVAX12345@GMAIL.COM</a>
 </div>
@@ -90,7 +90,7 @@ CURRENTLY OPEN FOR NEW OPPORTUNITIES AND COLLABORATIONS IN AI/ML ENGINEERING.
 </div>
 <div className={`relative z-10 w-full mt-6 px-6 sm:px-12 max-w-[1400px] mx-auto flex flex-col sm:flex-row justify-between items-center text-xs font-mono font-bold uppercase tracking-[0.2em] ${isDark ? "text-zinc-600" : "text-[var(--muted)]"}`}>
 <span>DIVAX SHAH</span>
-<span>Still learning. STILL BUILDING</span>
+<span>Open to AI/ML Engineering roles and collaborations.</span>
 </div>
 </footer>
 );

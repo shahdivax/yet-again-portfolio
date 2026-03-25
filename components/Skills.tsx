@@ -6,26 +6,26 @@ import { useState, useEffect } from "react";
 
 const arsenal = [
     {
-        category: "LANGUAGES",
-        skills: ["Python", "TypeScript", "JavaScript", "C++", "Go", "SQL", "Rust", "HTML/CSS"],
+        category: "PROGRAMMING LANGUAGES",
+        skills: ["Python"],
         shape: "rounded-[1.5rem] md:rounded-tl-[4rem] md:rounded-br-[4rem]",
         align: "items-start text-left"
     },
     {
-        category: "ML & AI",
-        skills: ["PyTorch", "TensorFlow", "Transformers", "LLMs", "DeepSpeed", "LangChain", "OpenAI"],
+        category: "FRAMEWORKS & LIBRARIES",
+        skills: ["PyTorch", "TensorFlow / Keras", "scikit-learn", "Hugging Face Transformers", "LangChain", "NumPy", "Pandas", "Fastapi", "AWS"],
         shape: "rounded-[1.5rem] md:rounded-tr-[4rem] md:rounded-bl-[4rem]",
         align: "items-end text-right"
     },
     {
-        category: "WEB & CLOUD",
-        skills: ["React", "Next.js", "Node.js", "FastAPI", "AWS", "Docker", "Kubernetes", "Redis"],
+        category: "AI DOMAINS",
+        skills: ["Generative AI", "LLM/VLLM Fine-Tuning", "Reinforcement Learning (RL)", "NLP", "Prompt Engineering", "Axolotl AI", "Unsloth AI"],
         shape: "rounded-[1.5rem] md:rounded-tr-[4rem] md:rounded-bl-[4rem]",
         align: "items-start text-left"
     },
     {
-        category: "DATA & TOOLS",
-        skills: ["Git", "Linux", "PostgreSQL", "MongoDB", "Cloudflare", "Figma", "Vim"],
+        category: "APIs & SERVICES",
+        skills: ["OpenAI", "Google Gemini", "Anthropic", "Mistral AI", "Groq", "OpenRouter"],
         shape: "rounded-[1.5rem] md:rounded-tl-[4rem] md:rounded-br-[4rem]",
         align: "items-end text-right"
     }

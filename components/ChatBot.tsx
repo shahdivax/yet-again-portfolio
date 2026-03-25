@@ -58,10 +58,14 @@ Web & Creative Tech / Older Projects:
 13. **Itinerary Generator** (https://huggingface.co/diabolic6045/itineraries_Generator) - Fine-tuned GPT-2 on worldwide trip plans.
 
 Technical Skills:
-- **ML Frameworks:** PyTorch, TensorFlow / Keras, HuggingFace Transformers, scikit-learn, LangChain.
-- **AI Specializations:** NLP, Computer Vision (CV), LLM Fine-tuning, Generative AI, RAG.
-- **LLM Ecosystem & Ops:** Axolotl, Unsloth, DeepSpeed, AWS.
-- **Programming Languages:** Python, TypeScript, Java, C++.
+- **ML Frameworks:** PyTorch, TensorFlow / Keras, HuggingFace Transformers, scikit-learn, LangChain, NumPy, Pandas, Fastapi.
+- **AI Specializations:** Generative AI, LLM/VLLM Fine-Tuning, Reinforcement Learning (RL), NLP, Prompt Engineering.
+- **LLM Ecosystem & Ops:** Axolotl AI, Unsloth AI, AWS, DeepSpeed.
+- **Programming Languages:** Python.
+- **APIs & Services:** OpenAI, Google Gemini, Anthropic, Mistral AI, Groq, OpenRouter.
+
+Availability:
+Open to AI/ML Engineering roles and collaborations.
 `;
 
 interface Message {

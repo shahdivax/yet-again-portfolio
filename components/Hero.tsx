@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useTheme } from "next-themes";
+import CopyForAI from "./CopyForAI";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface ContributionDay {
@@ -367,7 +368,7 @@ export default function Hero() {
                         <p className={`text-lg sm:text-lg font-mono uppercase transition-colors duration-[800ms] mb-8 lg:mb-0 pr-0 md:pr-10 ${isDark ? "text-[#737373] font-bold tracking-wide" : "text-zinc-600 font-medium"}`}>
                             Building AI applications powered by fine-tuned LLMs, generative models, and NLP. Focused on making AI useful, reliable, and deployable.
                         </p>
-                        <div className="flex gap-6 mt-6 lg:mt-auto">
+                        <div className="flex flex-col gap-4 mt-6 lg:mt-auto">
                             <a
                                 href="https://huggingface.co/datasets/diabolic6045/divax-portfolio/resolve/main/public/resume.pdf"
                                 target="_blank"
@@ -377,6 +378,7 @@ export default function Hero() {
                                 <span className={`w-8 h-[2px] ${isDark ? "bg-[#c2410c]" : "bg-[var(--accent)]"} group-hover:scale-x-150 transform origin-left transition-transform duration-500`} />
                                 <span className="relative z-10 group-hover:text-[var(--accent)] transition-colors duration-500">DOWNLOAD RESUME</span>
                             </a>
+                            <CopyForAI />
                         </div>
                     </div>
 
