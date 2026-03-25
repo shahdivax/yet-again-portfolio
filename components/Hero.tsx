@@ -365,23 +365,15 @@ export default function Hero() {
                 >
                     {/* Left: Bio & Buttons */}
                     <div className="flex-1 flex flex-col justify-between max-w-xl">
-                        <div className="grid grid-cols-2 gap-3 md:gap-4 mb-8 lg:mb-0 w-full max-w-md">
-                            <div className={`flex flex-col p-4 border transition-colors duration-500 hover:scale-[1.02] ${isDark ? "border-[#262626] bg-[#111] hover:border-[#c2410c]" : "border-[var(--border)] bg-white hover:border-[var(--accent)]"} group/stat backdrop-blur-sm shadow-sm`}>
-                                <span className={`text-2xl sm:text-3xl font-bold font-sans tracking-tighter transition-colors ${isDark ? "text-white group-hover/stat:text-[#c2410c]" : "text-black group-hover/stat:text-[var(--accent)]"}`}>10+</span>
-                                <span className={`text-[9px] sm:text-[10px] font-mono tracking-[0.15em] uppercase mt-2 font-bold ${isDark ? "text-[#737373]" : "text-[var(--muted)]"}`}>Custom LLM / VLMs</span>
-                            </div>
-                            <div className={`flex flex-col p-4 border transition-colors duration-500 hover:scale-[1.02] ${isDark ? "border-[#262626] bg-[#111] hover:border-[#c2410c]" : "border-[var(--border)] bg-white hover:border-[var(--accent)]"} group/stat backdrop-blur-sm shadow-sm`}>
-                                <span className={`text-2xl sm:text-3xl font-bold font-sans tracking-tighter transition-colors ${isDark ? "text-white group-hover/stat:text-[#c2410c]" : "text-black group-hover/stat:text-[var(--accent)]"}`}>1ST</span>
-                                <span className={`text-[9px] sm:text-[10px] font-mono tracking-[0.15em] uppercase mt-2 font-bold ${isDark ? "text-[#737373]" : "text-[var(--muted)]"}`}>Sanskrit VL-OCR</span>
-                            </div>
-                            <div className={`flex flex-col p-4 border transition-colors duration-500 hover:scale-[1.02] ${isDark ? "border-[#262626] bg-[#111] hover:border-[#c2410c]" : "border-[var(--border)] bg-white hover:border-[var(--accent)]"} group/stat backdrop-blur-sm shadow-sm`}>
-                                <span className={`text-2xl sm:text-3xl font-bold font-sans tracking-tighter transition-colors ${isDark ? "text-white group-hover/stat:text-[#c2410c]" : "text-black group-hover/stat:text-[var(--accent)]"}`}>35%</span>
-                                <span className={`text-[9px] sm:text-[10px] font-mono tracking-[0.15em] uppercase mt-2 font-bold ${isDark ? "text-[#737373]" : "text-[var(--muted)]"}`}>Less WER (ASR)</span>
-                            </div>
-                            <div className={`flex flex-col p-4 border transition-colors duration-500 hover:scale-[1.02] ${isDark ? "border-[#262626] bg-[#111] hover:border-[#c2410c]" : "border-[var(--border)] bg-white hover:border-[var(--accent)]"} group/stat backdrop-blur-sm shadow-sm`}>
-                                <span className={`text-2xl sm:text-3xl font-bold font-sans tracking-tighter transition-colors ${isDark ? "text-white group-hover/stat:text-[#c2410c]" : "text-black group-hover/stat:text-[var(--accent)]"}`}>4.5X</span>
-                                <span className={`text-[9px] sm:text-[10px] font-mono tracking-[0.15em] uppercase mt-2 font-bold ${isDark ? "text-[#737373]" : "text-[var(--muted)]"}`}>Vocab Speed</span>
-                            </div>
+                        <div className={`flex flex-col gap-5 text-[10px] sm:text-xs font-mono uppercase transition-colors duration-[800ms] mb-8 lg:mb-0 pr-0 md:pr-10 ${isDark ? "text-zinc-400" : "text-zinc-600"} tracking-wide leading-relaxed`}>
+                            
+                            <p className="max-w-[500px] border-l-2 pl-4 py-1 transition-colors duration-500" style={{ borderColor: isDark ? "#c2410c" : "var(--accent)" }}>
+                                Building AI applications powered by fine-tuned <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>LLMs/VLMs</span>. 
+                                Designed and deployed <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>10+</span> specialized architectures, 
+                                including a Sanskrit VLM-OCR, an ASR model with <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>35%</span> reduced Word Error Rate, 
+                                and a native tokenizer achieving <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>4.5x</span> efficiency.
+                            </p>
+
                         </div>
                         <div className="flex flex-col gap-4 mt-6 lg:mt-auto">
                             <a
