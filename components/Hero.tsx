@@ -369,7 +369,7 @@ export default function Hero() {
                             <p className="max-w-[550px] transition-colors duration-500">
                                 Building and fine-tuning <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>LLMs and VLMs</span>, 
                                 with experience adapting models for specific tasks such as <span className={`font-bold ${isDark ? "text-[#c2410c]" : "text-[var(--accent)]"}`}>Sanskrit translation</span> and transliteration, 
-                                a Sanskrit <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>VLM-OCR</span> system, 
+                                a Sanskrit <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>VLM-OCR</span> model, 
                                 a Whisper-based ASR model with <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>35% lower error rate</span>, 
                                 and a tokenizer that improved efficiency by <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>4.5×</span>.
                             </p>
