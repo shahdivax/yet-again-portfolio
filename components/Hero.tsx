@@ -35,6 +35,7 @@ function ContributionGrid({
 }) {
     const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null);
     const [tooltip, setTooltip] = useState({ x: 0, y: 0 });
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const CELL = 10;
     const GAP = 2;
@@ -82,17 +83,17 @@ function ContributionGrid({
     }
 
     return (
-        <div className="relative w-full">
-            <div className="overflow-x-auto pb-1">
+        <div className="relative w-full" ref={containerRef}>
+            <div className="w-full pb-1">
                 {/* Tooltip */}
                 {hoveredDay && (
                     <div
-                        className={`absolute z-50 pointer-events-none px-2 py-1 text-[10px] font-mono whitespace-nowrap shadow-lg
+                        className={`absolute z-50 pointer-events-none px-2 py-1 text-[10px] font-mono whitespace-nowrap shadow-lg rounded
                         ${isDark ? "bg-[#1a1a1a] text-[#f5f5f5] border border-[#262626]" : "bg-white text-[#111] border border-[#eaeaea]"}`}
                         style={{
                             left: tooltip.x,
-                            top: tooltip.y - 36,
-                            transform: "translateX(-50%)",
+                            top: tooltip.y - 8,
+                            transform: "translate(-50%, -100%)",
                         }}
                     >
                         {getTooltipText(hoveredDay)}
@@ -100,10 +101,9 @@ function ContributionGrid({
                 )}
 
                 <svg
-                    width={W + 28}
-                    height={H + 22}
+                    width="100%"
                     viewBox={`0 0 ${W + 28} ${H + 22}`}
-                    style={{ display: "block", minWidth: W + 28 }}
+                    style={{ display: "block" }}
                 >
                     {/* Month labels */}
                     {filteredMonths.map((m) => (
@@ -157,16 +157,13 @@ function ContributionGrid({
                                         onMouseEnter={(e) => {
                                             setHoveredDay(day);
                                             const rect = (e.currentTarget as SVGRectElement).getBoundingClientRect();
-                                            const container = (e.currentTarget as SVGRectElement)
-                                                .closest(".overflow-x-auto")
-                                                ?.getBoundingClientRect();
-                                            setTooltip({
-                                                x: x + 26,
-                                                y: y + 13,
-                                            });
-                                            // suppress unused warning
-                                            void rect;
-                                            void container;
+                                            const container = containerRef.current?.getBoundingClientRect();
+                                            if (rect && container) {
+                                                setTooltip({
+                                                    x: rect.left - container.left + rect.width / 2,
+                                                    y: rect.top - container.top,
+                                                });
+                                            }
                                         }}
                                         onMouseLeave={() => setHoveredDay(null)}
                                     />
@@ -184,7 +181,7 @@ function ContributionGrid({
 function ContributionSkeleton({ isDark }: { isDark: boolean }) {
     return (
         <div className="w-full overflow-hidden">
-            <div className={`animate-pulse h-[110px] w-full ${isDark ? "bg-[#1a1a1a]" : "bg-[#ebedf0]/60"}`}
+            <div className={`animate-pulse w-full aspect-[650/110] ${isDark ? "bg-[#1a1a1a]" : "bg-[#ebedf0]/60"}`}
                 style={{ borderRadius: 2 }}
             />
         </div>
@@ -517,7 +514,7 @@ Building and fine-tuning LLMs and VLMs, with experience adapting models for spec
                                 {!mounted || calendarLoading ? (
                                     <ContributionSkeleton isDark={isDark} />
                                 ) : calendarError ? (
-                                    <div className={`flex flex-col items-center justify-center h-[110px] gap-2 ${isDark ? "text-[#525252]" : "text-[#aaa]"}`}>
+                                    <div className={`flex flex-col items-center justify-center aspect-[650/110] w-full gap-2 ${isDark ? "text-[#525252]" : "text-[#aaa]"}`}>
                                         <span className="text-xs font-mono">⚠ {calendarError}</span>
                                         <button
                                             onClick={fetchContributions}
