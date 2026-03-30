@@ -52,8 +52,8 @@ export function Highlighter({
 
   useLayoutEffect(() => {
     const element = elementRef.current
-    let annotation: RoughAnnotation | null = null
-    let resizeObserver: ResizeObserver | null = null
+    let annotation: any = null
+    let resizeObserver: any = null
 
     if (shouldShow && element) {
       const annotationConfig = {
@@ -70,13 +70,35 @@ export function Highlighter({
       annotation = currentAnnotation
       currentAnnotation.show()
 
-      resizeObserver = new ResizeObserver(() => {
-        currentAnnotation.hide()
-        currentAnnotation.show()
-      })
+      // RoughNotation draws SVG overlays on top of the DOM using fixed absolute positions
+      // relative to the parent. Because the Hero container uses Framer Motion scroll parallax
+      // or re-renders during responsive events, we MUST constantly update the annotation's
+      // SVG position on any scroll or window resize.
+      const handleScroll = () => {
+        if (currentAnnotation) {
+          // RoughNotation can be heavy on scroll. Only update position, don't reanimate.
+          currentAnnotation.hide()
+          requestAnimationFrame(() => {
+              currentAnnotation.show()
+          })
+        }
+      }
 
+      resizeObserver = new ResizeObserver(handleScroll)
       resizeObserver.observe(element)
       resizeObserver.observe(document.body)
+      
+      window.addEventListener('scroll', handleScroll, { passive: true })
+      window.addEventListener('resize', handleScroll, { passive: true })
+
+      return () => {
+        annotation?.remove()
+        if (resizeObserver) {
+          resizeObserver.disconnect()
+        }
+        window.removeEventListener('scroll', handleScroll)
+        window.removeEventListener('resize', handleScroll)
+      }
     }
 
     return () => {
@@ -98,7 +120,7 @@ export function Highlighter({
   ])
 
   return (
-    <span ref={elementRef} className="relative inline-block bg-transparent">
+    <span ref={elementRef} className="relative inline bg-transparent">
       {children}
     </span>
   )

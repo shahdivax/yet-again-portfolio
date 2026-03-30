@@ -252,7 +252,6 @@ export default function Hero() {
     });
 
     const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-    const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
     const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
     const copyAIContent = `
@@ -393,7 +392,6 @@ Building and fine-tuning LLMs and VLMs, with experience adapting models for spec
                 </motion.div>
 
                 <motion.div
-                    style={{ y: y2 }}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.8 }}
