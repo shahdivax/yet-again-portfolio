@@ -63,9 +63,6 @@ Technical Skills:
 - **LLM Ecosystem & Ops:** Axolotl AI, Unsloth AI, AWS, DeepSpeed.
 - **Programming Languages:** Python.
 - **APIs & Services:** OpenAI, Google Gemini, Anthropic, Mistral AI, Groq, OpenRouter.
-
-Availability:
-Open to AI/ML Engineering roles and collaborations.
 `;
 
 interface Message {

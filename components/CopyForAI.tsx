@@ -8,7 +8,6 @@ GitHub: https://github.com/shahdivax
 LinkedIn: https://www.linkedin.com/in/divax-shah/
 X/Twitter: https://x.com/divax_shah_
 HuggingFace: https://huggingface.co/diabolic6045
----
 ## EXPERIENCE
 ### JR. AI/ML DEVELOPER @ AVINYAA EDTECH (2025 - PRESENT)
 Building advanced grammar checkers and fine-tuning LLMs for pristine natural language output. Designing multilingual AI classification systems with 95%+ accuracy.
@@ -19,7 +18,6 @@ Tags: Python, LangChain, OCR, Pipelines
 ### AI & SYNTH DATA INTERN @ DMI FINANCE (2024)
 Created generative pipelines for synthetic structured data via Gradio & Python. Used PyTorch to dramatically increase dataset throughput and deduplication algorithms.
 Tags: PyTorch, Generative AI, Gradio
----
 ## PROJECTS
 ### LLMS & AI ARCHITECTURES
 - **SANSKRIT QWEN2.5-7B CHAT** (2024) - LLM CHAT / LORA
@@ -51,14 +49,11 @@ URL: https://world-sim.divaxshah.com
 - **AURA VIBES** (2024) - CREATIVE ENGINEERING
 AI-powered personalized quote visualizer with Twitter extraction mapping and mood alignment.
 URL: https://random-quote-maker.divaxshah.com
----
 ## ARSENAL / SKILLS
 - **PROGRAMMING LANGUAGES**: Python
 - **FRAMEWORKS & LIBRARIES**: PyTorch, TensorFlow / Keras, scikit-learn, Hugging Face Transformers, LangChain, NumPy, Pandas, Fastapi, AWS
 - **AI DOMAINS**: Generative AI, Large Language Model (LLM/VLLM) Fine-Tuning, Reinforcement Learning (RL), Natural Language Processing (NLP), Prompt Engineering, Axolotl AI, Unsloth AI
 - **APIs & SERVICES**: OpenAI, Google Gemini, Anthropic, Mistral AI, Groq, OpenRouter
----
-Open to AI/ML Engineering roles and collaborations.
 `;
 export default function CopyForAI() {
 const [copied, setCopied] = useState(false);

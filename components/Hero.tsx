@@ -3,7 +3,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useTheme } from "next-themes";
-import CopyForAI from "./CopyForAI";
+import Magnet from "./react-bits/Magnet";
+import { TextAnimate } from "@/components/magicui/text-animate";
+import { PixelImage } from "@/components/magicui/pixel-image";
+import { HyperText } from "@/components/magicui/hyper-text";
+import { Highlighter } from "@/components/magicui/highlighter";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface ContributionDay {
@@ -187,6 +191,7 @@ function ContributionSkeleton({ isDark }: { isDark: boolean }) {
     );
 }
 
+
 // ─── Main Hero ───────────────────────────────────────────────────────────────
 export default function Hero() {
     const containerRef = useRef<HTMLElement>(null);
@@ -195,9 +200,24 @@ export default function Hero() {
     const [calendar, setCalendar] = useState<ContributionCalendar | null>(null);
     const [calendarError, setCalendarError] = useState<string | null>(null);
     const [calendarLoading, setCalendarLoading] = useState(true);
+    const [hyperTextTrigger, setHyperTextTrigger] = useState(false);
+    const [highlightsTrigger, setHighlightsTrigger] = useState(false);
 
     useEffect(() => {
         setMounted(true);
+        
+        // Step 1: Start HyperText immediately after mount
+        const t1 = setTimeout(() => setHyperTextTrigger(true), 100);
+        
+        // Step 2: Trigger highlighters precisely after the HyperText animations finish
+        const t2 = setTimeout(() => {
+            setHighlightsTrigger(true);
+        }, 1500);
+        
+        return () => {
+            clearTimeout(t1);
+            clearTimeout(t2);
+        };
     }, []);
 
     const isDark = mounted && theme === "dark";
@@ -234,6 +254,32 @@ export default function Hero() {
     const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
     const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
     const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+    const copyAIContent = `
+# Divax Shah - AI/ML Engineer
+
+Building and fine-tuning LLMs and VLMs, with experience adapting models for specific tasks such as Sanskrit translation and transliteration, a Sanskrit VLM-OCR model, a Whisper-based ASR model with 35% lower error rate, and a tokenizer that improved efficiency by 4.5×.
+
+## SKILLS & ARTIFACTS
+- **PROGRAMMING LANGUAGES**: Python
+- **FRAMEWORKS & LIBRARIES**: PyTorch, TensorFlow / Keras, scikit-learn, Hugging Face Transformers, LangChain, NumPy, Pandas, Fastapi, AWS
+- **AI DOMAINS**: Generative AI, Large Language Model (LLM/VLLM) Fine-Tuning, Reinforcement Learning (RL), Natural Language Processing (NLP), Prompt Engineering, Axolotl AI, Unsloth AI
+- **APIs & SERVICES**: OpenAI, Google Gemini, Anthropic, Mistral AI, Groq, OpenRouter
+
+## CONTACT
+- **Email**: divax12345@gmail.com
+- **GitHub**: shahdivax
+- **Hugging Face**: diabolic6045
+`;
+
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(copyAIContent);
+            alert("Copied to clipboard for AI");
+        } catch (err) {
+            console.error("Failed to copy text: ", err);
+        }
+    };
 
     return (
         <section
@@ -287,13 +333,14 @@ export default function Hero() {
                                     }`}
                                 style={{ borderRadius: "2px" }}
                             >
-                                <img
+                                <PixelImage
                                     src="https://res.cloudinary.com/djc2l2zjr/image/upload/v1771571110/1771570920892_2_l2drnn.jpg"
-                                    alt="Divax Shah"
+                                    customGrid={{ rows: 6, cols: 6 }}
+                                    grayscaleAnimation={isDark}
                                     className={`w-full h-full object-cover transition-all duration-700
                                         scale-105 group-hover/portrait:scale-100
                                         ${isDark
-                                            ? "grayscale-[0.6] brightness-90 group-hover/portrait:grayscale-0 group-hover/portrait:brightness-100"
+                                            ? "brightness-90 group-hover/portrait:brightness-100"
                                             : "group-hover/portrait:brightness-105"
                                         }`}
                                 />
@@ -331,29 +378,18 @@ export default function Hero() {
                         </motion.div>
                         <h1 className={`-ml-[0.05em] text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-bold tracking-tight leading-[0.85] uppercase font-[family-name:var(--font-syne)] ${isDark ? "brutalist-outline" : "text-[var(--foreground)]"}`}>
                             <span className="block overflow-hidden pb-4">
-                                <motion.span
+                                <TextAnimate
                                     className="block"
-                                    initial={{ y: "100%" }}
-                                    animate={{ y: 0 }}
-                                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                                    animation="blurInUp"
+                                    by="character"
+                                    duration={1}
                                 >
                                     DIVAX SHAH
-                                </motion.span>
+                                </TextAnimate>
                             </span>
                         </h1>
                     </div>
-                    <h2 className={`text-[6vw] sm:text-[4vw] font-mono font-bold tracking-wider leading-[1] uppercase mb-6 sm:mb-12 ${isDark ? "text-[#c2410c]" : "text-[var(--accent)]"}`}>
-                        <span className="block overflow-hidden pb-4">
-                            <motion.span
-                                className="block"
-                                initial={{ y: "100%" }}
-                                animate={{ y: 0 }}
-                                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                            >
-                                AI &amp; ML ENGINEER.
-                            </motion.span>
-                        </span>
-                    </h2>
+
                 </motion.div>
 
                 <motion.div
@@ -361,30 +397,81 @@ export default function Hero() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.8 }}
-                    className="flex flex-col lg:flex-row justify-between items-stretch gap-8 lg:gap-12 mt-4 sm:mt-8"
+                    className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-16 mt-4 sm:mt-8"
                 >
                     {/* Left: Bio & Buttons */}
-                    <div className="flex-1 flex flex-col justify-between max-w-xl">
-                        <div className={`flex flex-col gap-5 text-sm sm:text-sm font-mono uppercase transition-colors duration-[800ms] mb-8 lg:mb-0 pr-0 md:pr-10 ${isDark ? "text-zinc-400" : "text-zinc-600"} tracking-wide leading-relaxed`}>
-                            <p className="max-w-[550px] transition-colors duration-500">
-                                Building and fine-tuning <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>LLMs and VLMs</span>, 
-                                with experience adapting models for specific tasks such as <span className={`font-bold ${isDark ? "text-[#c2410c]" : "text-[var(--accent)]"}`}>Sanskrit translation and transliteration</span>, 
-                                a Sanskrit <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>VLM-OCR</span> model, 
-                                a Whisper-based ASR model with <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>35% lower error rate</span>, 
-                                and a tokenizer that improved efficiency by <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>4.5×</span>.
+                    <div className="flex-1 flex flex-col justify-start max-w-xl">
+                        <div className={`flex flex-col gap-5 text-sm sm:text-[15px] font-mono uppercase transition-colors duration-[800ms] mb-12 pr-0 md:pr-10 ${isDark ? "text-zinc-400" : "text-zinc-600"} tracking-wide leading-relaxed`}>
+                            <p className="max-w-[550px] transition-colors duration-500 leading-[1.8]">
+                                Building and fine-tuning{" "}
+                                <Highlighter action="highlight" color={isDark ? "#1e3a8a66" : "#bfdbfe"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                                    <span className={`font-bold ${isDark ? "text-[#60a5fa]" : "text-[#1e3a8a]"}`}>
+                                        <HyperText as="span" className="inline" duration={600}>
+                                            LLMs and VLMs,
+                                        </HyperText>
+                                    </span>
+                                </Highlighter>
+                                {" "}with experience adapting models for specific tasks such as{" "}
+                                <Highlighter action="highlight" color={isDark ? "#b4530966" : "#fef08a"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                                    <span className={`font-bold ${isDark ? "text-[#fde047]" : "text-[#b45309]"}`}>
+                                        <HyperText as="span" className="inline" duration={600}>
+                                            Sanskrit translation and transliteration,
+                                        </HyperText>
+                                    </span>
+                                </Highlighter>
+                                {" "}a{" "}
+                                <Highlighter action="highlight" color={isDark ? "#c2410c66" : "#fed7aa"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                                    <span className={`font-bold ${isDark ? "text-[#fb923c]" : "text-[#c2410c]"}`}>
+                                        <HyperText as="span" className="inline" duration={600}>
+                                            Sanskrit VLM-OCR
+                                        </HyperText>
+                                    </span>
+                                </Highlighter>
+                                {" "}model, a Whisper-based ASR model with{" "}
+                                <Highlighter action="highlight" color={isDark ? "#1e3a8a66" : "#bfdbfe"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                                    <span className={`font-bold ${isDark ? "text-[#60a5fa]" : "text-[#1e3a8a]"}`}>
+                                        <HyperText as="span" className="inline" duration={600}>
+                                            35% lower error rate,
+                                        </HyperText>
+                                    </span>
+                                </Highlighter>
+                                {" "}and a tokenizer that improved efficiency by{" "}
+                                <Highlighter action="highlight" color={isDark ? "#b4530966" : "#fef08a"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                                    <span className={`font-bold ${isDark ? "text-[#fde047]" : "text-[#b45309]"}`}>
+                                        <HyperText as="span" className="inline" duration={600}>
+                                            4.5×
+                                        </HyperText>
+                                    </span>
+                                </Highlighter>
                             </p>
                         </div>
-                        <div className="flex flex-col gap-4 mt-6 lg:mt-auto">
-                            <a
-                                href="https://huggingface.co/datasets/diabolic6045/divax-portfolio/resolve/main/public/resume.pdf"
-                                target="_blank"
-                                rel="noreferrer"
-                                className={`group flex items-center gap-4 relative overflow-hidden font-mono text-sm tracking-[0.2em] font-bold uppercase pb-1 transition-colors duration-[800ms] ${isDark ? "text-[var(--foreground)]" : "text-black"}`}
-                            >
-                                <span className={`w-8 h-[2px] ${isDark ? "bg-[#c2410c]" : "bg-[var(--accent)]"} group-hover:scale-x-150 transform origin-left transition-transform duration-500`} />
-                                <span className="relative z-10 group-hover:text-[var(--accent)] transition-colors duration-500">DOWNLOAD RESUME</span>
-                            </a>
-                            <CopyForAI />
+                        <div className="flex flex-col sm:flex-row gap-4 mt-8 items-start">
+                            <Magnet padding={50} disabled={false} magnetStrength={4}>
+                                <a
+                                    href="https://huggingface.co/datasets/diabolic6045/divax-portfolio/resolve/main/public/resume.pdf"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className={`inline-flex items-center justify-center px-6 py-3 text-xs font-mono font-bold tracking-[0.2em] uppercase border transition-all duration-500 ${
+                                        isDark 
+                                            ? "border-[#262626] bg-[#111] text-zinc-300 hover:bg-white hover:text-black hover:border-white" 
+                                            : "border-zinc-200 bg-white text-zinc-600 hover:bg-black hover:text-white hover:border-black"
+                                    }`}
+                                >
+                                    DOWNLOAD RESUME
+                                </a>
+                            </Magnet>
+                            <Magnet padding={50} disabled={false} magnetStrength={4}>
+                                <button
+                                    onClick={handleCopy}
+                                    className={`inline-flex items-center justify-center px-6 py-3 text-xs font-mono font-bold tracking-[0.2em] uppercase border transition-all duration-500 ${
+                                        isDark 
+                                            ? "border-[#c2410c]/30 bg-[#c2410c]/10 text-[#c2410c] hover:bg-[#c2410c] hover:text-white hover:border-[#c2410c]" 
+                                            : "border-[var(--accent)]/30 bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
+                                    }`}
+                                >
+                                    COPY FOR AI
+                                </button>
+                            </Magnet>
                         </div>
                     </div>
 
@@ -400,7 +487,7 @@ export default function Hero() {
                             <div className="flex justify-between items-center mb-4 relative z-10">
                                 <div>
                                     <h3 className={`text-[10px] sm:text-xs font-mono font-bold tracking-[0.2em] uppercase ${isDark ? "text-[#c2410c]" : "text-[var(--accent)]"}`}>
-                                        GITHUB ARTIFACTS
+                                        GITHUB
                                     </h3>
                                     {calendar && (
                                         <p className={`text-[10px] font-mono mt-0.5 ${isDark ? "text-[#525252]" : "text-[#aaa]"}`}>

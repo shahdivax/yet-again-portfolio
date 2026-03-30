@@ -1,11 +1,9 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import Experience from "../components/Experience";
-import Projects from "../components/Projects";
-import Footer from "../components/Footer";
-import CustomCursor from "../components/CustomCursor";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
+import SkillsLinked from "./SkillsLinked";
 
-export default function Home() {
+export default function SkillsPage() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[var(--accent)] selection:text-[var(--background)] relative">
       <CustomCursor />
@@ -13,9 +11,7 @@ export default function Home() {
 
       <Navbar />
       <main className="flex flex-col items-center w-full relative z-10 transition-colors duration-1000">
-        <Hero />
-        <Experience />
-        <Projects />
+        <SkillsLinked />
       </main>
       <Footer />
     </div>

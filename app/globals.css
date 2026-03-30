@@ -112,3 +112,39 @@ body {
   -webkit-transform: translateZ(0);
   backface-visibility: hidden;
 }
+/* ─── View Transition Theme Toggle ─── */
+::view-transition-group(root) {
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::view-transition-new(root) {
+  mask: url('https://i.imgur.com/NoEj2Lv.gif') center / 0 no-repeat;
+  -webkit-mask: url('https://i.imgur.com/NoEj2Lv.gif') center / 0 no-repeat;
+  animation: scale 3s;
+  animation-fill-mode: both;
+}
+
+::view-transition-old(root),
+.dark::view-transition-old(root) {
+  animation: scale 3s;
+  animation-fill-mode: both;
+}
+
+@keyframes scale {
+  0% {
+    mask-size: 0;
+    -webkit-mask-size: 0;
+  }
+  10% {
+    mask-size: 50vmax;
+    -webkit-mask-size: 50vmax;
+  }
+  90% {
+    mask-size: 50vmax;
+    -webkit-mask-size: 50vmax;
+  }
+  100% {
+    mask-size: 2000vmax;
+    -webkit-mask-size: 2000vmax;
+  }
+}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { flushSync } from "react-dom";
 export default function Navbar() {
     const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useTheme();
@@ -19,14 +19,25 @@ export default function Navbar() {
     }, []);
 
     const navLinks = [
-        { name: "EXPERIENCE", href: "#experience" },
-        { name: "PROJECTS", href: "#projects" },
-        { name: "SKILLS", href: "#skills" },
+        { name: "HOME", href: "/" },
+        { name: "EXPERIENCE", href: "/#experience" },
+        { name: "PROJECTS", href: "/#projects" },
+        { name: "SKILLS", href: "/skills" },
     ];
 
     const handleToggleTheme = () => {
-        if (theme === "dark") setTheme("light");
-        else setTheme("dark");
+        const nextTheme = theme === "dark" ? "light" : "dark";
+        
+        if (!document.startViewTransition) {
+            setTheme(nextTheme);
+            return;
+        }
+
+        document.startViewTransition(() => {
+            flushSync(() => {
+                setTheme(nextTheme);
+            });
+        });
     };
 
     const isDark = mounted && theme === "dark";

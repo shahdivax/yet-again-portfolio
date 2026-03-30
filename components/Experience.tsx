@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 
@@ -9,21 +8,18 @@ const experiences = [
         role: "JR. AI/ML DEVELOPER",
         company: "AVINYAA EDTECH",
         date: "2025 - PRESENT",
-        description: "Building advanced grammar checkers and fine-tuning LLMs for pristine natural language output. Designing multilingual AI classification systems with 95%+ accuracy.",
         tags: ["LLMs", "Fine-tuning", "NLP"]
     },
     {
         role: "JR. PYTHON DEVELOPER",
         company: "THINKBIZ TECH",
         date: "2024 - 2025",
-        description: "Built scalable chatbot PoCs using 17+ LangChain Agents with structured/unstructured ingestion. Created OCR-LLM pipelines improving invoice parsing from 15% to 85% accuracy.",
         tags: ["LangChain", "OCR", "Pipelines"]
     },
     {
         role: "AI & SYNTH DATA INTERN",
         company: "DMI FINANCE",
         date: "2024",
-        description: "Created generative pipelines for synthetic structured data via Gradio & Python. Used PyTorch to dramatically increase dataset throughput and deduplication algorithms.",
         tags: ["PyTorch", "Synth Data", "Gradio"]
     }
 ];
@@ -34,6 +30,26 @@ export default function Experience() {
 
     useEffect(() => {
         setMounted(true);
+        
+        // Native Intersection Observer for flawless, non-flickering reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.setAttribute("data-visible", "true");
+                    observer.unobserve(entry.target); // Run once
+                }
+            });
+        }, { threshold: 0, rootMargin: "-50px" });
+
+        // Small timeout to ensure DOM elements are rendered
+        const timeout = setTimeout(() => {
+            document.querySelectorAll("[data-reveal]").forEach(el => observer.observe(el));
+        }, 100);
+
+        return () => {
+            clearTimeout(timeout);
+            observer.disconnect();
+        };
     }, []);
 
     const isDark = mounted && theme === "dark";
@@ -52,132 +68,65 @@ export default function Experience() {
             <div className="max-w-[1400px] mx-auto px-6 sm:px-12">
                 
                 {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className={`mb-16 md:mb-20 flex flex-col md:flex-row justify-between items-start md:items-end border-b pb-6 gap-4 ${border}`}
+                <div
+                    data-reveal
+                    className={`mb-16 md:mb-20 flex flex-col md:flex-row justify-between items-start md:items-end border-b pb-6 gap-4 ${border} opacity-0 translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] data-[visible=true]:opacity-100 data-[visible=true]:translate-y-0`}
                 >
                     <h2 className={`text-2xl md:text-3xl font-bold tracking-tighter leading-none uppercase ${textPrimary}`}>
                         EXPERIENCE.
                     </h2>
-                    <span className={`font-mono text-sm tracking-[0.2em] uppercase pb-2 ${textSecondary}`}>
-                        01 - CHRONOLOGY
-                    </span>
-                </motion.div>
-
-                {/* DESKTOP HORIZONTAL TRACK (Cardless, pure editorial) */}
-                <div className="hidden md:flex flex-col w-full relative">
-                    
-                    {/* Top Half (Company Info) */}
-                    <div className="grid grid-cols-3 gap-8 lg:gap-12 mb-6">
-                        {experiences.map((exp, i) => (
-                            <motion.div 
-                                key={`top-${i}`} 
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="flex flex-col justify-end"
-                            >
-                                <span className={`font-mono text-[10px] lg:text-xs font-bold tracking-widest mb-3 ${textMuted}`}>
-                                    {exp.date}
-                                </span>
-                                <h3 className={`text-2xl lg:text-3xl font-black tracking-tighter uppercase leading-none mb-2 ${textPrimary}`}>
-                                    {exp.company}
-                                </h3>
-                                <h4 className={`text-sm font-bold tracking-wider uppercase ${textSecondary}`}>
-                                    {exp.role}
-                                </h4>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    {/* The Track Line */}
-                    <div className={`w-full h-[1px] relative mb-8 ${line}`}>
-                        {experiences.map((_, i) => (
-                            <motion.div 
-                                key={`node-${i}`}
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 + 0.3 }}
-                                className={`absolute top-0 w-3 h-3 -translate-y-[6px] rounded-full transition-transform hover:scale-150 cursor-default ${nodeColor}`}
-                                style={{ left: i === 0 ? '0' : `calc(${i * 33.333}% + 2px)` }}
-                            />
-                        ))}
-                    </div>
-
-                    {/* Bottom Half (Descriptions) */}
-                    <div className="grid grid-cols-3 gap-8 lg:gap-12">
-                        {experiences.map((exp, i) => (
-                            <motion.div 
-                                key={`bottom-${i}`} 
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 + 0.2 }}
-                                className="flex flex-col pr-4 lg:pr-8"
-                            >
-                                <p className={`text-xs lg:text-sm font-mono leading-relaxed mb-6 ${textSecondary}`}>
-                                    {exp.description}
-                                </p>
-                                <div className="flex flex-wrap gap-x-4 gap-y-2 mt-auto">
-                                    {exp.tags.map((tag, j) => (
-                                        <span key={j} className={`text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 ${textMuted}`}>
-                                            <span className={`w-1 h-1 rounded-full ${nodeColor}`} />
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
                 </div>
 
-                {/* MOBILE VERTICAL TRACK */}
-                <div className="md:hidden flex flex-col relative w-full">
+                {/* VERTICAL TRACK (Desktop & Mobile) */}
+                <div className="flex flex-col relative w-full max-w-4xl mx-auto mt-12">
                     {/* Vertical Line */}
-                    <div className={`absolute top-2 bottom-0 left-[3px] w-[1px] ${line}`} />
+                    <div className={`absolute top-2 bottom-0 left-[3px] md:left-[5px] w-[1px] ${line}`} />
                     
                     {experiences.map((exp, i) => (
-                        <motion.div 
-                            key={`mob-${i}`} 
-                            initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="relative pl-8 pb-12 flex flex-col"
+                        <div
+                            key={`exp-${i}`} 
+                            data-reveal
+                            className={`opacity-0 translate-y-5 -translate-x-3 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] data-[visible=true]:opacity-100 data-[visible=true]:translate-y-0 data-[visible=true]:translate-x-0`}
+                            style={{ transitionDelay: `${i * 100}ms` }}
                         >
-                            {/* Node */}
-                            <div className={`absolute left-0 top-1.5 w-[7px] h-[7px] rounded-full -translate-x-[0.5px] ${nodeColor}`} />
+                            <div 
+                                className={`relative pl-8 md:pl-12 pb-16 flex flex-col group ${i === 0 ? "" : "opacity-80 hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:translate-x-2"}`}
+                            >
+                            {/* Visual separator line between items (except the last one) */}
+                            {i < experiences.length - 1 && (
+                                <div className={`absolute bottom-8 left-8 md:left-12 right-0 h-[1px] ${isDark ? "bg-[#525252]" : "bg-[#c4c4c4]"}`} />
+                            )}
                             
-                            <span className={`font-mono text-[10px] font-bold tracking-widest mb-2 ${textMuted}`}>
-                                {exp.date}
-                            </span>
-                            <h3 className={`text-xl font-black tracking-tighter uppercase leading-none mb-1 ${textPrimary}`}>
-                                {exp.company}
-                            </h3>
-                            <h4 className={`text-xs font-bold tracking-wider uppercase mb-4 ${textSecondary}`}>
+                            {/* Static Node */}
+                            <div 
+                                className={`absolute left-0 top-1.5 md:top-2 w-[7px] h-[7px] md:w-[11px] md:h-[11px] rounded-full -translate-x-[0.5px] transition-transform duration-500 group-hover:scale-150 ${i === 0 ? (isDark ? "bg-[#c2410c]" : "bg-[var(--accent)]") : nodeColor}`} 
+                            />
+                            
+                            <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-8 mb-3">
+                                <h3 className={`text-2xl md:text-4xl font-black tracking-tighter uppercase leading-none transition-colors duration-500 ${i === 0 ? textPrimary : textSecondary}`}>
+                                    {exp.company}
+                                </h3>
+                                <span className={`font-mono text-[10px] md:text-xs font-bold tracking-widest uppercase md:shrink-0 ${i === 0 ? (isDark ? "text-[#c2410c]" : "text-[var(--accent)]") : textMuted}`}>
+                                    {exp.date}
+                                </span>
+                            </div>
+
+                            <h4 className={`text-sm md:text-base font-bold tracking-wider uppercase mb-6 ${i === 0 ? textSecondary : textMuted}`}>
                                 {exp.role}
                             </h4>
                             
-                            <p className={`text-xs font-mono leading-relaxed mb-4 ${textSecondary}`}>
-                                {exp.description}
-                            </p>
-                            <div className="flex flex-wrap gap-x-3 gap-y-2 mt-auto">
+                            <div className="flex flex-wrap gap-x-3 md:gap-x-4 gap-y-2 mt-auto">
                                 {exp.tags.map((tag, j) => (
-                                    <span key={j} className={`text-[9px] font-bold uppercase tracking-widest flex items-center gap-1.5 ${textMuted}`}>
-                                        <span className={`w-1 h-1 rounded-full ${nodeColor}`} />
+                                    <span key={j} className={`text-[9px] md:text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 ${textMuted} transition-colors duration-300 group-hover:${textSecondary}`}>
+                                        <span className={`w-1 h-1 rounded-full ${i === 0 ? (isDark ? "bg-[#c2410c]" : "bg-[var(--accent)]") : nodeColor}`} />
                                         {tag}
                                     </span>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
+                        </div>
                     ))}
                 </div>
-
             </div>
         </section>
     );
