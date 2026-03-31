@@ -17,8 +17,23 @@ variable: "--font-syne",
 subsets: ["latin"],
 });
 export const metadata: Metadata = {
+metadataBase: new URL("https://divaxshah.com"),
 title: "Divax Shah",
-description: "AI enthusiast and engineer building premium-grade AI systems.",
+description: "AI Engineer & Founder building premium-grade AI systems, commercial SaaS products, and fine-tuning specialized LLMs/VLMs.",
+openGraph: {
+title: "Divax Shah | AI Engineer & Founder",
+description: "Building premium-grade AI systems, commercial SaaS products, and fine-tuning specialized LLMs/VLMs.",
+url: "https://divaxshah.com",
+siteName: "Divax Shah",
+locale: "en_US",
+type: "website",
+},
+twitter: {
+card: "summary_large_image",
+title: "Divax Shah | AI Engineer & Founder",
+description: "Building premium-grade AI systems, commercial SaaS products, and fine-tuning specialized LLMs/VLMs.",
+creator: "@divax_shah_",
+},
 };
 export default function RootLayout({
 children,
