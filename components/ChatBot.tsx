@@ -70,6 +70,31 @@ interface Message {
     parts: { text: string }[];
 }
 
+
+const ThinkingIndicator = ({ isDark }: { isDark: boolean }) => {
+    const emojis = ["🤔", "🧐", "💭", "⚙️", "🔧", "(⌐■_■)", "(>_<)", "(-_-)", "(O_O)", "(•_•)", "¯\\_(ツ)_/¯", "🤖", "⚡", "🔍", "🧠"];
+    const [emojiIndex, setEmojiIndex] = useState(0);
+    const [dots, setDots] = useState("");
+
+    useEffect(() => {
+        setEmojiIndex(Math.floor(Math.random() * emojis.length));
+        const emojiInterval = setInterval(() => {
+            setEmojiIndex(Math.floor(Math.random() * emojis.length));
+        }, 600);
+        
+        const dotInterval = setInterval(() => {
+            setDots(prev => prev.length >= 3 ? "" : prev + ".");
+        }, 200);
+
+        return () => {
+            clearInterval(emojiInterval);
+            clearInterval(dotInterval);
+        };
+    }, []);
+
+    return <span className={`font-mono ${isDark ? "text-amber-500/80" : "text-orange-600/80"}`}>{emojis[emojiIndex]}{dots}</span>;
+};
+
 export function ChatBot() {
     const { theme } = useTheme();
     const [mounted, setMounted] = useState(false);
@@ -218,10 +243,10 @@ Response Format:
                 
                                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className={`flex items-center justify-center gap-2 p-3.5 sm:px-4 sm:py-3 rounded-xl transition-all relative z-10 ${
+                    className={`flex items-center justify-center gap-2 p-3.5 sm:px-4 sm:py-3 rounded-[4px] transition-all relative z-10 backdrop-blur-md ${
                         isDark
-                            ? "bg-zinc-800 text-zinc-200 border border-zinc-700 shadow-[0_4px_14px_0_rgba(0,0,0,0.5)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.7)] hover:-translate-y-0.5"
-                            : "bg-zinc-100 text-zinc-800 border border-zinc-200 shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5"
+                            ? "bg-white/50 text-black border border-white/30 shadow-[0_4px_14px_0_rgba(255,255,255,0.05)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.1)] hover:-translate-y-0.5"
+                            : "bg-black/50 text-white border border-black/30 shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5"
                     }`}
                 >
                     {isOpen ? (
@@ -246,8 +271,8 @@ Response Format:
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         className={`fixed bottom-24 right-6 z-[100001] w-[min(500px,calc(100vw-48px))] h-[min(650px,calc(100vh-120px))] flex flex-col overflow-hidden transition-all duration-300 font-mono text-sm sm:text-base ${
                             isDark 
-                                ? "bg-zinc-900/95 backdrop-blur-md border border-zinc-800 shadow-2xl rounded-xl" 
-                                : "bg-zinc-50/95 backdrop-blur-md border border-zinc-200 shadow-xl rounded-xl"
+                                ? "bg-zinc-900/95 backdrop-blur-md border border-zinc-800 shadow-2xl rounded-[4px]" 
+                                : "bg-zinc-50/95 backdrop-blur-md border border-zinc-200 shadow-xl rounded-[4px]"
                         }`}
                     >
                         {/* Terminal Window Header */}
@@ -327,7 +352,7 @@ Response Format:
                                                         {m.parts[0].text}
                                                     </ReactMarkdown>
                                                 ) : (
-                                                    <span className={`animate-pulse ${isDark ? "text-amber-500/80" : "text-orange-600/80"}`}>_</span>
+                                                    <ThinkingIndicator isDark={isDark} />
                                                 )}
                                             </div>
                                         )}

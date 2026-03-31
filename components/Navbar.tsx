@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 import { flushSync } from "react-dom";
+import { Sun, Moon } from "lucide-react";
 
 export default function Navbar() {
     const [mounted, setMounted] = useState(false);
@@ -116,15 +117,34 @@ export default function Navbar() {
                         onClick={handleToggleTheme}
                     >
                         <div className="flex items-center justify-center w-full">
-                            <div className={`relative w-8 h-4 border flex items-center p-0.5 transition-colors duration-500 border-[var(--border)]`}>
+                            <div className={`relative w-6 h-6 flex items-center justify-center transition-all duration-500`}>
+                                {/* Abstract Light Mode (Sun / Aperture) */}
                                 <motion.div
                                     initial={false}
                                     animate={{
-                                        x: isDark ? 16 : 0,
+                                        scale: isDark ? 0 : 1,
+                                        rotate: isDark ? 90 : 0,
+                                        opacity: isDark ? 0 : 1,
                                     }}
-                                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                                    className={`w-2.5 h-2.5 ${isDark ? "bg-[#ea580c]" : "bg-[#2563eb]"}`}
-                                />
+                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                    className="absolute inset-0 flex items-center justify-center text-zinc-900"
+                                >
+                                    <Sun size={18} strokeWidth={2.5} className="transition-transform group-hover:rotate-45 duration-500" />
+                                </motion.div>
+
+                                {/* Abstract Dark Mode (Moon / Eclipse) */}
+                                <motion.div
+                                    initial={false}
+                                    animate={{
+                                        scale: isDark ? 1 : 0,
+                                        rotate: isDark ? 0 : -90,
+                                        opacity: isDark ? 1 : 0,
+                                    }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                    className="absolute inset-0 flex items-center justify-center text-zinc-200"
+                                >
+                                    <Moon size={18} strokeWidth={2.5} className="transition-transform group-hover:-rotate-12 duration-500" />
+                                </motion.div>
                             </div>
                         </div>
                     </div>
