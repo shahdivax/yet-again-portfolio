@@ -6,6 +6,27 @@ import { useState, useEffect } from "react";
 
 const categories = [
     {
+        title: "COMMERCIAL AI PRODUCTS & SAAS",
+        projects: [
+            {
+                name: "RENTED SOULS",
+                href: "https://rentedsouls.com",
+                description: "Enterprise digital persona platform. Scales brand representation via AI avatars, voice cloning, and interactive video generation.",
+                details: "SAAS / AI AVATARS / TTS / VIDEO GEN",
+                year: "2025",
+                tags: ["Founder", "SaaS", "VideoGen", "Next.js"]
+            },
+            {
+                name: "YOUR HUMANIZER",
+                href: "https://yourhumanizer.com",
+                description: "Universal AI text transformation engine. Converts outputs from GPT, Claude, and Gemini into untraceable, natural human writing.",
+                details: "SAAS / LLM ROUTING / TEXT TRANSFORMATION",
+                year: "2025",
+                tags: ["Co-Founder", "SaaS", "LLM", "NLP"]
+            }
+        ]
+    },
+    {
         title: "FOUNDATION & ALIGNMENT",
         projects: [
             {
