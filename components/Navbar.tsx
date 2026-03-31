@@ -10,9 +10,14 @@ export default function Navbar() {
     const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useTheme();
     const [isScrolled, setIsScrolled] = useState(false);
+    const [maskBlob, setMaskBlob] = useState<Blob | null>(null);
 
     useEffect(() => {
         setMounted(true);
+        fetch("https://i.imgur.com/NoEj2Lv.gif")
+            .then(res => res.blob())
+            .then(blob => setMaskBlob(blob))
+            .catch(err => console.error("Failed to load mask gif", err));
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20);
         };
@@ -33,6 +38,17 @@ export default function Navbar() {
         if (!document.startViewTransition) {
             setTheme(nextTheme);
             return;
+        }
+
+        if (maskBlob) {
+            // Generate a fresh unique Object URL from the loaded Blob
+            // This forces the browser to treat the GIF as a brand new image,
+            // resetting the internal playback frame to 0 instantly.
+            const url = URL.createObjectURL(maskBlob);
+            document.documentElement.style.setProperty('--theme-mask', `url(${url})`);
+            
+            // Clean up the generated URL to prevent memory leaks
+            setTimeout(() => URL.revokeObjectURL(url), 2000);
         }
 
         document.startViewTransition(() => {

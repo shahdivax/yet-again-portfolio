@@ -124,8 +124,8 @@ body {
 }
 
 ::view-transition-new(root) {
-  mask: url('https://i.imgur.com/NoEj2Lv.gif') center / 0 no-repeat;
-  -webkit-mask: url('https://i.imgur.com/NoEj2Lv.gif') center / 0 no-repeat;
+  mask: var(--theme-mask, url('https://i.imgur.com/NoEj2Lv.gif')) center / 0 no-repeat;
+  -webkit-mask: var(--theme-mask, url('https://i.imgur.com/NoEj2Lv.gif')) center / 0 no-repeat;
   animation: scale 1s;
   animation-fill-mode: both;
 }
