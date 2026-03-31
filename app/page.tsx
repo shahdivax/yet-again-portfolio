@@ -7,9 +7,8 @@ import CustomCursor from "../components/CustomCursor";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[var(--accent)] selection:text-[var(--background)] relative">
+    <div className="min-h-screen text-[var(--foreground)] font-sans selection:bg-[var(--accent)] selection:text-[var(--background)] relative bg-transparent">
       <CustomCursor />
-      <div className="hidden dark:block industrial-bg"></div>
 
       <Navbar />
       <main className="flex flex-col items-center w-full relative z-10 transition-colors duration-1000">

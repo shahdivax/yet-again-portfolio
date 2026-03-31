@@ -5,14 +5,14 @@
 @theme {
   --color-accent: #2563eb;
   /* Clean blue for light mode */
-  --color-accent-dark: #c2410c;
-  /* Brutalist Rust Orange */
+  --color-accent-dark: #ea580c;
+  /* Brutalist Orange */
 }
 
 :root {
   --background: #fdfdfc;
   --foreground: #111111;
-  --border: #eaeaea;
+  --border: #d1d5db; /* gray-300 */
   --accent: #2563eb;
   --muted: #888888;
 }
@@ -20,8 +20,8 @@
 .dark {
   --background: #0a0a0a;
   --foreground: #f5f5f5;
-  --border: #262626;
-  --accent: #c2410c;
+  --border: #404040; /* neutral-700 */
+  --accent: #ea580c;
   --muted: #737373;
 }
 
@@ -31,6 +31,12 @@ body {
   transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
     color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-x: hidden;
+}
+
+.dot-grid-bg {
+  background-image: radial-gradient(var(--border) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+  background-color: var(--background);
 }
 
 /* Base Light Mode Elements */

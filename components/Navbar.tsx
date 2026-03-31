@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { flushSync } from "react-dom";
+
 export default function Navbar() {
     const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useTheme();
@@ -42,96 +43,95 @@ export default function Navbar() {
 
     const isDark = mounted && theme === "dark";
 
+    // Minimalistic Variables
+    const boxBg = isDark ? "bg-[#0a0a0a]" : "bg-white";
+    const boxBorder = isDark ? "border-[#404040]" : "border-gray-300";
+    const accentText = isDark ? "text-[#ea580c]" : "text-[#2563eb]";
+    const textPrimary = isDark ? "text-white" : "text-black";
+    const textSecondary = isDark ? "text-zinc-500" : "text-zinc-400";
+
+    if (!mounted) return null;
+
     return (
+        <>
+        <div className="w-full h-8 bg-transparent" />
         <motion.header
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ ease: [0.16, 1, 0.3, 1], duration: 1 }}
-            className={`navbar-fixed fixed top-0 w-full z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
-                ? "py-6 backdrop-blur-md bg-[var(--background)]/80"
-                : "py-10 bg-transparent"
-                }`}
-            style={{
-                borderBottom: '1px solid var(--border)',
-                borderBottomColor: isScrolled ? 'var(--border)' : 'transparent',
-                transition: 'padding 0.7s cubic-bezier(0.16,1,0.3,1), background-color 0.7s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, backdrop-filter 0.7s ease',
-            }}
+            transition={{ ease: "easeOut", duration: 0.6 }}
+            className={`navbar-fixed fixed top-8 left-0 right-0 z-50 transition-all duration-500 pt-0 bg-transparent pointer-events-none`}
         >
-            <div className="max-w-[1400px] mx-auto px-6 sm:px-12 flex justify-between items-center text-[var(--foreground)]">
+            {/* Architectural Grid Match */}
+            <div className="w-full grid grid-cols-1 xl:grid-cols-[1fr_minmax(auto,1000px)_1fr] relative h-full">
+                
+                {/* Left Blueprint Gutter */}
+                <div className="hidden xl:block border-r border-[var(--border)] border-dashed opacity-50" />
 
-                {/* ── Mobile: compact inline nav links ── */}
-                <nav className="md:hidden flex items-center gap-4 mx-3">
-                    {navLinks.map((link) => (
-                        <a
-                            key={link.name}
-                            href={link.href}
-                            className={`text-[8px] font-mono font-bold tracking-[0.18em] uppercase transition-colors duration-300
-                                ${isDark ? "text-[#525252] hover:text-[#c2410c]" : "text-zinc-400 hover:text-[var(--accent)]"}`}
-                        >
-                            {link.name.slice(0, 3)}
+                <div className={`w-full grid grid-cols-12 gap-0 border-x xl:border-x-0 border-[var(--border)] transition-all duration-500 pointer-events-auto ${isScrolled ? "opacity-95 hover:opacity-100" : "opacity-100"}`}>
+
+                    {/* 1. Logo Box */}
+                    <div 
+                        className={`col-span-4 sm:col-span-3 border-b md:border-r border-[var(--border)] bg-[var(--background)] px-4 sm:px-6 py-4 flex items-center justify-center relative`}
+                    >
+                        <a href="/" className={`font-[family-name:var(--font-syne)] text-sm sm:text-base font-bold tracking-tighter uppercase ${textPrimary}`}>
+                            DJS.
                         </a>
-                    ))}
-                </nav>
+                    </div>
 
-                {/* ── Desktop nav ── */}
-                <nav className="hidden md:flex items-center gap-12 group">
-                    <ul className="flex items-center gap-8 font-sans text-[10px] tracking-[0.2em] font-bold uppercase transition-colors duration-500">
-                        {navLinks.map((link) => (
-                            <li key={link.name}>
-                                <a
-                                    href={link.href}
-                                    className="relative overflow-hidden inline-block hover:opacity-100 opacity-60 transition-opacity duration-300 transform-gpu"
-                                >
-                                    <span className={`relative z-10 ${isDark ? "hover:text-[var(--accent)]" : ""}`}>{link.name}</span>
-                                    <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-[var(--accent)] translate-x-[-100%] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:translate-x-0`} />
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
+                    {/* 2. Navigation Box */}
+                    <nav 
+                        className={`col-span-4 sm:col-span-6 border-b md:border-r border-[var(--border)] bg-[var(--background)] px-4 py-4 flex items-center justify-center relative`}
+                    >
+                        {/* Mobile nav (dots) */}
+                        <div className="flex sm:hidden items-center gap-3">
+                            {navLinks.map((link, i) => (
+                                <a key={link.name} href={link.href} className={`w-2 h-2 rounded-none border border-[var(--border)] ${i === 0 ? accentText : textSecondary}`} />
+                            ))}
+                        </div>
 
-                {/* CONTROLS */}
-                <div className="flex items-center gap-6 z-50 ml-auto md:ml-0">
+                        {/* Desktop nav */}
+                        <ul className="hidden sm:flex items-center justify-center gap-6 md:gap-8 font-mono text-[9px] md:text-[10px] tracking-widest font-bold uppercase">
+                            {navLinks.map((link) => (
+                                <li key={link.name}>
+                                    <a
+                                        href={link.href}
+                                        className={`relative overflow-hidden inline-block transition-colors duration-300 ${textSecondary} hover:${textPrimary}`}
+                                    >
+                                        {link.name}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
 
-                    {/* THEME TOGGLE (BRUTALIST SWITCH) */}
-                    {mounted && (
-                        <div
-                            onClick={handleToggleTheme}
-                            className="flex items-center gap-2 sm:gap-3 group cursor-pointer"
-                        >
-                            <div className="flex flex-col items-end">
-                                <span className={`text-[8px] font-mono font-bold tracking-widest uppercase transition-colors duration-500 ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>THEME</span>
-                                <span className={`text-[9px] sm:text-[10px] font-mono font-bold tracking-widest uppercase transition-colors duration-500 ${isDark ? "text-[var(--accent)]" : "text-[var(--foreground)]"}`}>
-                                    {isDark ? "CORE" : "UI"}
-                                </span>
-                            </div>
-                            <div className={`relative w-10 h-5 sm:w-12 sm:h-6 border-2 flex items-center p-0.5 sm:p-1 transition-colors duration-500 ${isDark ? "border-[#c2410c] bg-[#1a1a1a]" : "border-[var(--foreground)] bg-white rounded-full"}`}>
+                    {/* 3. Controls Box */}
+                    <div 
+                        className={`col-span-4 sm:col-span-3 border-b border-[var(--border)] bg-[var(--background)] px-4 py-4 flex items-center justify-center relative cursor-pointer group`}
+                        onClick={handleToggleTheme}
+                    >
+                        <div className="flex items-center gap-3">
+                            <span className={`hidden sm:inline-block font-mono text-[9px] font-bold tracking-widest uppercase transition-colors duration-300 ${textSecondary} group-hover:${textPrimary}`}>
+                                THEME
+                            </span>
+                            <div className={`relative w-8 h-4 border flex items-center p-0.5 transition-colors duration-500 border-[var(--border)]`}>
                                 <motion.div
                                     initial={false}
                                     animate={{
-                                        x: isDark ? (typeof window !== 'undefined' && window.innerWidth < 640 ? 16 : 20) : 0,
-                                        rotate: isDark ? 180 : 0,
-                                        borderRadius: isDark ? "0%" : "50%"
+                                        x: isDark ? 16 : 0,
                                     }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                                    className={`w-2.5 h-2.5 sm:w-3 sm:h-3 ${isDark ? "bg-[#c2410c]" : "bg-[var(--foreground)]"}`}
+                                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                                    className={`w-2.5 h-2.5 ${isDark ? "bg-[#ea580c]" : "bg-[#2563eb]"}`}
                                 />
                             </div>
                         </div>
-                    )}
+                    </div>
 
-                    {/* LET'S TALK */}
-                    <a
-                        href="mailto:divax12345@gmail.com"
-                        className={`hidden sm:inline-block group relative px-5 py-3 border border-[var(--border)] hover:border-transparent overflow-hidden ${isDark ? "rounded-none" : "rounded-full"} font-sans text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-500`}
-                    >
-                        <div className={`absolute inset-0 bg-[var(--accent)] translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0`} />
-                        <span className={`relative z-10 transition-colors duration-500 ${isDark ? "group-hover:text-black" : "group-hover:text-white"}`}>
-                            LET'S TALK
-                        </span>
-                    </a>
                 </div>
+
+                {/* Right Blueprint Gutter */}
+                <div className="hidden xl:block border-l border-[var(--border)] border-dashed opacity-50" />
             </div>
         </motion.header>
+        </>
     );
 }

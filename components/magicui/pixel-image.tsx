@@ -133,7 +133,6 @@ export const PixelImage = ({
   return (
     <div 
       className={cn("relative w-full h-full select-none", className)}
-      onMouseEnter={triggerAnimation}
     >
       {/* Solid image overlay to hide grid seams after animation */}
       <img

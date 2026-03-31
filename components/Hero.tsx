@@ -1,259 +1,51 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
-import Magnet from "./react-bits/Magnet";
 import { TextAnimate } from "@/components/magicui/text-animate";
 import { PixelImage } from "@/components/magicui/pixel-image";
 import { HyperText } from "@/components/magicui/hyper-text";
 import { Highlighter } from "@/components/magicui/highlighter";
+import GithubGrid from "./GithubGrid";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-interface ContributionDay {
-    contributionCount: number;
-    date: string;
-    color: string;
-}
-
-interface ContributionWeek {
-    contributionDays: ContributionDay[];
-}
-
-interface ContributionCalendar {
-    totalContributions: number;
-    weeks: ContributionWeek[];
-}
-
-// ─── GitHub Contribution Grid ────────────────────────────────────────────────
-function ContributionGrid({
-    calendar,
-    isDark,
-}: {
-    calendar: ContributionCalendar;
-    isDark: boolean;
-}) {
-    const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null);
-    const [tooltip, setTooltip] = useState({ x: 0, y: 0 });
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    const CELL = 10;
-    const GAP = 2;
-    const COLS = calendar.weeks.length;
-    const ROWS = 7;
-    const W = COLS * (CELL + GAP) - GAP;
-    const H = ROWS * (CELL + GAP) - GAP;
-
-    // Day-of-week labels (Mon, Wed, Fri)
-    const DAY_LABELS = ["", "Mon", "", "Wed", "", "Fri", ""];
-
-    // Month labels (derive from first day of each week)
-    const monthLabels: { label: string; x: number }[] = [];
-    let lastMonth = -1;
-    calendar.weeks.forEach((week, wi) => {
-        const firstDay = week.contributionDays[0];
-        if (!firstDay) return;
-        const month = new Date(firstDay.date).getMonth();
-        if (month !== lastMonth) {
-            monthLabels.push({
-                label: new Date(firstDay.date).toLocaleString("default", { month: "short" }),
-                x: wi * (CELL + GAP),
-            });
-            lastMonth = month;
-        }
-    });
-
-    // Only show months that have enough space (>3 weeks apart)
-    const filteredMonths = monthLabels.filter((m, i) => {
-        if (i === 0) return true;
-        return m.x - monthLabels[i - 1].x > 3 * (CELL + GAP);
-    });
-
-    const emptyCellColor = isDark ? "#1a1a1a" : "#ebedf0";
-
-    function getTooltipText(day: ContributionDay) {
-        const date = new Date(day.date);
-        const formatted = date.toLocaleDateString("en-US", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        });
-        return `${day.contributionCount} contribution${day.contributionCount !== 1 ? "s" : ""} on ${formatted}`;
-    }
-
-    return (
-        <div className="relative w-full" ref={containerRef}>
-            <div className="w-full pb-1">
-                {/* Tooltip */}
-                {hoveredDay && (
-                    <div
-                        className={`absolute z-50 pointer-events-none px-2 py-1 text-[10px] font-mono whitespace-nowrap shadow-lg rounded
-                        ${isDark ? "bg-[#1a1a1a] text-[#f5f5f5] border border-[#262626]" : "bg-white text-[#111] border border-[#eaeaea]"}`}
-                        style={{
-                            left: tooltip.x,
-                            top: tooltip.y - 8,
-                            transform: "translate(-50%, -100%)",
-                        }}
-                    >
-                        {getTooltipText(hoveredDay)}
-                    </div>
-                )}
-
-                <svg
-                    width="100%"
-                    viewBox={`0 0 ${W + 28} ${H + 22}`}
-                    style={{ display: "block" }}
-                >
-                    {/* Month labels */}
-                    {filteredMonths.map((m) => (
-                        <text
-                            key={m.label + m.x}
-                            x={m.x + 26}
-                            y={9}
-                            fontSize={9}
-                            fill={isDark ? "#737373" : "#888888"}
-                            fontFamily="monospace"
-                        >
-                            {m.label}
-                        </text>
-                    ))}
-
-                    {/* Day-of-week labels */}
-                    {DAY_LABELS.map((label, di) => (
-                        <text
-                            key={di}
-                            x={12}
-                            y={14 + di * (CELL + GAP) + CELL / 2}
-                            fontSize={8}
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                            fill={isDark ? "#525252" : "#aaaaaa"}
-                            fontFamily="monospace"
-                        >
-                            {label}
-                        </text>
-                    ))}
-
-                    {/* Grid cells */}
-                    <g transform="translate(26, 13)">
-                        {calendar.weeks.map((week, wi) =>
-                            week.contributionDays.map((day, di) => {
-                                const x = wi * (CELL + GAP);
-                                const y = di * (CELL + GAP);
-                                const isEmpty = day.contributionCount === 0;
-                                const cellColor = isEmpty ? emptyCellColor : day.color;
-                                return (
-                                    <rect
-                                        key={day.date}
-                                        x={x}
-                                        y={y}
-                                        width={CELL}
-                                        height={CELL}
-                                        rx={2}
-                                        ry={2}
-                                        fill={cellColor}
-                                        style={{ cursor: "pointer", transition: "opacity 0.15s" }}
-                                        onMouseEnter={(e) => {
-                                            setHoveredDay(day);
-                                            const rect = (e.currentTarget as SVGRectElement).getBoundingClientRect();
-                                            const container = containerRef.current?.getBoundingClientRect();
-                                            if (rect && container) {
-                                                setTooltip({
-                                                    x: rect.left - container.left + rect.width / 2,
-                                                    y: rect.top - container.top,
-                                                });
-                                            }
-                                        }}
-                                        onMouseLeave={() => setHoveredDay(null)}
-                                    />
-                                );
-                            })
-                        )}
-                    </g>
-                </svg>
-            </div>
-        </div>
-    );
-}
-
-// ─── Skeleton loader ─────────────────────────────────────────────────────────
-function ContributionSkeleton({ isDark }: { isDark: boolean }) {
-    return (
-        <div className="w-full overflow-hidden">
-            <div className={`animate-pulse w-full aspect-[650/110] ${isDark ? "bg-[#1a1a1a]" : "bg-[#ebedf0]/60"}`}
-                style={{ borderRadius: 2 }}
-            />
-        </div>
-    );
-}
-
-
-// ─── Main Hero ───────────────────────────────────────────────────────────────
 export default function Hero() {
-    const containerRef = useRef<HTMLElement>(null);
     const { theme } = useTheme();
     const [mounted, setMounted] = useState(false);
-    const [calendar, setCalendar] = useState<ContributionCalendar | null>(null);
-    const [calendarError, setCalendarError] = useState<string | null>(null);
-    const [calendarLoading, setCalendarLoading] = useState(true);
-    const [hyperTextTrigger, setHyperTextTrigger] = useState(false);
     const [highlightsTrigger, setHighlightsTrigger] = useState(false);
+
+    const [textIndex, setTextIndex] = useState(0);
 
     useEffect(() => {
         setMounted(true);
-        
-        // Step 1: Start HyperText immediately after mount
-        const t1 = setTimeout(() => setHyperTextTrigger(true), 100);
-        
-        // Step 2: Trigger highlighters precisely after the HyperText animations finish
-        const t2 = setTimeout(() => {
+        const t = setTimeout(() => {
             setHighlightsTrigger(true);
         }, 1500);
-        
-        return () => {
-            clearTimeout(t1);
-            clearTimeout(t2);
-        };
-    }, []);
-
-    const isDark = mounted && theme === "dark";
-
-    // Fetch contributions from our secure server-side proxy
-    const fetchContributions = useCallback(async () => {
-        try {
-            setCalendarLoading(true);
-            setCalendarError(null);
-            const res = await fetch("/api/github");
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error(err.error || `HTTP ${res.status}`);
-            }
-            const data: ContributionCalendar = await res.json();
-            setCalendar(data);
-        } catch (e: unknown) {
-            const msg = e instanceof Error ? e.message : "Failed to load";
-            setCalendarError(msg);
-        } finally {
-            setCalendarLoading(false);
-        }
+        return () => clearTimeout(t);
     }, []);
 
     useEffect(() => {
-        fetchContributions();
-    }, [fetchContributions]);
+        if (!mounted) return;
+        const interval = setInterval(() => {
+            setTextIndex((prev) => (prev + 1) % snarkyTexts.length);
+        }, 3500);
+        return () => clearInterval(interval);
+    }, [mounted]);
 
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end start"],
-    });
+    const snarkyTexts = [
+        "Trying hard to make this portfolio better.",
+        "Tuning LLMs to make them go absolutely bonkers.",
+        "Breaking production so you don't have to.",
+        "Prompt engineering my way out of actual coding.",
+        "Refactoring the same component for the 4th time.",
+        "Convincing AI that it's actually sentient.",
+        "Deleting code and calling it 'optimization'."
+    ];
 
-    const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-    const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+    const isDark = mounted && theme === "dark";
 
     const copyAIContent = `
 # Divax Shah - AI/ML Engineer
-
 Building and fine-tuning LLMs and VLMs, with experience adapting models for specific tasks such as Sanskrit translation and transliteration, a Sanskrit VLM-OCR model, a Whisper-based ASR model with 35% lower error rate, and a tokenizer that improved efficiency by 4.5×.
 
 ## SKILLS & ARTIFACTS
@@ -263,9 +55,9 @@ Building and fine-tuning LLMs and VLMs, with experience adapting models for spec
 - **APIs & SERVICES**: OpenAI, Google Gemini, Anthropic, Mistral AI, Groq, OpenRouter
 
 ## CONTACT
-- **Email**: divax12345@gmail.com
-- **GitHub**: shahdivax
-- **Hugging Face**: diabolic6045
+- Email: divax12345@gmail.com
+- GitHub: shahdivax
+- Hugging Face: diabolic6045
 `;
 
     const handleCopy = async () => {
@@ -277,287 +69,169 @@ Building and fine-tuning LLMs and VLMs, with experience adapting models for spec
         }
     };
 
+    if (!mounted) return null;
+
+    // Minimalistic variables
+    const boxBg = isDark ? "bg-[#0a0a0a]" : "bg-white";
+    const boxBorder = isDark ? "border-[#404040]" : "border-gray-300";
+    const accentText = isDark ? "text-[#ea580c]" : "text-[#2563eb]";
+    const accentBg = isDark ? "bg-[#ea580c]/20" : "bg-[#2563eb]/20";
+    const highlightColor = isDark ? "#ea580c33" : "#2563eb33"; // 20% opacity equivalent
+
     return (
-        <section
-            ref={containerRef}
-            className="min-h-screen w-full flex flex-col justify-center relative pt-20 overflow-hidden bg-[var(--background)] z-10 box-border section-border-bottom"
-        >
-            <motion.div
-                style={{ y: y1, opacity }}
-                className="max-w-[1400px] mx-auto px-6 sm:px-12 w-full z-20"
-            >
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
+        <section className="w-full grid grid-cols-1 xl:grid-cols-[1fr_minmax(auto,1000px)_1fr] border-b border-[var(--border)] relative z-10 bg-transparent pt-14">
+            {/* Left Blueprint Gutter */}
+            <div className="hidden xl:block border-r border-[var(--border)]" />
+
+            {/* Core 1000px Grid Zone */}
+            <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-0 border-[var(--border)] bg-[var(--background)]">
+                
+                {/* 1. Profile Image Box */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className={`col-span-1 md:col-span-4 lg:col-span-3 aspect-square relative border-b md:border-b-0 md:border-r border-[var(--border)] p-4 overflow-hidden flex items-center justify-center`}
                 >
-                    <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 md:gap-8 mb-4">
-                        {/* ── Portrait Widget ── */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.85 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
-                            className="relative flex-shrink-0 w-20 h-20 sm:w-28 sm:h-28 group/portrait"
-                        >
-                            {/* Slowly-rotating dashed outer ring */}
-                            <motion.div
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                                className="absolute -inset-2.5 sm:-inset-3 pointer-events-none"
-                                style={{
-                                    border: `1.5px dashed ${isDark ? "#c2410c66" : "#2563eb44"}`,
-                                    borderRadius: "4px",
-                                }}
-                            />
-                            {/* Counter-rotating accent ring */}
-                            <motion.div
-                                animate={{ rotate: -360 }}
-                                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-                                className="absolute -inset-1 pointer-events-none"
-                                style={{
-                                    border: `1px solid ${isDark ? "#c2410c22" : "#2563eb18"}`,
-                                    borderRadius: "3px",
-                                }}
-                            />
+                    <div className="w-full h-full relative bg-black/5 group/portrait">
+                        <PixelImage
+                            src="https://res.cloudinary.com/djc2l2zjr/image/upload/v1771571110/1771570920892_2_l2drnn.jpg"
+                            customGrid={{ rows: 8, cols: 8 }}
+                            grayscaleAnimation
+                            className={`w-full h-full object-cover transition-all duration-700
+                                scale-105 group-hover/portrait:scale-100
+                                ${isDark
+                                    ? "brightness-90 group-hover/portrait:brightness-100"
+                                    : "group-hover/portrait:brightness-105"
+                                }`}
+                        />
+                    </div>
+                </motion.div>
 
-                            {/* Main square image box */}
-                            <div
-                                className={`relative w-full h-full overflow-hidden shadow-2xl border-2 transition-all duration-700
-                                    ${isDark
-                                        ? "border-[#c2410c] shadow-[#c2410c]/20"
-                                        : "border-[var(--accent)] shadow-[var(--accent)]/15"
-                                    }`}
-                                style={{ borderRadius: "2px" }}
+                {/* 2. Main Title Box */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+                    className={`col-span-1 md:col-span-8 lg:col-span-9 border-b border-[var(--border)] p-8 sm:p-12 flex flex-col justify-center relative bg-[var(--background)]`}
+                >
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter uppercase mb-2 font-[family-name:var(--font-syne)] leading-[0.9]">
+                        <TextAnimate animation="blurInUp" by="character" duration={1}>
+                            DIVAX SHAH
+                        </TextAnimate>
+                    </h1>
+                    <div className="flex flex-col gap-2 mt-4 h-6 relative w-full">
+                        <AnimatePresence mode="popLayout">
+                            <motion.div
+                                key={textIndex}
+                                exit={{ y: -10, opacity: 0, filter: "blur(4px)" }}
+                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                className={`font-mono text-[10px] sm:text-xs tracking-widest uppercase absolute w-full ${accentText}`}
                             >
-                                <PixelImage
-                                    src="https://res.cloudinary.com/djc2l2zjr/image/upload/v1771571110/1771570920892_2_l2drnn.jpg"
-                                    customGrid={{ rows: 6, cols: 6 }}
-                                    grayscaleAnimation={isDark}
-                                    className={`w-full h-full object-cover transition-all duration-700
-                                        scale-105 group-hover/portrait:scale-100
-                                        ${isDark
-                                            ? "brightness-90 group-hover/portrait:brightness-100"
-                                            : "group-hover/portrait:brightness-105"
-                                        }`}
-                                />
-                                {/* Scanning line sweep */}
-                                <motion.div
-                                    className="absolute inset-x-0 h-[2px] pointer-events-none"
-                                    style={{ background: isDark ? "rgba(194,65,12,0.6)" : "rgba(37,99,235,0.45)" }}
-                                    initial={{ top: "100%" }}
-                                    animate={{ top: ["-4%", "104%"] }}
-                                    transition={{ duration: 2.8, repeat: Infinity, ease: "linear", repeatDelay: 2.5 }}
-                                />
-                                {/* Colour-grade overlay on hover */}
-                                <div
-                                    className={`absolute inset-0 opacity-0 group-hover/portrait:opacity-100 transition-opacity duration-700 pointer-events-none mix-blend-color
-                                        ${isDark ? "bg-[#c2410c]/30" : "bg-[var(--accent)]/20"}`}
-                                />
-                            </div>
-
-                            {/* Corner bracket — top-left */}
-                            <div className={`absolute -top-0.5 -left-0.5 w-4 h-4 border-t-2 border-l-2 transition-all duration-500
-                                group-hover/portrait:-translate-x-1 group-hover/portrait:-translate-y-1
-                                ${isDark ? "border-[#c2410c]" : "border-[var(--accent)]"}`} />
-                            {/* Corner bracket — bottom-right */}
-                            <div className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 border-b-2 border-r-2 transition-all duration-500
-                                group-hover/portrait:translate-x-1 group-hover/portrait:translate-y-1
-                                ${isDark ? "border-[#c2410c]" : "border-[var(--accent)]"}`} />
-                            {/* Corner bracket — top-right */}
-                            <div className={`absolute -top-0.5 -right-0.5 w-4 h-4 border-t-2 border-r-2 transition-all duration-500
-                                group-hover/portrait:translate-x-1 group-hover/portrait:-translate-y-1
-                                ${isDark ? "border-[#c2410c]/50" : "border-[var(--accent)]/50"}`} />
-                            {/* Corner bracket — bottom-left */}
-                            <div className={`absolute -bottom-0.5 -left-0.5 w-4 h-4 border-b-2 border-l-2 transition-all duration-500
-                                group-hover/portrait:-translate-x-1 group-hover/portrait:translate-y-1
-                                ${isDark ? "border-[#c2410c]/50" : "border-[var(--accent)]/50"}`} />
-                        </motion.div>
-                        <h1 className={`-ml-[0.05em] text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[7vw] font-bold tracking-tight leading-[0.85] uppercase font-[family-name:var(--font-syne)] ${isDark ? "brutalist-outline" : "text-[var(--foreground)]"}`}>
-                            <span className="block overflow-hidden pb-4">
-                                <TextAnimate
-                                    className="block"
-                                    animation="blurInUp"
-                                    by="character"
-                                    duration={1}
-                                >
-                                    DIVAX SHAH
+                                <TextAnimate animation="blurInUp" by="character" once>
+                                    {snarkyTexts[textIndex]}
                                 </TextAnimate>
-                            </span>
-                        </h1>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
-
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.8 }}
-                    className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-16 mt-4 sm:mt-8"
+                {/* 3. Bio Box */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                    className={`col-span-1 md:col-span-8 lg:col-span-8 border-b md:border-b-0 md:border-r border-[var(--border)] p-6 sm:p-10 relative bg-[var(--background)]`}
                 >
-                    {/* Left: Bio & Buttons */}
-                    <div className="flex-1 flex flex-col justify-start max-w-xl">
-                        <div className={`flex flex-col gap-5 text-sm sm:text-[15px] font-mono uppercase transition-colors duration-[800ms] mb-12 pr-0 md:pr-10 ${isDark ? "text-zinc-400" : "text-zinc-600"} tracking-wide leading-relaxed`}>
-                            <p className="max-w-[550px] transition-colors duration-500 leading-[1.8]">
-                                Building and fine-tuning{" "}
-                                <Highlighter action="highlight" color={isDark ? "#1e3a8a66" : "#bfdbfe"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
-                                    <span className={`font-bold ${isDark ? "text-[#60a5fa]" : "text-[#1e3a8a]"}`}>
-                                        <HyperText as="span" className="inline" duration={600}>
-                                            LLMs and VLMs,
-                                        </HyperText>
-                                    </span>
-                                </Highlighter>
-                                {" "}with experience adapting models for specific tasks such as{" "}
-                                <Highlighter action="highlight" color={isDark ? "#b4530966" : "#fef08a"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
-                                    <span className={`font-bold ${isDark ? "text-[#fde047]" : "text-[#b45309]"}`}>
-                                        <HyperText as="span" className="inline" duration={600}>
-                                            Sanskrit translation and transliteration,
-                                        </HyperText>
-                                    </span>
-                                </Highlighter>
-                                {" "}a{" "}
-                                <Highlighter action="highlight" color={isDark ? "#c2410c66" : "#fed7aa"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
-                                    <span className={`font-bold ${isDark ? "text-[#fb923c]" : "text-[#c2410c]"}`}>
-                                        <HyperText as="span" className="inline" duration={600}>
-                                            Sanskrit VLM-OCR
-                                        </HyperText>
-                                    </span>
-                                </Highlighter>
-                                {" "}model, a Whisper-based ASR model with{" "}
-                                <Highlighter action="highlight" color={isDark ? "#1e3a8a66" : "#bfdbfe"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
-                                    <span className={`font-bold ${isDark ? "text-[#60a5fa]" : "text-[#1e3a8a]"}`}>
-                                        <HyperText as="span" className="inline" duration={600}>
-                                            35% lower error rate,
-                                        </HyperText>
-                                    </span>
-                                </Highlighter>
-                                {" "}and a tokenizer that improved efficiency by{" "}
-                                <Highlighter action="highlight" color={isDark ? "#b4530966" : "#fef08a"} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
-                                    <span className={`font-bold ${isDark ? "text-[#fde047]" : "text-[#b45309]"}`}>
-                                        <HyperText as="span" className="inline" duration={600}>
-                                            4.5×
-                                        </HyperText>
-                                    </span>
-                                </Highlighter>
-                            </p>
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-4 mt-8 items-start">
-                            <Magnet padding={50} disabled={false} magnetStrength={4}>
-                                <a
-                                    href="https://huggingface.co/datasets/diabolic6045/divax-portfolio/resolve/main/public/resume.pdf"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className={`inline-flex items-center justify-center px-6 py-3 text-xs font-mono font-bold tracking-[0.2em] uppercase border transition-all duration-500 ${
-                                        isDark 
-                                            ? "border-[#262626] bg-[#111] text-zinc-300 hover:bg-white hover:text-black hover:border-white" 
-                                            : "border-zinc-200 bg-white text-zinc-600 hover:bg-black hover:text-white hover:border-black"
-                                    }`}
-                                >
-                                    DOWNLOAD RESUME
-                                </a>
-                            </Magnet>
-                            <Magnet padding={50} disabled={false} magnetStrength={4}>
-                                <button
-                                    onClick={handleCopy}
-                                    className={`inline-flex items-center justify-center px-6 py-3 text-xs font-mono font-bold tracking-[0.2em] uppercase border transition-all duration-500 ${
-                                        isDark 
-                                            ? "border-[#c2410c]/30 bg-[#c2410c]/10 text-[#c2410c] hover:bg-[#c2410c] hover:text-white hover:border-[#c2410c]" 
-                                            : "border-[var(--accent)]/30 bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
-                                    }`}
-                                >
-                                    COPY FOR AI
-                                </button>
-                            </Magnet>
-                        </div>
-                    </div>
-
-                    {/* Right: GitHub Contribution Graph */}
-                    <div className="flex-1 max-w-[640px] flex items-center h-full">
-                        <div className={`w-full p-5 border transition-colors duration-500 shadow-xl ${isDark ? "border-[#262626] bg-[#0a0a0a]" : "border-[var(--accent)]/20 bg-white"} relative group overflow-hidden`}>
-                            {/* Accent highlight line on hover */}
-                            <div className={`absolute top-0 left-0 w-full h-[2px] ${isDark ? "bg-[#c2410c]" : "bg-[var(--accent)]"} transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-700`} />
-
-                            <div className={`absolute top-0 right-0 w-32 h-32 ${isDark ? "bg-[#c2410c]/5" : "bg-[var(--accent)]/5"} rounded-full blur-3xl group-hover:bg-[var(--accent)]/10 transition-colors duration-700 pointer-events-none`} />
-
-                            {/* Header row */}
-                            <div className="flex justify-between items-center mb-4 relative z-10">
-                                <div>
-                                    <h3 className={`text-[10px] sm:text-xs font-mono font-bold tracking-[0.2em] uppercase ${isDark ? "text-[#c2410c]" : "text-[var(--accent)]"}`}>
-                                        GITHUB
-                                    </h3>
-                                    {calendar && (
-                                        <p className={`text-[10px] font-mono mt-0.5 ${isDark ? "text-[#525252]" : "text-[#aaa]"}`}>
-                                            {calendar.totalContributions.toLocaleString()} contributions in the last year
-                                        </p>
-                                    )}
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    {/* Color legend */}
-                                    {mounted && (
-                                        <div className="flex items-center gap-1">
-                                            <span className={`text-[9px] font-mono ${isDark ? "text-[#525252]" : "text-[#bbb]"}`}>Less</span>
-                                            {[isDark ? "#1a1a1a" : "#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"].map((c) => (
-                                                <div key={c} style={{ width: 10, height: 10, backgroundColor: c, borderRadius: 2 }} />
-                                            ))}
-                                            <span className={`text-[9px] font-mono ${isDark ? "text-[#525252]" : "text-[#bbb]"}`}>More</span>
-                                        </div>
-                                    )}
-                                    <div className="flex gap-1">
-                                        <div className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#262626]" : "bg-gray-200"} group-hover:bg-[#c2410c] transition-colors duration-300 delay-100`} />
-                                        <div className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#262626]" : "bg-gray-200"} group-hover:bg-[#c2410c] transition-colors duration-300 delay-200`} />
-                                        <div className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#262626]" : "bg-gray-200"} group-hover:bg-[#c2410c] transition-colors duration-300 delay-300`} />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Graph area */}
-                            <div className="relative z-10">
-                                {!mounted || calendarLoading ? (
-                                    <ContributionSkeleton isDark={isDark} />
-                                ) : calendarError ? (
-                                    <div className={`flex flex-col items-center justify-center aspect-[650/110] w-full gap-2 ${isDark ? "text-[#525252]" : "text-[#aaa]"}`}>
-                                        <span className="text-xs font-mono">⚠ {calendarError}</span>
-                                        <button
-                                            onClick={fetchContributions}
-                                            className={`text-[10px] font-mono uppercase tracking-widest border px-3 py-1 transition-colors duration-300
-                                            ${isDark ? "border-[#262626] hover:border-[#c2410c] hover:text-[#c2410c]" : "border-[#eaeaea] hover:border-[var(--accent)] hover:text-[var(--accent)]"}`}
-                                        >
-                                            Retry
-                                        </button>
-                                    </div>
-                                ) : calendar ? (
-                                    <ContributionGrid calendar={calendar} isDark={isDark} />
-                                ) : null}
-                            </div>
-
-                            {/* Footer link */}
-                            <div className="mt-3 relative z-10 flex justify-end">
-                                <a
-                                    href="https://github.com/shahdivax"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className={`text-[9px] font-mono tracking-[0.15em] uppercase transition-colors duration-300
-                                    ${isDark ? "text-[#525252] hover:text-[#c2410c]" : "text-[#bbb] hover:text-[var(--accent)]"}`}
-                                >
-                                    @shahdivax ↗
-                                </a>
-                            </div>
-                        </div>
+                    <div className={`font-mono text-xs sm:text-sm leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+                        Building and fine-tuning{" "}
+                        <Highlighter action="highlight" color={highlightColor} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                            <span className={`font-bold ${accentText}`}>
+                                <HyperText as="span" className="inline" duration={600}>LLMs and VLMs</HyperText>
+                            </span>
+                        </Highlighter>
+                        , with experience adapting models for specific tasks such as{" "}
+                        <Highlighter action="highlight" color={highlightColor} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                            <span className={`font-bold ${accentText}`}>
+                                <HyperText as="span" className="inline" duration={600}>Sanskrit translation</HyperText>
+                            </span>
+                        </Highlighter>
+                        {" "}and transliteration, a{" "}
+                        <Highlighter action="highlight" color={highlightColor} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                            <span className={`font-bold ${accentText}`}>
+                                <HyperText as="span" className="inline" duration={600}>Sanskrit VLM-OCR</HyperText>
+                            </span>
+                        </Highlighter>
+                        {" "}model, a Whisper-based ASR model with{" "}
+                        <Highlighter action="highlight" color={highlightColor} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                            <span className={`font-bold ${accentText}`}>
+                                <HyperText as="span" className="inline" duration={600}>35% lower error rate</HyperText>
+                            </span>
+                        </Highlighter>
+                        , and a tokenizer that improved efficiency by{" "}
+                        <Highlighter action="highlight" color={highlightColor} isView={true} trigger={highlightsTrigger} padding={4} multiline={true}>
+                            <span className={`font-bold ${accentText}`}>
+                                <HyperText as="span" className="inline" duration={600}>4.5×</HyperText>
+                            </span>
+                        </Highlighter>.
                     </div>
                 </motion.div>
-            </motion.div>
 
-            {/* Extreme Physical Graphics - No glow, pure matte industrial shapes */}
-            {isDark && (
-                <div className="absolute top-[10%] right-[10%] w-[500px] h-[500px] pointer-events-none opacity-20 -z-10">
-                    <div className="absolute top-0 right-0 w-full h-full border-[8px] border-[#c2410c] transform rotate-12 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                    <div className="absolute bottom-[-10%] left-[-20%] w-[400px] h-[400px] bg-[#1a1a1a] transform -skew-x-12" />
-                </div>
-            )}
+                {/* 4. Actions Box */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+                    className={`col-span-1 md:col-span-4 lg:col-span-4 border-b md:border-b-0 border-[var(--border)] p-6 flex flex-col justify-center gap-3 bg-[var(--background)]`}
+                >
+                    <a
+                        href="https://huggingface.co/datasets/diabolic6045/divax-portfolio/resolve/main/public/resume.pdf"
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`w-full text-center px-4 py-4 text-[10px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 ${accentBg} ${accentText} hover:brightness-125 border border-transparent`}
+                    >
+                        DOWNLOAD RESUME
+                    </a>
+                    <button
+                        onClick={handleCopy}
+                        className={`w-full text-center px-4 py-4 text-[10px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 border border-[var(--border)] ${isDark ? "hover:bg-white hover:text-black" : "hover:bg-black hover:text-white"}`}
+                    >
+                        COPY FOR AI
+                    </button>
+                    <div className="grid grid-cols-2 gap-3">
+                        <a
+                            href="https://github.com/shahdivax"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={`w-full text-center px-3 py-3 text-[9px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 border border-[var(--border)] ${isDark ? "hover:bg-white hover:text-black" : "hover:bg-black hover:text-white"}`}
+                        >
+                            GITHUB ↗
+                        </a>
+                        <a
+                            href="https://huggingface.co/diabolic6045"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={`w-full text-center px-3 py-3 text-[9px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-300 border border-[var(--border)] ${isDark ? "hover:bg-white hover:text-black" : "hover:bg-black hover:text-white"}`}
+                        >
+                            HF ↗
+                        </a>
+                    </div>
+                </motion.div>
 
-            {/* Clean Light Mode Graphics */}
-            {!isDark && (
-                <div className="absolute top-0 right-0 w-[40%] h-[100%] bg-gradient-to-l from-blue-50 to-transparent pointer-events-none -z-10" />
-            )}
+                {/* 5. GitHub Graph Box */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+                    className={`col-span-1 md:col-span-12 border-t border-[var(--border)] p-6 sm:p-10 flex flex-col justify-center relative bg-[var(--background)]`}
+                >
+                    <GithubGrid />
+                </motion.div>
+
+            </div>
+
+            {/* Right Blueprint Gutter */}
+            <div className="hidden xl:block border-l border-[var(--border)]" />
         </section>
     );
 }
