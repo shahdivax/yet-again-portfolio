@@ -39,24 +39,26 @@ Professional Experience:
 Key Projects & Architectural Systems:
 
 LLMs & AI Architectures:
-1. **SANSKRIT QWEN2.5-7B CHAT** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-7B-chat) - Specialized language model for Sanskrit translation and transliteration. 100% success rate on test sequences.
-2. **SANSKRIT QWEN2.5-VL OCR** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-VL-7B-Instruct-OCR) - Vision-Language model adapted for Sanskrit OCR tasks.
-3. **GITAWHISPER (WHISPER TINY)** (https://huggingface.co/diabolic6045/GitaWhisper-tiny) - Fine-tuned Whisper-tiny for Sanskrit shloka transcription with IAST transliteration.
-4. **CUSTOM GPT 100M MODEL** - (https://huggingface.co/diabolic6045/Ion-LLM-Base) GPT-style Transformer built from scratch on Fineweb via DeepSpeed, ZeRO Stage-2, and FP16 precision.
-5. **SANSKRIT TOKENIZER** (https://huggingface.co/diabolic6045/Sanskrit-English-qwen2-tokenizer) - Native tokenization offering 4.5x better efficiency over byte-level tokens, 120K vocab size.
+1. **SANSKRIT QWEN2.5-7B TRANSLATE V2** (https://huggingface.co/diabolic6045/Sanskrit-qwen-7B-Translate-v2) - Highly optimized language model built on Qwen2.5-7B-Instruct. Specialized for bidirectional Sanskrit ↔ English translation and accurate Devanagari to IAST transliteration. Trained via LoRA on a structured chat dataset using flash attention.
+2. **SANSKRIT QWEN2.5-7B CHAT** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-7B-chat) - Specialized language model for Sanskrit translation and transliteration. 100% success rate on test sequences.
+2. **SANSKRIT QWEN2.5-7B CHAT** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-7B-chat) - Specialized language model for Sanskrit translation and transliteration. 100% success rate on test sequences.
+3. **SANSKRIT QWEN2.5-VL OCR** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-VL-7B-Instruct-OCR) - Vision-Language model adapted for Sanskrit OCR tasks.
+4. **GITAWHISPER (WHISPER TINY)** (https://huggingface.co/diabolic6045/GitaWhisper-tiny) - Fine-tuned Whisper-tiny for Sanskrit shloka transcription with IAST transliteration.
+5. **CUSTOM GPT 100M MODEL** - (https://huggingface.co/diabolic6045/Ion-LLM-Base) GPT-style Transformer built from scratch on Fineweb via DeepSpeed, ZeRO Stage-2, and FP16 precision.
+6. **SANSKRIT TOKENIZER** (https://huggingface.co/diabolic6045/Sanskrit-English-qwen2-tokenizer) - Native tokenization offering 4.5x better efficiency over byte-level tokens, 120K vocab size.
 
 Generative AI & Simulations:
-6. **FLUX LORAS** (https://huggingface.co/collections/diabolic6045/flux-lora) - Specialized generative AI adapters fine-tuned on diverse image datasets for aesthetic scaling.
-7. **LORE KEEPER** (https://lore-keeper.divaxshah.com) - Infinite structural narrative generator using custom LLM agents and creative generation constraints.
-8. **WORLD SIM** (https://world-sim.divaxshah.com) - CLI-native environment simulator allowing users to craft dynamic sandbox simulations via LLMs.
+7. **FLUX LORAS** (https://huggingface.co/collections/diabolic6045/flux-lora) - Specialized generative AI adapters fine-tuned on diverse image datasets for aesthetic scaling.
+8. **LORE KEEPER** (https://lore-keeper.divaxshah.com) - Infinite structural narrative generator using custom LLM agents and creative generation constraints.
+9. **WORLD SIM** (https://world-sim.divaxshah.com) - CLI-native environment simulator allowing users to craft dynamic sandbox simulations via LLMs.
 
 Web & Creative Tech / Older Projects:
-9. **AURA VIBES** (https://random-quote-maker.divaxshah.com) - AI-powered personalized quote visualizer with Twitter extraction mapping and mood alignment.
-10. **QuizWiz** (https://quiz-wiz-official.vercel.app/) - Advanced AI-powered chatbot creation platform.
-11. **Geolocation through Image Classification** (https://huggingface.co/diabolic6045/indian_cities_image_classification) - Identified Indian cities from images, achieving 66.3% accuracy using VGG16 CNN.
-12. **Character Chatbot** (https://huggingface.co/diabolic6045/tony_stark_chatbot) - NLP chatbot tuned on DialoGPT for interactive conversations.
-13. **Itinerary Generator** (https://huggingface.co/diabolic6045/itineraries_Generator) - Fine-tuned GPT-2 on worldwide trip plans.
-
+10. **AURA VIBES** (https://random-quote-maker.divaxshah.com) - AI-powered personalized quote visualizer with Twitter extraction mapping and mood alignment.
+11. **EMOJI ALCHEMIST** (https://emoji-alchemist.divaxshah.com) - Interactive tool merging emojis semantically via generative embeddings.
+12. **Geolocation through Image Classification** (https://huggingface.co/diabolic6045/indian_cities_image_classification) - Identified Indian cities from images, achieving 66.3% accuracy using VGG16 CNN.
+13. **Character Chatbot** (https://huggingface.co/diabolic6045/tony_stark_chatbot) - NLP chatbot tuned on DialoGPT for interactive conversations.
+14. **Itinerary Generator** (https://huggingface.co/diabolic6045/itineraries_Generator) - Fine-tuned GPT-2 on worldwide trip plans.
+15. **YouTube Summarizer Plugin** - Extension using local NLP model to summarize video captions on the fly.
 Technical Skills:
 - **ML Frameworks:** PyTorch, TensorFlow / Keras, HuggingFace Transformers, scikit-learn, LangChain, NumPy, Pandas, Fastapi.
 - **AI Specializations:** Generative AI, LLM/VLLM Fine-Tuning, Reinforcement Learning (RL), NLP, Prompt Engineering.

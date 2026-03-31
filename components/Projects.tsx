@@ -9,6 +9,14 @@ const categories = [
         title: "LLMS & AI ARCHITECTURES",
         projects: [
             {
+                name: "SANSKRIT QWEN2.5-7B TRANSLATE V2",
+                href: "https://huggingface.co/diabolic6045/Sanskrit-qwen-7B-Translate-v2",
+                description: "Optimized model for Sanskrit ↔ English bidirectional translation & IAST transliteration.",
+                details: "LLM CHAT / LORA / TRANSLATION",
+                year: "2024",
+                tags: ["LLM", "Qwen2.5", "Sanskrit", "Translation"]
+            },
+            {
                 name: "SANSKRIT QWEN2.5-7B CHAT",
                 href: "https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-7B-chat",
                 description: "Sanskrit translation and transliteration model.",
