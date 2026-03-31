@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 const categories = [
     {
-        title: "LLMS & AI ARCHITECTURES",
+        title: "FOUNDATION & ALIGNMENT",
         projects: [
             {
                 name: "SANSKRIT QWEN2.5-7B TRANSLATE V2",
@@ -14,89 +14,76 @@ const categories = [
                 description: "Optimized model for Sanskrit ↔ English bidirectional translation & IAST transliteration.",
                 details: "LLM CHAT / LORA / TRANSLATION",
                 year: "2024",
-                tags: ["LLM", "Qwen2.5", "Sanskrit", "Translation"]
-            },
-            {
-                name: "SANSKRIT QWEN2.5-7B CHAT",
-                href: "https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-7B-chat",
-                description: "Sanskrit translation and transliteration model.",
-                details: "LLM CHAT / LORA",
-                year: "2024",
-                tags: ["LLM", "Qwen2.5", "Sanskrit", "LoRA"]
+                tags: ["LLM", "Qwen2.5", "Sanskrit", "Flash Attention"]
             },
             {
                 name: "SANSKRIT QWEN2.5-VL OCR",
                 href: "https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-VL-7B-Instruct-OCR",
-                description: "Vision-Language model for Sanskrit OCR.",
-                details: "VLM / OCR",
+                description: "Vision-Language model fine-tuned for Sanskrit OCR tasks.",
+                details: "VLM / OCR / PARALLEL CORPUS",
                 year: "2025",
-                tags: ["VLM", "OCR", "Vision", "Sanskrit"]
+                tags: ["VLM", "OCR", "Vision", "Qwen2.5-VL"]
+            },
+            {
+                name: "OPEN-LLAMA-3.2-1B-INSTRUCT",
+                href: "https://huggingface.co/diabolic6045/open-llama-3.2-1B-Instruct",
+                description: "Instruct-tuned LLaMA 3.2 1B on OpenHermes using Axolotl and DeepSpeed.",
+                details: "LLM / INSTRUCT TUNING / AXOLOTL",
+                year: "2024",
+                tags: ["LLaMA", "Instruct", "DeepSpeed", "Axolotl"]
+            },
+            {
+                name: "ION-LLM-BASE (100M)",
+                href: "https://huggingface.co/diabolic6045/Ion-LLM-Base",
+                description: "Custom GPT Transformer built from scratch on Fineweb via DeepSpeed ZeRO-2.",
+                details: "GPT / PRE-TRAINING / DEEPSPEED",
+                year: "2024",
+                tags: ["GPT", "DeepSpeed", "FP16", "Transformers"]
             },
             {
                 name: "GITAWHISPER (WHISPER TINY)",
                 href: "https://huggingface.co/diabolic6045/GitaWhisper-tiny",
-                description: "Sanskrit shloka transcription and transliteration.",
+                description: "Fine-tuned Whisper model for Sanskrit shloka transcription and transliteration.",
                 details: "AUDIO / ASR / WHISPER",
                 year: "2024",
                 tags: ["ASR", "Whisper", "Audio", "PyTorch"]
             },
             {
-                name: "CUSTOM GPT 100M MODEL",
-                href: "https://huggingface.co/diabolic6045/Ion-LLM-Base",
-                description: "GPT Transformer built from scratch.",
-                details: "GPT / DEEPSPEED",
-                year: "2024",
-                tags: ["GPT", "DeepSpeed", "FP16", "Transformers"]
-            },
-            {
-                name: "SANSKRIT TOKENIZER",
+                name: "SANSKRIT NATIVE TOKENIZER",
                 href: "https://huggingface.co/diabolic6045/Sanskrit-English-qwen2-tokenizer",
-                description: "Highly efficient native Sanskrit tokenizer.",
-                details: "NLP / TOKENIZER",
+                description: "Highly efficient native Sanskrit tokenizer offering 4.5x better efficiency.",
+                details: "NLP / TOKENIZER / 120K VOCAB",
                 year: "2024",
-                tags: ["NLP", "Tokenizer", "Efficiency", "120K Vocab"]
+                tags: ["NLP", "Tokenizer", "Efficiency"]
             }
         ]
     },
     {
-        title: "GENERATIVE & SIMULATIONS",
+        title: "APPLIED INTELLIGENCE & AGENTIC SYSTEMS",
         projects: [
-            {
-                name: "FLUX LORAS",
-                href: "https://huggingface.co/collections/diabolic6045/flux-lora",
-                description: "Generative AI adapters for aesthetics.",
-                details: "IMAGE GENERATION",
-                year: "2024",
-                tags: ["Flux", "LoRA", "GenAI", "Images"]
-            },
             {
                 name: "LORE KEEPER",
                 href: "https://lore-keeper.divaxshah.com",
-                description: "Infinite structural narrative AI generator.",
-                details: "LLM AGENTS / PROCEDURAL",
+                description: "Infinite structural narrative AI generator using custom LLM agents and creative generation constraints.",
+                details: "AI AGENTS / PROCEDURAL",
                 year: "2024",
                 tags: ["Agents", "Procedural", "LLM", "Narrative"]
             },
             {
                 name: "WORLD SIM",
                 href: "https://world-sim.divaxshah.com",
-                description: "CLI-native dynamic sandbox environment simulator.",
-                details: "SIMULATION",
+                description: "CLI-native dynamic sandbox environment simulator allowing users to craft dynamic sandbox simulations via LLMs.",
+                details: "CLI / SIMULATION",
                 year: "2024",
                 tags: ["CLI", "Simulation", "Sandbox", "Python"]
-            }
-        ]
-    },
-    {
-        title: "WEB & CREATIVE TECH",
-        projects: [
+            },
             {
-                name: "AURA VIBES",
-                href: "https://random-quote-maker.divaxshah.com",
-                description: "Personalized AI quote and mood visualizer.",
-                details: "CREATIVE ENGINEERING",
+                name: "FLUX LORA ECOSYSTEM",
+                href: "https://huggingface.co/collections/diabolic6045/flux-lora",
+                description: "Specialized generative AI adapters fine-tuned on diverse image datasets for aesthetic scaling (Wallpapers, Stickers, Canvas).",
+                details: "VISION / LORA / GEN AI",
                 year: "2024",
-                tags: ["Creative", "FastAPI", "Web", "Visuals"]
+                tags: ["Flux", "LoRA", "GenAI", "Images"]
             }
         ]
     }

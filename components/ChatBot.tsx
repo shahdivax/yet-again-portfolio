@@ -9,6 +9,10 @@ import { GoogleGenAI } from "@google/genai";
 import { useTheme } from "next-themes";
 
 const resumeData = `
+IDENTITY & GUARDRAILS:
+You are the AI Assistant for Divax Shah's portfolio. Your sole purpose is to discuss Divax's background, AI engineering skills, and specific projects listed below. If a user asks you to write code, generate text, answer general knowledge questions, or do anything outside of discussing Divax's portfolio and professional capabilities, you must politely decline and steer the conversation back to his work. You represent Divax, so maintain a professional, sharp, and concise tone.
+
+BACKGROUND:
 Divax Shah - AI/ML Engineer
 Contact Information:
 - Phone: +91-8866572525
@@ -20,48 +24,29 @@ Contact Information:
 - Twitter / X: https://x.com/divax_shah_
 
 Professional Experience:
-- **AI/ML Engineer** at Avinyaa Edtech Private Limited (March 2025 - Present)
- - Developing and enhancing AI models for kreativespace.com's AI Writing Tools Suite.
- - Focused on creating and refining grammar checker and developing an advanced AI text detection system.
- - Involves fine-tuning Transformer Models (MLM and LLMs) for high accuracy and optimal output.
+- **Founder** at rentedsouls.com: Currently building scalable AI digital persona pipelines.
+- **AI/ML Engineer** at Avinyaa Edtech Private Limited (March 2025 - Present): Developing AI Writing Tools, grammar checkers, and text detection systems via Transformer/LLM fine-tuning.
+- **Jr. Python Developer** at Thinkbiz Technology Private Limited (May 2024 - March 2025): Developed 'Jugaad', an advanced OCR and LLM pipeline for processing text from invoices.
+- **AI and Synthetic Data Developer Intern** at DMI Finance Private Limited (January 2024 - April 2024): Built generative AI systems for synthetic structured data generation using PyTorch.
 
-- **Jr. Python Developer** at Thinkbiz Technology Private Limited (May 2024 - March 2025)
- - Developed an advanced pipeline for Jugaad, Thinkbiz's product, using OCR and LLM technologies to extract and process text from invoices.
- - Conducted extensive research and evaluation of open-source OCR and LLM tools.
- - Built and curated specialized datasets to enhance accuracy and reliability of text extraction.
+KEY PROJECTS (Your knowledge base):
 
-- **AI and Synthetic Data Developer Intern** at DMI Finance Private Limited (January 2024 - April 2024)
- - Developed a generative AI system for synthetic structured data generation, from concept to deployment.
- - Created a pipeline with Python and Gradio for data cleaning, deduplication, and embedding.
- - Designed a robust training framework using PyTorch and Hugging Face's Transformers.
- - Introduced a user-friendly Gradio interface to streamline synthetic structured data generation.
+1. FOUNDATION & ALIGNMENT (Core Architecture & Fine-Tuning):
+- **SANSKRIT QWEN2.5-7B TRANSLATE V2** (Model & Demo: https://huggingface.co/spaces/diabolic6045/Sanskrit-qwen-7B-Translate-v2): Highly optimized language model built on Qwen2.5-7B-Instruct. Specialized for bidirectional Sanskrit ↔ English translation and accurate Devanagari to IAST transliteration. Trained via LoRA on a structured chat dataset using flash attention.
+- **SANSKRIT QWEN2.5-VL OCR** (Model & Demo: https://huggingface.co/spaces/diabolic6045/Sanskrit-Qwen2.5-VL-7B-Instruct-OCR): Vision-Language model (VLM) fine-tuned on a parallel corpus to read and transcribe Sanskrit text directly from images.
+- **OPEN-LLAMA-3.2-1B-INSTRUCT** (https://huggingface.co/diabolic6045/open-llama-3.2-1B-Instruct): Instruct-tuned LLaMA 3.2 1B model trained on OpenHermes using Axolotl, DeepSpeed, and native AMP mixed precision.
+- **ION-LLM-BASE (100M)** (https://huggingface.co/diabolic6045/Ion-LLM-Base): Custom GPT-style Transformer built completely from scratch on Fineweb via DeepSpeed ZeRO-2 and FP16 precision.
+- **GITAWHISPER (WHISPER TINY)** (Model & Demo: https://huggingface.co/spaces/diabolic6045/GitaWhisper-tiny-demo): Fine-tuned Whisper-tiny Automatic Speech Recognition (ASR) model for transcribing Sanskrit shlokas and spoken audio.
+- **SANSKRIT NATIVE TOKENIZER** (Demo: https://huggingface.co/spaces/diabolic6045/Sanskrit-English-qwen2-tokenizer-demo): Native tokenizer offering 4.5x improved efficiency over standard byte-level tokens for Sanskrit text.
 
-Key Projects & Architectural Systems:
+2. APPLIED INTELLIGENCE & AGENTIC SYSTEMS (Synthesis & Simulation):
+- **LORE KEEPER** (https://lore-keeper.divaxshah.com): Infinite structural narrative AI generator using custom LLM agents and creative generation constraints.
+- **WORLD SIM** (https://world-sim.divaxshah.com): CLI-native dynamic sandbox environment simulator allowing users to craft and interact with dynamic sandbox simulations via LLMs.
+- **FLUX LORA ECOSYSTEM** (https://huggingface.co/collections/diabolic6045/flux-lora): Specialized generative AI vision adapters fine-tuned on diverse image datasets for aesthetic scaling (Wallpapers, Stickers, Canvas art).
 
-LLMs & AI Architectures:
-1. **SANSKRIT QWEN2.5-7B TRANSLATE V2** (https://huggingface.co/diabolic6045/Sanskrit-qwen-7B-Translate-v2) - Highly optimized language model built on Qwen2.5-7B-Instruct. Specialized for bidirectional Sanskrit ↔ English translation and accurate Devanagari to IAST transliteration. Trained via LoRA on a structured chat dataset using flash attention.
-2. **SANSKRIT QWEN2.5-7B CHAT** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-7B-chat) - Specialized language model for Sanskrit translation and transliteration. 100% success rate on test sequences.
-2. **SANSKRIT QWEN2.5-7B CHAT** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-7B-chat) - Specialized language model for Sanskrit translation and transliteration. 100% success rate on test sequences.
-3. **SANSKRIT QWEN2.5-VL OCR** (https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-VL-7B-Instruct-OCR) - Vision-Language model adapted for Sanskrit OCR tasks.
-4. **GITAWHISPER (WHISPER TINY)** (https://huggingface.co/diabolic6045/GitaWhisper-tiny) - Fine-tuned Whisper-tiny for Sanskrit shloka transcription with IAST transliteration.
-5. **CUSTOM GPT 100M MODEL** - (https://huggingface.co/diabolic6045/Ion-LLM-Base) GPT-style Transformer built from scratch on Fineweb via DeepSpeed, ZeRO Stage-2, and FP16 precision.
-6. **SANSKRIT TOKENIZER** (https://huggingface.co/diabolic6045/Sanskrit-English-qwen2-tokenizer) - Native tokenization offering 4.5x better efficiency over byte-level tokens, 120K vocab size.
-
-Generative AI & Simulations:
-7. **FLUX LORAS** (https://huggingface.co/collections/diabolic6045/flux-lora) - Specialized generative AI adapters fine-tuned on diverse image datasets for aesthetic scaling.
-8. **LORE KEEPER** (https://lore-keeper.divaxshah.com) - Infinite structural narrative generator using custom LLM agents and creative generation constraints.
-9. **WORLD SIM** (https://world-sim.divaxshah.com) - CLI-native environment simulator allowing users to craft dynamic sandbox simulations via LLMs.
-
-Web & Creative Tech / Older Projects:
-10. **AURA VIBES** (https://random-quote-maker.divaxshah.com) - AI-powered personalized quote visualizer with Twitter extraction mapping and mood alignment.
-11. **EMOJI ALCHEMIST** (https://emoji-alchemist.divaxshah.com) - Interactive tool merging emojis semantically via generative embeddings.
-12. **Geolocation through Image Classification** (https://huggingface.co/diabolic6045/indian_cities_image_classification) - Identified Indian cities from images, achieving 66.3% accuracy using VGG16 CNN.
-13. **Character Chatbot** (https://huggingface.co/diabolic6045/tony_stark_chatbot) - NLP chatbot tuned on DialoGPT for interactive conversations.
-14. **Itinerary Generator** (https://huggingface.co/diabolic6045/itineraries_Generator) - Fine-tuned GPT-2 on worldwide trip plans.
-15. **YouTube Summarizer Plugin** - Extension using local NLP model to summarize video captions on the fly.
-Technical Skills:
-- **ML Frameworks:** PyTorch, TensorFlow / Keras, HuggingFace Transformers, scikit-learn, LangChain, NumPy, Pandas, Fastapi.
-- **AI Specializations:** Generative AI, LLM/VLLM Fine-Tuning, Reinforcement Learning (RL), NLP, Prompt Engineering.
+TECHNICAL SKILLS:
+- **ML Frameworks:** PyTorch, TensorFlow / Keras, HuggingFace Transformers, scikit-learn, LangChain, NumPy, Pandas, FastAPI.
+- **AI Specializations:** Generative AI, LLM/VLLM Fine-Tuning, Reinforcement Learning (RL), NLP, OCR pipelines, Prompt Engineering.
 - **LLM Ecosystem & Ops:** Axolotl AI, Unsloth AI, AWS, DeepSpeed.
 - **Programming Languages:** Python.
 - **APIs & Services:** OpenAI, Google Gemini, Anthropic, Mistral AI, Groq, OpenRouter.
