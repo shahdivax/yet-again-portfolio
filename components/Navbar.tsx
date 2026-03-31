@@ -14,7 +14,7 @@ export default function Navbar() {
 
     useEffect(() => {
         setMounted(true);
-        fetch("https://i.imgur.com/NoEj2Lv.gif")
+        fetch("/theme-mask.gif")
             .then(res => res.blob())
             .then(blob => setMaskBlob(blob))
             .catch(err => console.error("Failed to load mask gif", err));
