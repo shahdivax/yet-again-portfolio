@@ -17,7 +17,7 @@ variable: "--font-syne",
 subsets: ["latin"],
 });
 export const metadata: Metadata = {
-title: "Divax Shah — AI/ML Engineer",
+title: "Divax Shah",
 description: "AI enthusiast and engineer building premium-grade AI systems.",
 };
 export default function RootLayout({
