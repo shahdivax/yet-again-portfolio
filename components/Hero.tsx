@@ -84,14 +84,14 @@ Building and fine-tuning LLMs and VLMs, with experience adapting models for spec
             <div className="hidden xl:block border-r border-[var(--border)]" />
 
             {/* Core 1000px Grid Zone */}
-            <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-0 border-[var(--border)] bg-[var(--background)]">
+            <div className="w-full grid grid-cols-12 gap-0 border-x xl:border-x-0 border-[var(--border)] bg-[var(--background)]">
                 
                 {/* 1. Profile Image Box */}
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className={`col-span-1 md:col-span-4 lg:col-span-3 aspect-square relative border-b md:border-b-0 md:border-r border-[var(--border)] p-4 overflow-hidden flex items-center justify-center`}
+                    className={`col-span-4 md:col-span-4 lg:col-span-3 aspect-square relative border-b border-r border-[var(--border)] p-2 sm:p-4 overflow-hidden flex items-center justify-center`}
                 >
                     <div className="w-full h-full relative bg-black/5 group/portrait">
                         <PixelImage
@@ -113,20 +113,20 @@ Building and fine-tuning LLMs and VLMs, with experience adapting models for spec
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-                    className={`col-span-1 md:col-span-8 lg:col-span-9 border-b border-[var(--border)] p-8 sm:p-12 flex flex-col justify-center relative bg-[var(--background)]`}
+                    className={`col-span-8 md:col-span-8 lg:col-span-9 border-b border-[var(--border)] p-4 sm:p-8 md:p-12 flex flex-col justify-center relative bg-[var(--background)]`}
                 >
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter uppercase mb-2 font-[family-name:var(--font-syne)] leading-[0.9]">
+                    <h1 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-1 sm:mb-2 font-[family-name:var(--font-syne)] leading-[0.9]">
                         <TextAnimate animation="blurInUp" by="character" duration={1}>
                             DIVAX SHAH
                         </TextAnimate>
                     </h1>
-                    <div className="flex flex-col gap-2 mt-4 h-6 relative w-full">
+                    <div className="flex flex-col gap-1 sm:gap-2 mt-2 sm:mt-4 h-6 relative w-full">
                         <AnimatePresence mode="popLayout">
                             <motion.div
                                 key={textIndex}
                                 exit={{ y: -10, opacity: 0, filter: "blur(4px)" }}
                                 transition={{ duration: 0.4, ease: "easeOut" }}
-                                className={`font-mono text-[10px] sm:text-xs tracking-widest uppercase absolute w-full ${accentText}`}
+                                className={`font-mono text-[8px] sm:text-[10px] md:text-xs tracking-widest uppercase absolute w-full ${accentText}`}
                             >
                                 <TextAnimate animation="blurInUp" by="character" once>
                                     {snarkyTexts[textIndex]}
@@ -141,7 +141,7 @@ Building and fine-tuning LLMs and VLMs, with experience adapting models for spec
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-                    className={`col-span-1 md:col-span-8 lg:col-span-8 border-b md:border-b-0 md:border-r border-[var(--border)] p-6 sm:p-10 relative bg-[var(--background)]`}
+                    className={`col-span-12 md:col-span-8 lg:col-span-8 border-b md:border-b-0 md:border-r border-[var(--border)] p-6 sm:p-10 relative bg-[var(--background)]`}
                 >
                     <div className={`font-mono text-xs sm:text-sm leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
                         Building and fine-tuning{" "}
@@ -182,7 +182,7 @@ Building and fine-tuning LLMs and VLMs, with experience adapting models for spec
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-                    className={`col-span-1 md:col-span-4 lg:col-span-4 border-b md:border-b-0 border-[var(--border)] p-6 flex flex-col justify-center gap-3 bg-[var(--background)]`}
+                    className={`col-span-12 md:col-span-4 lg:col-span-4 border-b md:border-b-0 border-[var(--border)] p-6 flex flex-col justify-center gap-3 bg-[var(--background)]`}
                 >
                     <a
                         href="https://huggingface.co/datasets/diabolic6045/divax-portfolio/resolve/main/public/resume.pdf"
@@ -223,7 +223,7 @@ Building and fine-tuning LLMs and VLMs, with experience adapting models for spec
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
-                    className={`col-span-1 md:col-span-12 border-t border-[var(--border)] p-6 sm:p-10 flex flex-col justify-center relative bg-[var(--background)]`}
+                    className={`col-span-12 border-t border-[var(--border)] p-6 sm:p-10 flex flex-col justify-center relative bg-[var(--background)]`}
                 >
                     <GithubGrid />
                 </motion.div>

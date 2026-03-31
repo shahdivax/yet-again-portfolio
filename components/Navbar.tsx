@@ -71,7 +71,7 @@ export default function Navbar() {
 
                     {/* 1. Logo Box */}
                     <div 
-                        className={`col-span-4 sm:col-span-3 border-b md:border-r border-[var(--border)] bg-[var(--background)] px-4 sm:px-6 py-4 flex items-center justify-center relative`}
+                        className={`col-span-3 sm:col-span-3 border-b md:border-r border-[var(--border)] bg-[var(--background)] px-2 sm:px-6 py-4 flex items-center justify-center relative`}
                     >
                         <a href="/" className={`font-[family-name:var(--font-syne)] text-sm sm:text-base font-bold tracking-tighter uppercase ${textPrimary}`}>
                             DJS.
@@ -80,12 +80,18 @@ export default function Navbar() {
 
                     {/* 2. Navigation Box */}
                     <nav 
-                        className={`col-span-4 sm:col-span-6 border-b md:border-r border-[var(--border)] bg-[var(--background)] px-4 py-4 flex items-center justify-center relative`}
+                        className={`col-span-6 sm:col-span-6 border-b md:border-r border-[var(--border)] bg-[var(--background)] px-2 sm:px-4 py-4 flex items-center justify-center relative`}
                     >
                         {/* Mobile nav (dots) */}
-                        <div className="flex sm:hidden items-center gap-3">
+                        <div className="flex sm:hidden items-center justify-center gap-3 w-full">
                             {navLinks.map((link, i) => (
-                                <a key={link.name} href={link.href} className={`w-2 h-2 rounded-none border border-[var(--border)] ${i === 0 ? accentText : textSecondary}`} />
+                                <a 
+                                    key={link.name} 
+                                    href={link.href} 
+                                    className={`text-[8px] font-mono font-bold tracking-widest uppercase transition-colors duration-300 ${i === 0 ? accentText : textSecondary} hover:${textPrimary}`}
+                                >
+                                    {link.name.slice(0, 3)}
+                                </a>
                             ))}
                         </div>
 
@@ -106,13 +112,10 @@ export default function Navbar() {
 
                     {/* 3. Controls Box */}
                     <div 
-                        className={`col-span-4 sm:col-span-3 border-b border-[var(--border)] bg-[var(--background)] px-4 py-4 flex items-center justify-center relative cursor-pointer group`}
+                        className={`col-span-3 sm:col-span-3 border-b border-[var(--border)] bg-[var(--background)] px-1 sm:px-4 py-4 flex items-center justify-center relative cursor-pointer group`}
                         onClick={handleToggleTheme}
                     >
-                        <div className="flex items-center gap-3">
-                            <span className={`hidden sm:inline-block font-mono text-[9px] font-bold tracking-widest uppercase transition-colors duration-300 ${textSecondary} group-hover:${textPrimary}`}>
-                                THEME
-                            </span>
+                        <div className="flex items-center justify-center w-full">
                             <div className={`relative w-8 h-4 border flex items-center p-0.5 transition-colors duration-500 border-[var(--border)]`}>
                                 <motion.div
                                     initial={false}
