@@ -126,13 +126,13 @@ body {
 ::view-transition-new(root) {
   mask: url('https://i.imgur.com/NoEj2Lv.gif') center / 0 no-repeat;
   -webkit-mask: url('https://i.imgur.com/NoEj2Lv.gif') center / 0 no-repeat;
-  animation: scale 1.5s;
+  animation: scale 1.2s;
   animation-fill-mode: both;
 }
 
 ::view-transition-old(root),
 .dark::view-transition-old(root) {
-  animation: scale 1.5s;
+  animation: scale 1.2s;
   animation-fill-mode: both;
 }
 
