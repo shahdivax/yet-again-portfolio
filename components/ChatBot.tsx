@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Loader2, MessageCircle, X, RotateCcw } from "lucide-react";
+import { Send, Loader2, MessageCircle, X, RotateCcw, Terminal } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { GoogleGenAI } from "@google/genai";
@@ -215,28 +215,27 @@ Response Format:
         <>
             {/* Toggle Button */}
             <div className="fixed bottom-6 right-6 z-[100001] block">
-                {!isOpen && (
-                    <motion.div
-                        className="absolute inset-0 rounded-full"
-                        animate={{
-                            boxShadow: isDark
-                                ? ["0 0 0 0px rgba(194, 65, 12, 0.4)", "0 0 0 20px rgba(194, 65, 12, 0)"]
-                                : ["0 0 0 0px rgba(37, 99, 235, 0.4)", "0 0 0 20px rgba(37, 99, 235, 0)"]
-                        }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                    />
-                )}
-                <motion.button
+                
+                                <button
                     onClick={() => setIsOpen(!isOpen)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`w-14 h-14 rounded-full flex items-center justify-center relative z-10 transition-colors shadow-2xl ${isDark
-                        ? "bg-[#c2410c] text-white border-2 border-[#111] hover:bg-white hover:text-[#c2410c] hover:border-[#c2410c]"
-                        : "bg-[var(--accent)] text-white border-2 border-white hover:bg-black"
-                        }`}
+                    className={`flex items-center justify-center gap-2 p-3.5 sm:px-4 sm:py-3 rounded-xl transition-all relative z-10 ${
+                        isDark
+                            ? "bg-zinc-800 text-zinc-200 border border-zinc-700 shadow-[0_4px_14px_0_rgba(0,0,0,0.5)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.7)] hover:-translate-y-0.5"
+                            : "bg-zinc-100 text-zinc-800 border border-zinc-200 shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5"
+                    }`}
                 >
-                    {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-                </motion.button>
+                    {isOpen ? (
+                        <>
+                            <X size={20} />
+                            
+                        </>
+                    ) : (
+                        <>
+                            <Terminal size={20} />
+                            
+                        </>
+                    )}
+                </button>
             </div>
 
             <AnimatePresence>
@@ -245,155 +244,130 @@ Response Format:
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className={`fixed bottom-24 right-6 z-[100001] w-[min(400px,calc(100vw-48px))] h-[min(650px,calc(100vh-120px))] flex flex-col overflow-hidden transition-all duration-700 ${isDark
-                            ? "bg-[#0a0a0a] border-l-4 border-b-4 border-r border-t border-[#c2410c] shadow-[0_0_30px_rgba(194,65,12,0.1)] rounded-none"
-                            : "bg-white border-2 border-[var(--border)] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] rounded-3xl"
-                            }`}
+                        className={`fixed bottom-24 right-6 z-[100001] w-[min(500px,calc(100vw-48px))] h-[min(650px,calc(100vh-120px))] flex flex-col overflow-hidden transition-all duration-300 font-mono text-sm sm:text-base ${
+                            isDark 
+                                ? "bg-zinc-900/95 backdrop-blur-md border border-zinc-800 shadow-2xl rounded-xl" 
+                                : "bg-zinc-50/95 backdrop-blur-md border border-zinc-200 shadow-xl rounded-xl"
+                        }`}
                     >
-                        {/* Extreme mechanical detailing in dark mode */}
-                        {isDark && (
-                            <>
-                                <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#c2410c] m-1 opacity-50 pointer-events-none" />
-                                <div className="absolute bottom-0 left-0 w-12 h-1 bg-[#c2410c] pointer-events-none shadow-[0_0_10px_#c2410c]" />
-                                <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_14px] pointer-events-none opacity-20" />
-                            </>
-                        )}
-                        {!isDark && (
-                            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-                        )}
-
-                        {/* Header */}
-                        <div className={`p-4 sm:p-5 flex justify-between items-center relative z-10 ${isDark ? "bg-[#111] border-b border-[#262626]" : "bg-slate-50 border-b border-[var(--border)]"
-                            }`}>
-                            <div>
-                                <h3 className={`font-bold ${isDark ? "font-mono tracking-[0.3em] uppercase text-xs text-[#c2410c] shadow-[#c2410c]" : "font-[family-name:var(--font-syne)] text-base text-black"
-                                    }`}>
-                                    {isDark ? "SYS.QUERY_TERMINAL" : "Ask Anything"}
-                                </h3>
-                                <div className={`text-[10px] sm:text-xs flex items-center gap-2 mt-1 ${isDark ? "font-mono uppercase text-[#555] tracking-widest" : "text-[var(--muted)]"
-                                    }`}>
-                                    <span className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#c2410c] shadow-[0_0_5px_#c2410c]" : "bg-green-500"}`} />
-                                    {isDark ? "AI_CORE_ONLINE" : "Online"}
-                                </div>
+                        {/* Terminal Window Header */}
+                        <div className={`flex items-center justify-between px-4 py-2 select-none ${isDark ? "bg-zinc-900 border-b border-zinc-800" : "bg-zinc-100 border-b border-zinc-200"}`}>
+                            <div className="flex space-x-2">
+                                <div className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-600 transition-colors" onClick={() => setIsOpen(false)} title="Close" />
+                                <div className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer hover:bg-yellow-600 transition-colors" onClick={handleNewChat} title="Clear Terminal" />
+                                <div className="w-3 h-3 rounded-full bg-green-500" />
                             </div>
-                            <div className="flex gap-2">
-                                <button
-                                    onClick={handleNewChat}
-                                    title="New Chat"
-                                    className={`p-2 transition-colors ${isDark ? "text-[#555] hover:text-[#c2410c]" : "text-[var(--muted)] hover:text-black"}`}
-                                >
-                                    <RotateCcw size={16} />
-                                </button>
-                                <button
-                                    onClick={() => setIsOpen(false)}
-                                    className={`p-2 transition-colors ${isDark ? "text-[#555] hover:text-[#c2410c]" : "text-[var(--muted)] hover:text-black"}`}
-                                >
-                                    <X size={16} />
-                                </button>
+                            <div className={`text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>
+                                AI CoRE — bash — 80x24
+                            </div>
+                            <div className="w-10 flex justify-end">
+                                {isLoading && <Loader2 size={14} className={`animate-spin ${isDark ? "text-zinc-500" : "text-zinc-500"}`} />}
                             </div>
                         </div>
 
-                        {/* Messages Area */}
-                        <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-6 relative z-10 scrollbar-hide">
-                            {messages.length === 0 ? (
-                                <div className="text-center pt-8">
-                                    <div className={`w-16 h-16 mx-auto mb-6 flex items-center justify-center ${isDark ? "border border-[#262626] bg-[#111] text-[#c2410c]" : "rounded-2xl bg-blue-50 text-[var(--accent)]"
-                                        }`}>
-                                        <MessageCircle size={28} />
-                                    </div>
-                                    <h4 className={`mb-2 font-bold ${isDark ? "font-mono tracking-widest uppercase text-xs text-white" : "font-[family-name:var(--font-syne)] text-lg text-black"
-                                        }`}>
-                                        {isDark ? "INITIALIZE QUERY" : "How can I help you?"}
-                                    </h4>
-                                    <p className={`text-xs mb-8 ${isDark ? "font-mono text-[#555] uppercase" : "text-[var(--muted)]"
-                                        }`}>
-                                        I can answer questions about Divax's skills, projects, and work experience.
-                                    </p>
-                                    <div className="flex flex-col gap-2 relative z-20">
-                                        {suggestedQuestions.map((q, i) => (
-                                            <button
-                                                key={i}
-                                                onClick={() => setInput(q)}
-                                                className={`px-4 py-3 text-left text-xs sm:text-sm transition-all ${isDark
-                                                    ? "font-mono border border-[#222] bg-[#111] text-[#777] hover:text-white hover:border-[#c2410c] hover:bg-[#c2410c]/10"
-                                                    : "rounded-xl bg-slate-50 border border-[var(--border)] text-gray-700 hover:border-[var(--accent)] hover:text-[var(--accent)] hover:shadow-sm"
-                                                    }`}
-                                            >
-                                                {q}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            ) : (
-                                messages.map((m, i) => (
-                                    <div key={i} className={`max-w-[85%] ${m.role === "user" ? "self-end" : "self-start"}`}>
-                                        <div
-                                            className={`prose dark:prose-invert prose-sm p-4 text-sm leading-relaxed ${isDark
-                                                ? m.role === "user"
-                                                    ? "bg-[#c2410c] text-white rounded-tl-[16px] rounded-bl-[16px] rounded-br-[16px]"
-                                                    : "bg-[#111] text-zinc-300 border border-[#262626] rounded-tr-[16px] rounded-bl-[16px] rounded-br-[16px] font-mono whitespace-pre-wrap"
-                                                : m.role === "user"
-                                                    ? "bg-[var(--accent)] text-white rounded-[20px] rounded-tr-[4px]"
-                                                    : "bg-slate-50 text-gray-800 border border-[var(--border)] rounded-[20px] rounded-tl-[4px]"
-                                                }`}
+                        {/* Terminal Body */}
+                        <div 
+                            className="flex-1 overflow-y-auto p-4 sm:p-5 flex flex-col gap-4 scrollbar-hide" 
+                            onClick={() => document.getElementById("terminal-input")?.focus()}
+                        >
+                            {/* Startup text */}
+                            <div className={`${isDark ? "text-zinc-400" : "text-zinc-500"} mb-2`}>
+                                <p className="mb-1">AI CoRE [v.4.0.0-rc.2]</p>
+                                
+                                <p className="mb-2">Type your query to interact with the AI core, or select a prompt:</p>
+                                <div className="flex flex-col gap-1.5 ml-2">
+                                    {suggestedQuestions.map((q, i) => (
+                                        <button 
+                                            key={i} 
+                                            onClick={() => setInput(q)} 
+                                            className={`text-left w-fit transition-colors hover:underline ${isDark ? "text-emerald-400/80 hover:text-emerald-300" : "text-emerald-600/80 hover:text-emerald-700"}`}
                                         >
-                                            <ReactMarkdown
-                                                remarkPlugins={[remarkGfm]}
-                                                components={{
-                                                    a: ({ node, ...props }) => <a {...props} className={m.role === "user" ? "text-white underline" : isDark ? "text-[#c2410c] hover:text-white transition-colors border-b border-[#c2410c]" : "text-[var(--accent)] underline"} target="_blank" rel="noopener noreferrer" />,
-                                                    p: ({ node, ...props }) => <p {...props} className="m-0" />,
-                                                    ul: ({ node, ...props }) => <ul {...props} className="pl-5 mt-2 space-y-1" />,
-                                                    strong: ({ node, ...props }) => <strong {...props} className={isDark && m.role !== "user" ? "text-white font-bold tracking-wide" : "font-semibold"} />,
-                                                }}
-                                            >
-                                                {m.parts[0].text}
-                                            </ReactMarkdown>
-                                        </div>
-                                    </div>
-                                ))
-                            )}
-                            {isLoading && messages[messages.length - 1]?.parts[0].text === "" && (
-                                <div className="self-start">
-                                    <div className={`p-4 ${isDark
-                                        ? "bg-[#111] border border-[#262626] rounded-tr-[16px] rounded-bl-[16px] rounded-br-[16px]"
-                                        : "bg-slate-50 border border-[var(--border)] rounded-[20px] rounded-tl-[4px]"
-                                        }`}>
-                                        <Loader2 size={16} className={`animate-spin ${isDark ? "text-[#c2410c]" : "text-[var(--accent)]"}`} />
+                                            &gt; {q}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Messages */}
+                            {messages.map((m, i) => (
+                                <div key={i} className="flex flex-col gap-1 w-full">
+                                    <div className="flex flex-col sm:flex-row sm:gap-2">
+                                        <span className={`shrink-0 ${m.role === "user" ? (isDark ? "text-emerald-400/80" : "text-emerald-600/80") : (isDark ? "text-amber-500/80" : "text-orange-600/80")}`}>
+                                            {m.role === "user" ? "visitor@portfolio:~$" : "ai@divax:~#"}
+                                        </span>
+                                        {m.role === "user" ? (
+                                            <span className={`flex-1 break-words whitespace-pre-wrap ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{m.parts[0].text}</span>
+                                        ) : (
+                                            <div className={`prose prose-sm max-w-none flex-1 font-mono break-words ${isDark ? "dark:prose-invert text-zinc-300" : "text-zinc-800"}`}>
+                                                {m.parts[0].text ? (
+                                                    <ReactMarkdown
+                                                        remarkPlugins={[remarkGfm]}
+                                                        components={{
+                                                            p: ({node, ...props}) => <p className="m-0 leading-relaxed inline-block" {...props} />,
+                                                            a: ({node, ...props}) => <a className={`${isDark ? "text-amber-500/80" : "text-orange-600/80"} hover:underline underline-offset-4 decoration-dashed`} target="_blank" rel="noopener noreferrer" {...props} />,
+                                                            ul: ({node, ...props}) => <ul className="pl-4 m-0 list-square" {...props} />,
+                                                            li: ({node, ...props}) => <li className="m-0 marker:text-zinc-500" {...props} />,
+                                                            strong: ({node, ...props}) => <strong className={`${isDark ? "text-white" : "text-black"} font-bold`} {...props} />,
+                                                            code: ({node, inline, className, children, ...props}: any) => {
+                                                                const match = /language-(\w+)/.exec(className || '');
+                                                                return inline ? (
+                                                                    <code className={`${isDark ? "bg-zinc-800 text-green-300" : "bg-zinc-200 text-blue-700"} px-1.5 py-0.5 rounded-sm`} {...props}>
+                                                                        {children}
+                                                                    </code>
+                                                                ) : (
+                                                                    <pre className={`${isDark ? "bg-zinc-800/50 border-zinc-700" : "bg-zinc-100/50 border-zinc-200"} border p-3 rounded-md overflow-x-auto mt-2 mb-2`}>
+                                                                        <code className={className} {...props}>
+                                                                            {children}
+                                                                        </code>
+                                                                    </pre>
+                                                                )
+                                                            }
+                                                        }}
+                                                    >
+                                                        {m.parts[0].text}
+                                                    </ReactMarkdown>
+                                                ) : (
+                                                    <span className={`animate-pulse ${isDark ? "text-amber-500/80" : "text-orange-600/80"}`}>_</span>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
-                            )}
-                            <div ref={messagesEndRef} />
-                        </div>
-
-                        {/* Input Area */}
-                        <form onSubmit={handleSubmit} className={`p-4 relative z-10 ${isDark ? "bg-[#111] border-t border-[#262626]" : "bg-white border-t border-[var(--border)]"
-                            }`}>
-                            <div className={`flex gap-2 items-center p-1.5 ${isDark
-                                ? "bg-[#0a0a0a] border border-[#333] focus-within:border-[#c2410c] transition-colors rounded-none"
-                                : "bg-white border border-[var(--border)] rounded-2xl focus-within:border-[var(--accent)] focus-within:shadow-[0_0_0_4px_rgba(37,99,235,0.1)] transition-all"
-                                }`}>
-                                <input
-                                    type="text"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)}
-                                    placeholder={isDark ? "ENTER QUERY..." : "Ask anything..."}
-                                    className={`flex-1 bg-transparent border-none px-3 py-2 text-sm outline-none ${isDark ? "font-mono text-white placeholder:text-[#555] uppercase" : "text-black placeholder:text-gray-400"
-                                        }`}
-                                    disabled={isLoading}
-                                    spellCheck={false}
-                                />
-                                <button
-                                    type="submit"
-                                    disabled={!input.trim() || isLoading}
-                                    className={`w-9 h-9 flex items-center justify-center transition-all disabled:opacity-50 disabled:cursor-not-allowed ${isDark
-                                        ? "bg-[#c2410c] text-white hover:bg-white hover:text-[#c2410c]"
-                                        : "bg-[var(--accent)] text-white rounded-xl hover:bg-blue-700"
-                                        }`}
-                                >
-                                    {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
-                                </button>
+                            ))}
+                            
+                            {/* Input Line */}
+                            <div className="flex flex-col sm:flex-row sm:gap-2 items-start sm:items-center mt-2">
+                                <span className={`shrink-0 ${isDark ? "text-emerald-400/80" : "text-emerald-600/80"}`}>
+                                    visitor@portfolio:~$
+                                </span>
+                                <form onSubmit={handleSubmit} className="flex-1 w-full flex">
+                                    <textarea
+                                        id="terminal-input"
+                                        value={input}
+                                        onChange={(e) => {
+                                            setInput(e.target.value);
+                                            e.target.style.height = 'auto';
+                                            e.target.style.height = e.target.scrollHeight + 'px';
+                                        }}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' && !e.shiftKey) {
+                                                e.preventDefault();
+                                                handleSubmit(e as any);
+                                            }
+                                        }}
+                                        className={`flex-1 bg-transparent border-none outline-none w-full resize-none overflow-hidden ${isDark ? "text-zinc-100 placeholder:text-zinc-700" : "text-zinc-900 placeholder:text-zinc-400"}`}
+                                        disabled={isLoading}
+                                        autoComplete="off"
+                                        spellCheck="false"
+                                        autoFocus
+                                        rows={1}
+                                        placeholder={isLoading ? "" : "..."}
+                                        style={{ minHeight: "24px", paddingTop: "2px" }}
+                                    />
+                                </form>
                             </div>
-                        </form>
+                            <div ref={messagesEndRef} className="h-4 shrink-0" />
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
