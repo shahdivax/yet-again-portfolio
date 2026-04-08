@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { TextAnimate } from "@/components/magicui/text-animate";
-import RoamingPets from "../components/pets";
 
 export default function Footer() {
     const { theme } = useTheme();
@@ -133,9 +132,6 @@ export default function Footer() {
             {/* Right Blueprint Gutter */}
             <div className="hidden xl:block border-l border-[var(--border)]" />
         </footer>
-        <div className="w-full relative bg-transparent border-t border-[var(--border)] pt-8 pb-16">
-            <RoamingPets />
-        </div>
         </>
     );
 }

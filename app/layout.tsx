@@ -48,7 +48,7 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
@@ -56,6 +56,7 @@ export default function RootLayout({
             {children}
           </div>
           <ChatBot />
+          <RoamingPets />
         </ThemeProvider>
       </body>
     </html>
