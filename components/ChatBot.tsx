@@ -376,7 +376,7 @@ Response Format:
                                         disabled={isLoading}
                                         autoComplete="off"
                                         spellCheck="false"
-                                        autoFocus
+
                                         rows={1}
                                         placeholder={isLoading ? "" : "..."}
                                         style={{ minHeight: "24px", paddingTop: "2px" }}
