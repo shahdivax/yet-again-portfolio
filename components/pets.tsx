@@ -30,7 +30,7 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
     const moveInterval = setInterval(() => {
       if (state === "fall_from_grab") {
         setY((prevY) => {
-          const newY = prevY - 2; // Fall fast (vh per tick)
+          const newY = prevY - 15; // Fall fast (px per tick)
           if (newY <= 0) {
             setState("walk");
             setOnWall("none");
@@ -44,12 +44,12 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
       if (onWall !== "none") {
         // Climbing
         setY((prevY) => {
-          const speed = state === "run" ? 1.5 : 0.6; // vh per tick
+          const speed = state === "run" ? 12 : 5; // px per tick
           let newY = prevY + speed * direction;
           
-          if (newY > 75) { // Max climb height (75vh of screen)
+          if (newY > 800) { // Max climb height (800px up the page)
             setDirection(-1); // Climb down
-            newY = 75;
+            newY = 800;
           } else if (newY <= 0) {
             // Hit ground
             setOnWall("none");
@@ -169,7 +169,7 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
       className={`absolute cursor-pointer pointer-events-auto flex flex-col items-center ${className}`}
       style={{ 
         left: `${x}%`, 
-        bottom: `${y}vh`,
+        bottom: `${y}px`,
         transform: `translate(${translateX}, ${onWall === "none" ? yOffset : "0px"})`,
         zIndex: onWall !== "none" ? 50 : 10
       }}
@@ -195,7 +195,7 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
 
 export default function RoamingPets() {
   return (
-    <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none z-40 overflow-hidden">
       <div className="absolute bottom-0 w-full max-w-[1000px] left-1/2 -translate-x-1/2 h-full pointer-events-none border-none">
         {/* Always visible (Mobile & Desktop) */}
         <Pet type="cat" color="orange" initialX={20} yOffset="0px" canClimb={true} />
