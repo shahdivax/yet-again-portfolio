@@ -76,7 +76,7 @@ export default function Navbar() {
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ ease: "easeOut", duration: 0.6 }}
-            className={`navbar-fixed fixed top-8 left-0 right-0 z-50 transition-all duration-500 pt-0 bg-transparent pointer-events-none`}
+            className={`navbar-fixed fixed top-4 left-0 right-0 z-50 transition-all duration-500 pt-0 bg-transparent pointer-events-none`}
         >
             {/* Architectural Grid Match */}
             <div className="w-full grid grid-cols-1 xl:grid-cols-[1fr_minmax(auto,1000px)_1fr] relative h-full">
@@ -138,12 +138,12 @@ export default function Navbar() {
                                 <motion.div
                                     initial={false}
                                     animate={{
-                                        scale: isDark ? 0 : 1,
-                                        rotate: isDark ? 90 : 0,
-                                        opacity: isDark ? 0 : 1,
+                                        scale: isDark ? 1 : 0,
+                                        rotate: isDark ? 0 : 90,
+                                        opacity: isDark ? 1 : 0,
                                     }}
                                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                    className="absolute inset-0 flex items-center justify-center text-zinc-900"
+                                    className="absolute inset-0 flex items-center justify-center text-zinc-200"
                                 >
                                     <Sun size={18} strokeWidth={2.5} className="transition-transform group-hover:rotate-45 duration-500" />
                                 </motion.div>
@@ -152,12 +152,12 @@ export default function Navbar() {
                                 <motion.div
                                     initial={false}
                                     animate={{
-                                        scale: isDark ? 1 : 0,
-                                        rotate: isDark ? 0 : -90,
-                                        opacity: isDark ? 1 : 0,
+                                        scale: isDark ? 0 : 1,
+                                        rotate: isDark ? -90 : 0,
+                                        opacity: isDark ? 0 : 1,
                                     }}
                                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                    className="absolute inset-0 flex items-center justify-center text-zinc-200"
+                                    className="absolute inset-0 flex items-center justify-center text-zinc-900"
                                 >
                                     <Moon size={18} strokeWidth={2.5} className="transition-transform group-hover:-rotate-12 duration-500" />
                                 </motion.div>

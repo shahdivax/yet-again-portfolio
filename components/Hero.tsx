@@ -96,7 +96,7 @@ Building premium-grade AI systems, commercial SaaS products, and fine-tuning spe
     const highlightColor = isDark ? "#ea580c33" : "#2563eb33"; // 20% opacity equivalent
 
     return (
-        <section className="w-full grid grid-cols-1 xl:grid-cols-[1fr_minmax(auto,1000px)_1fr] border-b border-[var(--border)] relative z-10 bg-transparent pt-14">
+        <section className="w-full grid grid-cols-1 xl:grid-cols-[1fr_minmax(auto,1000px)_1fr] border-b border-[var(--border)] relative z-10 bg-transparent pt-10">
             {/* Left Blueprint Gutter */}
             <div className="hidden xl:block border-r border-[var(--border)]" />
 
