@@ -95,7 +95,7 @@ export default function Footer() {
                                 href="mailto:divax12345@gmail.com" 
                                 className={`font-mono text-[10px] md:text-xs tracking-widest break-all ${textPrimary} hover:${accentText} transition-colors`}
                             >
-                                EMAIL ↗
+                                DIVAX12345@GMAIL.COM
                             </a>
                         </div>
                         <div className="flex flex-col gap-2">
