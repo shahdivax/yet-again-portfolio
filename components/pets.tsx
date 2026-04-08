@@ -114,12 +114,12 @@ export default function RoamingPets() {
       {/* Inner container provides the walking boundary, but NO visible lines/borders */}
       <div className="absolute bottom-0 w-full max-w-4xl mx-auto h-full pointer-events-auto border-none">
         {/* Always visible (Mobile & Desktop) */}
-        <Pet type="dog" color="akita" initialX={20} yOffset="0px" />
+        <Pet type="cat" color="orange" initialX={20} yOffset="0px" />
         <Pet type="panda" color="brown" initialX={50} yOffset="-4px" />
         
         {/* Hidden on mobile (sm and smaller), visible on medium screens and larger */}
-        <Pet type="deno" color="green" initialX={70} yOffset="0px" className="hidden md:flex" />
-        <Pet type="fox" color="red" initialX={90} yOffset="-2px" className="hidden md:flex" />
+        <Pet type="cat" color="lightbrown" initialX={70} yOffset="0px" className="hidden md:flex" />
+        <Pet type="dog" color="akita" initialX={90} yOffset="0px" className="hidden md:flex" />
       </div>
     </div>
   );

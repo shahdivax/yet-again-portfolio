@@ -86,16 +86,29 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-2 pt-6 border-t border-dashed border-[var(--border)]">
-                        <span className={`font-mono text-[10px] font-bold tracking-[0.2em] uppercase ${textSecondary}`}>
-                            // DIRECT
-                        </span>
-                        <a 
-                            href="mailto:divax12345@gmail.com" 
-                            className={`font-mono text-[10px] md:text-xs tracking-widest break-all ${textPrimary} hover:${accentText} transition-colors`}
-                        >
-                            DIVAX12345@GMAIL.COM
-                        </a>
+                    <div className="grid grid-cols-2 gap-4 pt-6 border-t border-dashed border-[var(--border)]">
+                        <div className="flex flex-col gap-2">
+                            <span className={`font-mono text-[10px] font-bold tracking-[0.2em] uppercase ${textSecondary}`}>
+                                // DIRECT
+                            </span>
+                            <a 
+                                href="mailto:divax12345@gmail.com" 
+                                className={`font-mono text-[10px] md:text-xs tracking-widest break-all ${textPrimary} hover:${accentText} transition-colors`}
+                            >
+                                EMAIL ↗
+                            </a>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <span className={`font-mono text-[10px] font-bold tracking-[0.2em] uppercase ${textSecondary}`}>
+                                // SYSTEM
+                            </span>
+                            <a 
+                                href="/credits" 
+                                className={`font-mono text-[10px] md:text-xs tracking-widest break-all ${textPrimary} hover:${accentText} transition-colors`}
+                            >
+                                CREDITS ↗
+                            </a>
+                        </div>
                     </div>
                 </motion.div>
 
