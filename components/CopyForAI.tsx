@@ -28,7 +28,7 @@ Tags: PyTorch, Generative AI, Gradio
 ### COMMERCIAL AI PRODUCTS & SAAS
 - **RENTED SOULS** (2025) - SAAS / AI AVATARS / TTS / VIDEO GEN
 Enterprise digital persona platform. Scales brand representation via AI avatars, voice cloning, and interactive video generation.
-URL: https://rentedsouls.com
+URL: https://soul.rentedsouls.com
 - **YOUR HUMANIZER** (2025) - SAAS / LLM ROUTING / TEXT TRANSFORMATION
 Universal AI text transformation engine. Converts outputs from GPT, Claude, and Gemini into untraceable, natural human writing.
 URL: https://yourhumanizer.com

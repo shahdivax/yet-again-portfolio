@@ -10,7 +10,7 @@ const categories = [
         projects: [
             {
                 name: "RENTED SOULS",
-                href: "https://rentedsouls.com",
+                href: "https://soul.rentedsouls.com",
                 description: "Enterprise digital persona platform. Scales brand representation via AI avatars, voice cloning, and interactive video generation.",
                 details: "SAAS / AI AVATARS / TTS / VIDEO GEN",
                 year: "2025",
