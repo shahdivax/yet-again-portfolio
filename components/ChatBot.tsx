@@ -33,21 +33,17 @@ Professional Experience:
 KEY PROJECTS (Your knowledge base):
 
 1. COMMERCIAL AI PRODUCTS & SAAS:
-- **RENTED SOULS** (https://soul.rentedsouls.com): Solo-founded enterprise SaaS platform for creating dynamic digital personas. Allows users to upload a photo and generate unlimited, stylistically diverse AI avatars, then turn them into talking videos with natural speech synthesis using state-of-the-art vision (Seedream 4.5/5, Nano Banana) and audio (Kokoro) models.
+- **RENTED SOULS [AVATARS]** (https://soul.rentedsouls.com): Solo-founded enterprise SaaS platform for creating dynamic digital personas. Allows users to upload a photo and generate unlimited, stylistically diverse AI avatars, then turn them into talking videos with natural speech synthesis using state-of-the-art vision (Seedream 4.5/5, Nano Banana) and audio (Kokoro) models.
+- **RENTED SOULS [EVERYTHING]** (https://rentedsouls.com): One-prompt creative production suite for images, video, and audio. It gives creators one wallet across model routes, pipeline mode from prompt to image to video to music to export, pricing around credit plans, and regional-language creative support for Hindi, Gujarati, Tamil, Bengali, Marathi, and Hinglish workflows.
 - **YOUR HUMANIZER** (https://yourhumanizer.com): Co-founded a free, privacy-first AI text humanization service that transforms robotic text from major LLMs (GPT, Claude, Gemini) into natural, human-like writing without requiring sign-ups or data storage.
 
 2. FOUNDATION & ALIGNMENT (Core Architecture & Fine-Tuning):
 - **SANSKRIT QWEN2.5-7B TRANSLATE V2** (Model & Demo: https://huggingface.co/spaces/diabolic6045/Sanskrit-qwen-7B-Translate-v2): Highly optimized language model built on Qwen2.5-7B-Instruct. Specialized for bidirectional Sanskrit ↔ English translation and accurate Devanagari to IAST transliteration. Trained via LoRA on a structured chat dataset using flash attention.
 - **SANSKRIT QWEN2.5-VL OCR** (Model & Demo: https://huggingface.co/spaces/diabolic6045/Sanskrit-Qwen2.5-VL-7B-Instruct-OCR): Vision-Language model (VLM) fine-tuned on a parallel corpus to read and transcribe Sanskrit text directly from images.
-- **OPEN-LLAMA-3.2-1B-INSTRUCT** (https://huggingface.co/diabolic6045/open-llama-3.2-1B-Instruct): Instruct-tuned LLaMA 3.2 1B model trained on OpenHermes using Axolotl, DeepSpeed, and native AMP mixed precision.
-- **ION-LLM-BASE (100M)** (https://huggingface.co/diabolic6045/Ion-LLM-Base): Custom GPT-style Transformer built completely from scratch on Fineweb via DeepSpeed ZeRO-2 and FP16 precision.
 - **GITAWHISPER (WHISPER TINY)** (Model & Demo: https://huggingface.co/spaces/diabolic6045/GitaWhisper-tiny-demo): Fine-tuned Whisper-tiny Automatic Speech Recognition (ASR) model for transcribing Sanskrit shlokas and spoken audio.
 - **SANSKRIT NATIVE TOKENIZER** (Demo: https://huggingface.co/spaces/diabolic6045/Sanskrit-English-qwen2-tokenizer-demo): Native tokenizer offering 4.5x improved efficiency over standard byte-level tokens for Sanskrit text.
-
-3. APPLIED INTELLIGENCE & AGENTIC SYSTEMS (Synthesis & Simulation):
-- **LORE KEEPER** (https://lore-keeper.divaxshah.com): Infinite structural narrative AI generator using custom LLM agents and creative generation constraints.
-- **WORLD SIM** (https://world-sim.divaxshah.com): CLI-native dynamic sandbox environment simulator allowing users to craft and interact with dynamic sandbox simulations via LLMs.
-- **FLUX LORA ECOSYSTEM** (https://huggingface.co/collections/diabolic6045/flux-lora): Specialized generative AI vision adapters fine-tuned on diverse image datasets for aesthetic scaling (Wallpapers, Stickers, Canvas art).
+- **ION-LLM-BASE (100M)** (https://huggingface.co/diabolic6045/Ion-LLM-Base): Custom GPT-style Transformer built completely from scratch on Fineweb via DeepSpeed ZeRO-2 and FP16 precision.
+- **OPEN-LLAMA-3.2-1B-INSTRUCT** (https://huggingface.co/diabolic6045/open-llama-3.2-1B-Instruct): Instruct-tuned LLaMA 3.2 1B model trained on OpenHermes using Axolotl, DeepSpeed, and native AMP mixed precision.
 
 TECHNICAL SKILLS:
 - **ML Frameworks:** PyTorch, TensorFlow / Keras, HuggingFace Transformers, scikit-learn, LangChain, NumPy, Pandas, FastAPI.

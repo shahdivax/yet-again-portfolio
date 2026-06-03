@@ -26,9 +26,12 @@ Created generative pipelines for synthetic structured data via Gradio & Python. 
 Tags: PyTorch, Generative AI, Gradio
 ## PROJECTS
 ### COMMERCIAL AI PRODUCTS & SAAS
-- **RENTED SOULS** (2025) - SAAS / AI AVATARS / TTS / VIDEO GEN
+- **RENTED SOULS [AVATARS]** (2025) - SAAS / AI AVATARS / TTS / VIDEO GEN
 Enterprise digital persona platform. Scales brand representation via AI avatars, voice cloning, and interactive video generation.
 URL: https://soul.rentedsouls.com
+- **RENTED SOULS [EVERYTHING]** (2026) - SAAS / IMAGE GEN / VIDEO GEN / AUDIO GEN
+One-prompt creative production suite for images, video, and audio. Uses a unified credit wallet, prompt-to-image-to-video-to-music pipeline mode, model routing, and support for regional language creative direction across Hindi, Gujarati, Tamil, Bengali, Marathi, and Hinglish.
+URL: https://rentedsouls.com
 - **YOUR HUMANIZER** (2025) - SAAS / LLM ROUTING / TEXT TRANSFORMATION
 Universal AI text transformation engine. Converts outputs from GPT, Claude, and Gemini into untraceable, natural human writing.
 URL: https://yourhumanizer.com
@@ -39,28 +42,18 @@ URL: https://huggingface.co/diabolic6045/Sanskrit-qwen-7B-Translate-v2
 - **SANSKRIT QWEN2.5-VL OCR** (2025) - VLM / OCR
 Vision-Language model adapted for Sanskrit OCR (Optical Character Recognition) tasks.
 URL: https://huggingface.co/diabolic6045/Sanskrit-Qwen2.5-VL-7B-Instruct-OCR
-- **OPEN-LLAMA-3.2-1B-INSTRUCT** (2024) - LLM / INSTRUCT TUNING / AXOLOTL
-Instruct-tuned LLaMA 3.2 1B model trained on OpenHermes using Axolotl and DeepSpeed.
-URL: https://huggingface.co/diabolic6045/open-llama-3.2-1B-Instruct
 - **GITAWHISPER (WHISPER TINY)** (2024) - AUDIO / ASR / WHISPER
 Fine-tuned Whisper-tiny for Sanskrit shloka transcription with IAST transliteration.
 URL: https://huggingface.co/diabolic6045/GitaWhisper-tiny
-- **CUSTOM GPT 100M MODEL** (2024) - GPT / DEEPSPEED
-GPT-style Transformer built from scratch on Fineweb via DeepSpeed, ZeRO Stage-2, and FP16 precision.
-URL: https://huggingface.co/diabolic6045/Ion-LLM-Base
 - **SANSKRIT TOKENIZER** (2024) - NLP / TOKENIZER
 Native tokenization offering 4.5x better efficiency over byte-level tokens, 120K vocab size.
 URL: https://huggingface.co/diabolic6045/Sanskrit-English-qwen2-tokenizer
-### APPLIED INTELLIGENCE & AGENTIC SYSTEMS
-- **LORE KEEPER** (2024) - LLM AGENTS / PROCEDURAL
-Infinite structural narrative generator using custom LLM agents and creative generation constraints.
-URL: https://lore-keeper.divaxshah.com
-- **WORLD SIM** (2024) - SIMULATION
-CLI-native environment simulator allowing users to craft dynamic sandbox simulations via LLMs.
-URL: https://world-sim.divaxshah.com
-- **FLUX LORAS** (2024) - IMAGE GENERATION
-Specialized generative AI adapters fine-tuned on diverse image datasets for aesthetic scaling.
-URL: https://huggingface.co/collections/diabolic6045/flux-lora
+- **CUSTOM GPT 100M MODEL** (2024) - GPT / DEEPSPEED
+GPT-style Transformer built from scratch on Fineweb via DeepSpeed, ZeRO Stage-2, and FP16 precision.
+URL: https://huggingface.co/diabolic6045/Ion-LLM-Base
+- **OPEN-LLAMA-3.2-1B-INSTRUCT** (2024) - LLM / INSTRUCT TUNING / AXOLOTL
+Instruct-tuned LLaMA 3.2 1B model trained on OpenHermes using Axolotl and DeepSpeed.
+URL: https://huggingface.co/diabolic6045/open-llama-3.2-1B-Instruct
 ## SKILLS & ARTIFACTS
 - **PROGRAMMING LANGUAGES**: Python
 - **FRAMEWORKS & LIBRARIES**: PyTorch, TensorFlow / Keras, scikit-learn, Hugging Face Transformers, LangChain, NumPy, Pandas, Fastapi, AWS, DeepSpeed

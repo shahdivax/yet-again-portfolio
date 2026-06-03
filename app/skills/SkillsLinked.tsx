@@ -9,7 +9,7 @@ const arsenal = [
     {
         category: "PROGRAMMING LANGUAGES",
         skills: [
-            { name: "Python", projects: ["SANSKRIT QWEN2.5-7B CHAT", "CUSTOM GPT 100M MODEL", "WORLD SIM", "SANSKRIT TOKENIZER"] }
+            { name: "Python", projects: ["SANSKRIT QWEN2.5-7B CHAT", "CUSTOM GPT 100M MODEL", "SANSKRIT TOKENIZER"] }
         ]
     },
     {
@@ -17,7 +17,7 @@ const arsenal = [
         skills: [
             { name: "PyTorch", projects: ["GITAWHISPER (WHISPER TINY)", "CUSTOM GPT 100M MODEL", "SANSKRIT QWEN2.5-VL OCR"] },
             { name: "Hugging Face Transformers", projects: ["SANSKRIT QWEN2.5-7B CHAT", "GITAWHISPER (WHISPER TINY)"] },
-            { name: "LangChain", projects: ["LORE KEEPER"] },
+            { name: "LangChain", projects: [] },
             { name: "Fastapi", projects: ["AURA VIBES"] },
             { name: "AWS", projects: ["AURA VIBES"] },
             { name: "TensorFlow / Keras", projects: [] },
@@ -27,19 +27,19 @@ const arsenal = [
     {
         category: "AI DOMAINS",
         skills: [
-            { name: "Generative AI", projects: ["FLUX LORAS", "SANSKRIT QWEN2.5-7B CHAT"] },
+            { name: "Generative AI", projects: ["SANSKRIT QWEN2.5-7B CHAT"] },
             { name: "LLM/VLLM Fine-Tuning", projects: ["SANSKRIT QWEN2.5-7B CHAT", "GITAWHISPER (WHISPER TINY)"] },
             { name: "NLP", projects: ["SANSKRIT TOKENIZER"] },
-            { name: "Prompt Engineering", projects: ["WORLD SIM", "LORE KEEPER"] },
+            { name: "Prompt Engineering", projects: [] },
             { name: "Axolotl / Unsloth AI", projects: ["SANSKRIT QWEN2.5-7B CHAT"] }
         ]
     },
     {
         category: "APIs & SERVICES",
         skills: [
-            { name: "OpenAI", projects: ["LORE KEEPER"] },
-            { name: "Google Gemini", projects: ["WORLD SIM"] },
-            { name: "Anthropic", projects: ["LORE KEEPER"] },
+            { name: "OpenAI", projects: [] },
+            { name: "Google Gemini", projects: [] },
+            { name: "Anthropic", projects: [] },
             { name: "OpenRouter", projects: ["AURA VIBES"] }
         ]
     }

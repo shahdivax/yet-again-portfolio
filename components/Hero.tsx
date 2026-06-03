@@ -58,12 +58,10 @@ Building premium-grade AI systems, commercial SaaS products, and fine-tuning spe
 ## CORE PROJECTS
 - **SANSKRIT QWEN2.5-7B TRANSLATE V2**: Highly optimized bidirectional Sanskrit translation model trained via LoRA using flash attention.
 - **SANSKRIT QWEN2.5-VL OCR**: Vision-Language model adapted for Sanskrit OCR tasks.
-- **OPEN-LLAMA-3.2-1B-INSTRUCT**: Instruct-tuned LLaMA 3.2 1B on OpenHermes using Axolotl and DeepSpeed.
-- **ION-LLM-BASE**: 100M parameter GPT-style Transformer built from scratch on Fineweb via DeepSpeed ZeRO-2.
 - **GITAWHISPER**: Fine-tuned Whisper-tiny for Sanskrit shloka transcription with IAST transliteration.
-- **LORE KEEPER**: Infinite structural narrative AI generator using custom LLM agents.
-- **WORLD SIM**: CLI-native dynamic sandbox environment simulator.
-- **FLUX LORA ECOSYSTEM**: Specialized generative AI adapters fine-tuned on diverse image datasets.
+- **SANSKRIT NATIVE TOKENIZER**: Native tokenization offering 4.5x better efficiency over byte-level tokens.
+- **ION-LLM-BASE**: 100M parameter GPT-style Transformer built from scratch on Fineweb via DeepSpeed ZeRO-2.
+- **OPEN-LLAMA-3.2-1B-INSTRUCT**: Instruct-tuned LLaMA 3.2 1B on OpenHermes using Axolotl and DeepSpeed.
 
 ## SKILLS & ARTIFACTS
 - **PROGRAMMING LANGUAGES**: Python

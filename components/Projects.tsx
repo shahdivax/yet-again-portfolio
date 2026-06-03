@@ -9,12 +9,20 @@ const categories = [
         title: "COMMERCIAL AI PRODUCTS & SAAS",
         projects: [
             {
-                name: "RENTED SOULS",
+                name: "RENTED SOULS [AVATARS]",
                 href: "https://soul.rentedsouls.com",
                 description: "Enterprise digital persona platform. Scales brand representation via AI avatars, voice cloning, and interactive video generation.",
                 details: "SAAS / AI AVATARS / TTS / VIDEO GEN",
                 year: "2025",
                 tags: ["Founder", "SaaS", "VideoGen", "Next.js"]
+            },
+            {
+                name: "RENTED SOULS [EVERYTHING]",
+                href: "https://rentedsouls.com",
+                description: "One-prompt creative production suite for images, video, and audio with a unified credit wallet and regional-language workflow support.",
+                details: "SAAS / IMAGE GEN / VIDEO GEN / AUDIO GEN",
+                year: "2026",
+                tags: ["Founder", "SaaS", "Multi-Modal", "Credits"]
             },
             {
                 name: "YOUR HUMANIZER",
@@ -46,22 +54,6 @@ const categories = [
                 tags: ["VLM", "OCR", "Vision", "Qwen2.5-VL"]
             },
             {
-                name: "OPEN-LLAMA-3.2-1B-INSTRUCT",
-                href: "https://huggingface.co/diabolic6045/open-llama-3.2-1B-Instruct",
-                description: "Instruct-tuned LLaMA 3.2 1B on OpenHermes using Axolotl and DeepSpeed.",
-                details: "LLM / INSTRUCT TUNING / AXOLOTL",
-                year: "2024",
-                tags: ["LLaMA", "Instruct", "DeepSpeed", "Axolotl"]
-            },
-            {
-                name: "ION-LLM-BASE (100M)",
-                href: "https://huggingface.co/diabolic6045/Ion-LLM-Base",
-                description: "Custom GPT Transformer built from scratch on Fineweb via DeepSpeed ZeRO-2.",
-                details: "GPT / PRE-TRAINING / DEEPSPEED",
-                year: "2024",
-                tags: ["GPT", "DeepSpeed", "FP16", "Transformers"]
-            },
-            {
                 name: "GITAWHISPER (WHISPER TINY)",
                 href: "https://huggingface.co/diabolic6045/GitaWhisper-tiny",
                 description: "Fine-tuned Whisper model for Sanskrit shloka transcription and transliteration.",
@@ -76,35 +68,22 @@ const categories = [
                 details: "NLP / TOKENIZER / 120K VOCAB",
                 year: "2024",
                 tags: ["NLP", "Tokenizer", "Efficiency"]
-            }
-        ]
-    },
-    {
-        title: "APPLIED INTELLIGENCE & AGENTIC SYSTEMS",
-        projects: [
-            {
-                name: "LORE KEEPER",
-                href: "https://lore-keeper.divaxshah.com",
-                description: "Infinite structural narrative AI generator using custom LLM agents and creative generation constraints.",
-                details: "AI AGENTS / PROCEDURAL",
-                year: "2024",
-                tags: ["Agents", "Procedural", "LLM", "Narrative"]
             },
             {
-                name: "WORLD SIM",
-                href: "https://world-sim.divaxshah.com",
-                description: "CLI-native dynamic sandbox environment simulator allowing users to craft dynamic sandbox simulations via LLMs.",
-                details: "CLI / SIMULATION",
+                name: "ION-LLM-BASE (100M)",
+                href: "https://huggingface.co/diabolic6045/Ion-LLM-Base",
+                description: "Custom GPT Transformer built from scratch on Fineweb via DeepSpeed ZeRO-2.",
+                details: "GPT / PRE-TRAINING / DEEPSPEED",
                 year: "2024",
-                tags: ["CLI", "Simulation", "Sandbox", "Python"]
+                tags: ["GPT", "DeepSpeed", "FP16", "Transformers"]
             },
             {
-                name: "FLUX LORA ECOSYSTEM",
-                href: "https://huggingface.co/collections/diabolic6045/flux-lora",
-                description: "Specialized generative AI adapters fine-tuned on diverse image datasets for aesthetic scaling (Wallpapers, Stickers, Canvas).",
-                details: "VISION / LORA / GEN AI",
+                name: "OPEN-LLAMA-3.2-1B-INSTRUCT",
+                href: "https://huggingface.co/diabolic6045/open-llama-3.2-1B-Instruct",
+                description: "Instruct-tuned LLaMA 3.2 1B on OpenHermes using Axolotl and DeepSpeed.",
+                details: "LLM / INSTRUCT TUNING / AXOLOTL",
                 year: "2024",
-                tags: ["Flux", "LoRA", "GenAI", "Images"]
+                tags: ["LLaMA", "Instruct", "DeepSpeed", "Axolotl"]
             }
         ]
     }
