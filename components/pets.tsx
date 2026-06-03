@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 type PetState = "idle" | "walk" | "run" | "swipe" | "wallclimb" | "wallgrab" | "fall_from_grab";
+type CursorTarget = { xPercent: number; yFromBottom: number };
 
 interface PetProps {
   type: string;
@@ -13,21 +14,47 @@ interface PetProps {
   className?: string; // To allow hiding on mobile
   yOffset?: string; // Fine-tune vertical alignment per animal
   canClimb?: boolean;
+  followCursor?: boolean;
+  cursorTarget?: CursorTarget | null;
 }
 
-const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb = false }: PetProps) => {
+const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb = false, followCursor = false, cursorTarget = null }: PetProps) => {
   const [state, setState] = useState<PetState>("walk");
   const [direction, setDirection] = useState<1 | -1>(1); // 1 for right/up, -1 for left/down
   const [x, setX] = useState(initialX);
   const [y, setY] = useState(0); // 0 is ground (viewport bottom)
   const [onWall, setOnWall] = useState<"none" | "left" | "right">("none");
+  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Move loop
   useEffect(() => {
-    if (state === "swipe" || state === "wallgrab" || state === "idle") return;
+    if (isDragging) return;
+    if (followCursor && cursorTarget) {
+      setState("run");
+      setOnWall("none");
+      setDirection(cursorTarget.xPercent >= x ? 1 : -1);
+    } else if (state === "swipe" || state === "wallgrab" || state === "idle") {
+      return;
+    }
 
     const moveInterval = setInterval(() => {
+      if (followCursor && cursorTarget) {
+        setX((prevX) => {
+          const nextX = prevX + (cursorTarget.xPercent - prevX) * 0.08;
+          return Math.min(96, Math.max(4, nextX));
+        });
+        setY((prevY) => {
+          const nextY = prevY + (Math.max(0, cursorTarget.yFromBottom - 32) - prevY) * 0.08;
+          return Math.min(900, Math.max(0, nextY));
+        });
+        return;
+      }
+
+      if (y > 0 && onWall === "none") {
+        setY((prevY) => Math.max(0, prevY - 8));
+      }
+
       if (state === "fall_from_grab") {
         setY((prevY) => {
           const newY = prevY - 15; // Fall fast (px per tick)
@@ -91,10 +118,12 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
     }, 100);
 
     return () => clearInterval(moveInterval);
-  }, [state, direction, onWall, canClimb]);
+  }, [state, direction, onWall, canClimb, followCursor, cursorTarget, x, y, isDragging]);
 
   // State loop
   useEffect(() => {
+    if (isDragging) return;
+
     const stateInterval = setInterval(() => {
       if (state === "swipe" || state === "fall_from_grab") return;
 
@@ -120,9 +149,10 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
     }, 3000 + Math.random() * 4000);
 
     return () => clearInterval(stateInterval);
-  }, [state, onWall]);
+  }, [state, onWall, isDragging]);
 
   const handleInteract = () => {
+    if (isDragging) return;
     if (state === "swipe" || state === "fall_from_grab") return;
     
     if (onWall !== "none") {
@@ -134,6 +164,40 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
         setState(prevState === "idle" ? "walk" : prevState);
       }, 2500);
     }
+  };
+
+  const moveToPointer = (clientX: number, clientY: number) => {
+    const parent = containerRef.current?.parentElement;
+    if (!parent) return;
+
+    const parentRect = parent.getBoundingClientRect();
+    setX(Math.min(96, Math.max(4, ((clientX - parentRect.left) / parentRect.width) * 100)));
+    setY(Math.min(parentRect.height - 32, Math.max(0, parentRect.bottom - clientY - 32)));
+  };
+
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    setIsDragging(true);
+    setState("idle");
+    setOnWall("none");
+    moveToPointer(event.clientX, event.clientY);
+  };
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    event.preventDefault();
+    moveToPointer(event.clientX, event.clientY);
+  };
+
+  const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    event.preventDefault();
+    event.stopPropagation();
+    event.currentTarget.releasePointerCapture(event.pointerId);
+    setIsDragging(false);
+    setState("walk");
   };
 
   const getSpriteSrc = () => {
@@ -166,7 +230,7 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
   return (
     <motion.div
       ref={containerRef}
-      className={`absolute cursor-pointer pointer-events-auto flex flex-col items-center ${className}`}
+      className={`absolute cursor-grab active:cursor-grabbing pointer-events-auto flex touch-none select-none flex-col items-center ${className}`}
       style={{ 
         left: `${x}%`, 
         bottom: `${y}px`,
@@ -175,6 +239,10 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
       }}
       onHoverStart={handleInteract}
       onClick={handleInteract}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
       whileHover={{ scale: 1.1 }}
     >
       <div 
@@ -186,6 +254,7 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
           alt={`${color} ${type} pet`}
           fill
           unoptimized
+          draggable={false}
           className="object-contain drop-shadow-md"
         />
       </div>
@@ -194,11 +263,44 @@ const Pet = ({ type, color, initialX, className = "", yOffset = "0px", canClimb 
 };
 
 export default function RoamingPets() {
+  const [cursorTarget, setCursorTarget] = useState<CursorTarget | null>(null);
+  const [catFollowsCursor, setCatFollowsCursor] = useState(false);
+  const petLayerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handlePointerMove = (event: PointerEvent) => {
+      const rect = petLayerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      setCursorTarget({
+        xPercent: ((event.clientX - rect.left) / rect.width) * 100,
+        yFromBottom: rect.bottom - event.clientY,
+      });
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+    return () => window.removeEventListener("pointermove", handlePointerMove);
+  }, []);
+
+  useEffect(() => {
+    let releaseTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const followInterval = setInterval(() => {
+      setCatFollowsCursor(true);
+      releaseTimer = setTimeout(() => setCatFollowsCursor(false), 5000 + Math.random() * 3000);
+    }, 12000 + Math.random() * 8000);
+
+    return () => {
+      clearInterval(followInterval);
+      if (releaseTimer) clearTimeout(releaseTimer);
+    };
+  }, []);
+
   return (
     <div className="absolute inset-0 pointer-events-none z-40 overflow-hidden">
-      <div className="absolute bottom-0 w-full max-w-[1000px] left-1/2 -translate-x-1/2 h-full pointer-events-none border-none">
+      <div ref={petLayerRef} className="absolute inset-y-0 w-full max-w-[1000px] left-1/2 -translate-x-1/2 pointer-events-none border-none">
         {/* Always visible (Mobile & Desktop) */}
-        <Pet type="cat" color="orange" initialX={20} yOffset="0px" canClimb={true} />
+        <Pet type="cat" color="orange" initialX={20} yOffset="0px" canClimb={true} followCursor={catFollowsCursor} cursorTarget={cursorTarget} />
         <Pet type="panda" color="brown" initialX={50} yOffset="-4px" />
         
         {/* Hidden on mobile, visible on desktop */}

@@ -40,7 +40,7 @@ const aiCopyTargets = [
     }
 ];
 
-const aiContextPrompt = "Read https://divaxshah.com/me.md for full context. I want to ask questions about Divax Shah.";
+const aiContextPrompt = "Use web browsing to open and read https://www.divaxshah.com/llms.txt for full context. If that fails, open https://www.divaxshah.com/me.md. I want to ask questions about Divax Shah.";
 
 export default function Hero() {
     const { theme } = useTheme();
