@@ -11,6 +11,7 @@ const categories = [
             {
                 name: "RENTED SOULS [AVATARS]",
                 href: "https://soul.rentedsouls.com",
+                logo: "https://res.cloudinary.com/djc2l2zjr/image/upload/v1764607181/website-logos/logo.jpg",
                 description: "Enterprise digital persona platform. Scales brand representation via AI avatars, voice cloning, and interactive video generation.",
                 details: "SAAS / AI AVATARS / TTS / VIDEO GEN",
                 year: "2025",
@@ -19,6 +20,7 @@ const categories = [
             {
                 name: "RENTED SOULS [EVERYTHING]",
                 href: "https://rentedsouls.com",
+                logo: "https://rentedsouls.com/icon1.png?icon1.0pfaimhkew-cj.png",
                 description: "One-prompt creative production suite for images, video, and audio with a unified credit wallet and regional-language workflow support.",
                 details: "SAAS / IMAGE GEN / VIDEO GEN / AUDIO GEN",
                 year: "2026",
@@ -88,6 +90,15 @@ const categories = [
         ]
     }
 ];
+
+const getProjectFavicon = (href: string) => {
+    const domain = new URL(href).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+};
+
+const getProjectLogo = (project: { href: string; logo?: string }) => {
+    return project.logo ?? getProjectFavicon(project.href);
+};
 
 const bentoStyles = [
     // 0: Minimalist Brutalist Base
@@ -201,8 +212,17 @@ export default function Projects() {
                                         >
                                             {/* Top Row: Number & Floating Sticker */}
                                             <div className="relative z-10 w-full flex justify-between items-start mb-3">
-                                                <div className={`font-mono text-[10px] md:text-xs tracking-widest font-bold opacity-50 transition-opacity group-hover:opacity-100 ${isDark ? "text-white" : "text-black"}`}>
-                                                    {String(i + 1).padStart(2, "0")}
+                                                <div className="flex items-center gap-2">
+                                                    <img
+                                                        src={getProjectLogo(proj)}
+                                                        alt=""
+                                                        aria-hidden="true"
+                                                        loading="lazy"
+                                                        className={`h-8 w-8 shrink-0 border object-contain p-1 transition-all duration-500 group-hover:scale-110 ${isDark ? "border-[#333] bg-white/5" : "border-gray-200 bg-white"}`}
+                                                    />
+                                                    <div className={`font-mono text-[10px] md:text-xs tracking-widest font-bold opacity-50 transition-opacity group-hover:opacity-100 ${isDark ? "text-white" : "text-black"}`}>
+                                                        {String(i + 1).padStart(2, "0")}
+                                                    </div>
                                                 </div>
 
                                                 <div className={`absolute top-0 right-0 z-20 px-2 py-0.5 text-[7px] sm:text-[8px] font-bold tracking-widest uppercase border shadow-sm transition-transform duration-500 origin-center group-hover:scale-110 
