@@ -26,7 +26,7 @@ Experience:
 - Solo Founder, Rented Souls: built AI products under the Rented Souls brand.
 - Co-Founder and Architect, Your Humanizer: built an AI text humanization SaaS.
 - AI/ML Engineer, Avinyaa Edtech: works on writing tools, grammar checkers, classification, and LLM fine-tuning.
-- Jr. Python Developer, Thinkbiz Technology: built LangChain chatbot PoCs and Jugaad, an OCR/LLM invoice parsing pipeline.
+- Jr. Python Developer (Applied AI/ML), Thinkbiz Technology: built LangChain chatbot PoCs and Jugaad, an OCR/LLM invoice parsing pipeline.
 - AI and Synthetic Data Developer Intern, DMI Finance: built synthetic-data pipelines with Python, Gradio, and PyTorch.
 
 Projects:

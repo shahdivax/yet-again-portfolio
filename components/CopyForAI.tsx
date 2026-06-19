@@ -18,7 +18,7 @@ Tags: SaaS, LLM, Text Transformation, NLP
 ### AI/ML ENGINEER @ AVINYAA EDTECH (2025 - PRESENT)
 Building advanced grammar checkers and fine-tuning LLMs for pristine natural language output. Designing multilingual AI classification systems with 95%+ accuracy.
 Tags: LLMs, Fine-tuning, NLP, Classification
-### JR. PYTHON DEVELOPER @ THINKBIZ TECH (2024 - 2025)
+### Jr. Python Developer (Applied AI/ML) @ THINKBIZ TECH (2024 - 2025)
 Built scalable chatbot PoCs using 17+ LangChain Agents with structured/unstructured ingestion. Created 'Jugaad', an OCR-LLM pipeline improving invoice parsing from 15% to 85% accuracy.
 Tags: Python, LangChain, OCR, Pipelines
 ### AI & SYNTH DATA INTERN @ DMI FINANCE (2024)

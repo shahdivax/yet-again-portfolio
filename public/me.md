@@ -33,7 +33,7 @@ Built a universal AI text transformation SaaS for converting robotic LLM output 
 
 Developing AI writing tools, grammar checkers, text detection systems, multilingual classification systems, and Transformer/LLM fine-tuning workflows.
 
-### Jr. Python Developer, Thinkbiz Technology
+### Jr. Python Developer (Applied AI/ML), Thinkbiz Technology
 
 Built scalable chatbot proof-of-concepts using LangChain agents and created Jugaad, an OCR and LLM pipeline for invoice parsing.
 

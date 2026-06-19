@@ -12,7 +12,7 @@ const experiences = [
         impact: "Fine-tuning LLMs and VLMs. Building native pipelines for robust inference.",
     },
     {
-        role: "JR. PYTHON DEVELOPER",
+        role: "Jr. Python Developer (Applied AI/ML)",
         company: "THINKBIZ TECH",
         date: "2024 - 2025",
         impact: "Developed LangChain-powered pipelines. Implemented custom OCR models.",
